@@ -98,7 +98,7 @@
     "ganache": "ganache-cli -b 1"
   },
   "prettier": {
-    "semi": false,
+    "semi": true,
     "editor.formatOnSave": true,
     "singleQuote": true,
     "trailingComma": "none"
