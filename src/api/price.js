@@ -1,19 +1,60 @@
 import { ethers, getNetworkId, getNetworkProviderUrl } from '@ensdomains/ui';
 import getENS, { getRegistrar } from 'api/ens';
 
-import ChainLinkABI from './ChainLink.json';
-
-async function getContract(network) {
-  const contracts = {
-    4200: '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D'
-  };
-
-  if (contracts[network]) {
-    return contracts[network];
+const ChainLinkABI = [
+  {
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'description',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint80', name: '_roundId', type: 'uint80' }],
+    name: 'getRoundData',
+    outputs: [
+      { internalType: 'uint80', name: 'roundId', type: 'uint80' },
+      { internalType: 'int256', name: 'answer', type: 'int256' },
+      { internalType: 'uint256', name: 'startedAt', type: 'uint256' },
+      { internalType: 'uint256', name: 'updatedAt', type: 'uint256' },
+      { internalType: 'uint80', name: 'answeredInRound', type: 'uint80' }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'latestRoundData',
+    outputs: [
+      { internalType: 'uint80', name: 'roundId', type: 'uint80' },
+      { internalType: 'int256', name: 'answer', type: 'int256' },
+      { internalType: 'uint256', name: 'startedAt', type: 'uint256' },
+      { internalType: 'uint256', name: 'updatedAt', type: 'uint256' },
+      { internalType: 'uint80', name: 'answeredInRound', type: 'uint80' }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'version',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
   }
+];
 
-  //return mainnet otherwise
-  return '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc';
+function getContract(network) {
+  return network === 4002
+    ? '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D'
+    : '0xf4766552d15ae4d256ad41b6cf2933482b0680dc';
 }
 
 export default async function getEtherPrice() {
@@ -23,14 +64,14 @@ export default async function getEtherPrice() {
     const provider = new ethers.providers.JsonRpcProvider(networkProvider);
 
     const chainlinkContract = new ethers.Contract(
-      await getContract(network),
+      getContract(network),
       ChainLinkABI,
       provider
     );
-    const price =
-      (await chainlinkContract.latestAnswer()).toNumber() / 100000000;
 
-    console.log('Price: ', price);
+    let roundData = await chainlinkContract.latestRoundData();
+
+    let price = roundData.answer.toNumber() / 100000000;
 
     return price;
   } catch (e) {
