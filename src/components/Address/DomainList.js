@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import styled from '@emotion/styled/macro';
 
-import DomainItem from '../DomainItem/ChildDomainItem'
+import DomainItem from '../DomainItem/ChildDomainItem';
 
 const NoDomainsContainer = styled('div')`
   display: flex;
@@ -33,14 +33,14 @@ const NoDomainsContainer = styled('div')`
     text-align: center;
     max-width: 400px;
   }
-`
+`;
 
 const DomainsContainer = styled('div')`
   margin-top: 20px;
   padding-bottom: 30px;
   padding-left: 40px;
   padding-right: 40px;
-`
+`;
 
 export default function DomainList({
   favourites = [],
@@ -58,13 +58,13 @@ export default function DomainList({
       <NoDomainsContainer>
         <h2>This address does not own any domains</h2>
       </NoDomainsContainer>
-    )
+    );
   }
 
   return (
     <DomainsContainer>
       {domains.map(d => {
-        const isFavourite = favourites.map(m => m.name).includes(d.domain.name)
+        const isFavourite = favourites.map(m => m.name).includes(d.domain.name);
         return (
           <DomainItem
             key={d.domain.name}
@@ -74,7 +74,7 @@ export default function DomainList({
             expiryDate={d?.expiryDate}
             labelName={d.domain.labelName}
             labelhash={d.domain.labelhash}
-            parent={d.domain.parent.name}
+            parent={d.domain.parent ? d.domain.parent.name : 'ftm'}
             checkedBoxes={activeFilter === 'registrant' ? checkedBoxes : null}
             setCheckedBoxes={
               activeFilter === 'registrant' ? setCheckedBoxes : null
@@ -83,8 +83,8 @@ export default function DomainList({
             showBlockies={showBlockies}
             isFavourite={isFavourite}
           />
-        )
+        );
       })}
     </DomainsContainer>
-  )
+  );
 }

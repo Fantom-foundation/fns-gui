@@ -1,16 +1,16 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
-import mq from 'mediaQuery'
-import EthVal from 'ethval'
-import { InlineLoader } from 'components/Loader'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
+import mq from 'mediaQuery';
+import EthVal from 'ethval';
+import { InlineLoader } from 'components/Loader';
 
 const PriceContainer = styled('div')`
   width: 100%;
   ${mq.medium`
     width: auto
   `}
-`
+`;
 
 const Value = styled('div')`
   font-family: Overpass;
@@ -21,7 +21,7 @@ const Value = styled('div')`
   ${mq.small`
     font-size: 28px;
   `}
-`
+`;
 
 const Description = styled('div')`
   font-family: Overpass;
@@ -29,7 +29,7 @@ const Description = styled('div')`
   font-size: 14px;
   color: #adbbcd;
   margin-top: 10px;
-`
+`;
 
 const USD = styled('span')`
   font-size: 22px;
@@ -38,7 +38,7 @@ const USD = styled('span')`
   ${mq.small`
     font-size: 28px;
   `}
-`
+`;
 
 const Price = ({
   loading,
@@ -49,31 +49,39 @@ const Price = ({
   initialGasPrice,
   underPremium
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  let ethPrice = <InlineLoader />
-  let ethVal, basePrice, withPremium, usdPremium
+  let ethPrice = <InlineLoader />;
+  let ftmValue, ethVal, basePrice, withPremium, usdPremium;
+
   if (!loading && price) {
-    ethVal = new EthVal(`${price}`).toEth()
-    ethPrice = ethVal && ethVal.toFixed(3)
-    if (ethUsdPrice && ethUsdPremiumPrice) {
-      basePrice = ethVal.mul(ethUsdPrice) - ethUsdPremiumPrice
-      withPremium =
-        underPremium && ethUsdPremiumPrice
-          ? `$${basePrice.toFixed(0)}(+$${ethUsdPremiumPrice.toFixed(2)}) =`
-          : null
-      usdPremium = ethVal.mul(ethUsdPrice).toFixed(2)
-    } else if (ethUsdPrice) {
-      usdPremium = ethVal.mul(ethUsdPrice).toFixed(2)
-    }
+    // console.log('price (converted): ', price.toNumber());
+    ethVal = new EthVal(`${price}`).toEth(); //in USD
+    ethPrice = ethVal && ethVal.toFixed(3);
+    // console.log('FTM: ', ethPrice / ethUsdPrice);
+    ftmValue = (ethPrice / ethUsdPrice).toFixed(3);
+    // // console.log('Ethprice: ', ethVal.toFixed(3) / 10 ** 18);
+    // console.log('EthUSDprice: ', ethUsdPrice);
+    // console.log('Price: ', price);
+
+    // if (ethUsdPrice && ethUsdPremiumPrice) {
+    //   basePrice = ethVal.mul(ethUsdPrice) - ethUsdPremiumPrice;
+    //   withPremium =
+    //     underPremium && ethUsdPremiumPrice
+    // ? `$${basePrice.toFixed(0)}(+$${ethUsdPremiumPrice.toFixed(2)}) =`
+    //       : null;
+    //   usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
+    // } else if (ethUsdPrice) {
+    //   usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
+    // }
   }
   return (
     <PriceContainer>
       <Value>
-        {ethPrice} FTM
+        {ftmValue} FTM
         {ethVal && ethUsdPrice && (
           <USD>
-            {withPremium}${usdPremium}
+            {withPremium}${ethPrice}
             USD
           </USD>
         )}
@@ -84,7 +92,7 @@ const Price = ({
           : t('pricer.registrationPriceLabel')}
       </Description>
     </PriceContainer>
-  )
-}
+  );
+};
 
-export default Price
+export default Price;

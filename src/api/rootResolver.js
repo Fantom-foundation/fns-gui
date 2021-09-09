@@ -4,20 +4,20 @@ import {
   getNetworkId,
   isReadOnly,
   emptyAddress
-} from '@ensdomains/ui'
+} from '@ensdomains/ui';
 
-import getENS from 'api/ens'
-import merge from 'lodash/merge'
-import { isRunningAsSafeApp } from 'utils/safeApps'
+import getENS from 'api/ens';
+import merge from 'lodash/merge';
+import { isRunningAsSafeApp } from 'utils/safeApps';
 import managerResolvers, {
   defaults as managerDefaults
-} from './manager/resolvers'
+} from './manager/resolvers';
 import auctionRegistrarResolvers, {
   defaults as auctionRegistrarDefaults
-} from './registrar/resolvers'
+} from './registrar/resolvers';
 import subDomainRegistrarResolvers, {
   defaults as subDomainRegistrarDefaults
-} from './subDomainRegistrar/resolvers'
+} from './subDomainRegistrar/resolvers';
 
 const rootDefaults = {
   web3: {
@@ -29,39 +29,41 @@ const rootDefaults = {
   loggedIn: null,
   pendingTransactions: [],
   transactionHistory: []
-}
+};
 
 const resolvers = {
   Web3: {
     accounts: () => {
       if (!isReadOnly()) {
-        return getAccounts()
+        return getAccounts();
       } else {
-        return emptyAddress
+        return emptyAddress;
       }
     },
     networkId: async () => {
-      const networkId = await getNetworkId()
-      return networkId
+      const networkId = await getNetworkId();
+      return networkId;
     },
     network: async () => {
-      const networkId = await getNetworkId()
+      const networkId = await getNetworkId();
 
       switch (networkId) {
         case 1:
-          return 'main'
+          return 'main';
         case 2:
-          return 'morden'
+          return 'morden';
         case 3:
-          return 'ropsten'
+          return 'ropsten';
         case 4:
-          return 'rinkeby'
+          return 'rinkeby';
         case 5:
-          return 'goerli'
+          return 'goerli';
         case 42:
-          return 'kovan'
+          return 'kovan';
+        case 4200:
+          return 'Fantom Testnet';
         default:
-          return 'private'
+          return 'private';
       }
     }
   },
@@ -73,22 +75,22 @@ const resolvers = {
           isReadOnly: isReadOnly(),
           isSafeApp: isRunningAsSafeApp(),
           __typename: 'Web3'
-        }
+        };
       } catch (e) {
-        console.error(e)
-        return null
+        console.error(e);
+        return null;
       }
     },
     publicResolver: async () => {
       try {
-        const ens = getENS()
-        const resolver = await ens.getAddress('resolver')
+        const ens = getENS();
+        const resolver = await ens.getAddress('resolver');
         return {
           address: resolver,
           __typename: 'Resolver'
-        }
+        };
       } catch (e) {
-        console.log('error getting public resolver', e)
+        console.log('error getting public resolver', e);
       }
     }
   },
@@ -98,28 +100,28 @@ const resolvers = {
       const errorObj = {
         message,
         __typename: 'Error'
-      }
+      };
       const data = {
         error: errorObj
-      }
-      cache.writeData({ data })
-      return errorObj
+      };
+      cache.writeData({ data });
+      return errorObj;
     }
   }
-}
+};
 
 const defaults = merge(
   rootDefaults,
   managerDefaults,
   auctionRegistrarDefaults,
   subDomainRegistrarDefaults
-)
+);
 
 export default merge(
   resolvers,
   managerResolvers,
   auctionRegistrarResolvers,
   subDomainRegistrarResolvers
-)
+);
 
-export { defaults }
+export { defaults };
