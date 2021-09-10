@@ -23,6 +23,38 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Regular.ttf) format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Semibold.ttf) format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Bold.ttf) format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Black.ttf) format('truetype');
+  font-weight: 900;
 }

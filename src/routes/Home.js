@@ -144,7 +144,6 @@ const HowToUse = styled(HowToUseDefault)`
 `;
 
 const Hero = styled('section')`
-  background: url(${bg});
   background-size: cover;
   padding: 60px 20px 20px;
   position: relative;
@@ -152,13 +151,15 @@ const Hero = styled('section')`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  max-width: 1440px;
+  margin: auto;
   ${mq.medium`
     padding: 0 20px 0;
   `}
 `;
 
 const SearchContainer = styled('div')`
-  margin: 0 auto 0;
+  margin: 0px 220px 0;
   display: flex;
   flex-direction: column;
   min-width: 100%;
@@ -182,6 +183,7 @@ const SearchContainer = styled('div')`
 
 const Search = styled(SearchDefault)`
   min-width: 90%;
+  margin: 0 30px;
   ${mq.medium`
     min-width: 780px;
   `}
@@ -193,10 +195,6 @@ const Search = styled(SearchDefault)`
       border-radius: 6px 0 0 6px;
       font-size: 28px;
     `}
-  }
-
-  button {
-    border-radius: 0 6px 6px 0;
   }
 `;
 
@@ -302,6 +300,23 @@ const NetworkAccountInfoWrapper = styled('div')`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+`;
+
+const HomeBanner = styled('h1')`
+  margin: 28px 0;
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 76px;
+  text-align: center;
+  letter-spacing: -0.7px;
+
+  color: #161b24;
+`;
+
+const BannerEmphasis = styled('span')`
+  color: #1969ff;
 `;
 
 export default ({ match }) => {
@@ -426,15 +441,10 @@ export default ({ match }) => {
         </HeroTop>
         <SearchContainer>
           <>
-            <LogoLarge
-              initial={animation.initial}
-              animate={animation.animate}
-              src={ENSLogo}
-            />
-            <PermanentRegistrarLogo
-              initial={animation.initial}
-              animate={animation.animate}
-            />
+            <HomeBanner>
+              Discover the <BannerEmphasis>domain for you</BannerEmphasis> with
+              Fantom Name Service.
+            </HomeBanner>
             <Search />
           </>
         </SearchContainer>
