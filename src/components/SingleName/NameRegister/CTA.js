@@ -1,48 +1,48 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from '@emotion/styled/macro'
-import moment from 'moment'
-import { css } from 'emotion'
-import { useHistory } from 'react-router-dom'
-import { Mutation } from 'react-apollo'
-import { useTranslation } from 'react-i18next'
-import EthVal from 'ethval'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from '@emotion/styled/macro';
+import moment from 'moment';
+import { css } from 'emotion';
+import { useHistory } from 'react-router-dom';
+import { Mutation } from 'react-apollo';
+import { useTranslation } from 'react-i18next';
+import EthVal from 'ethval';
 
-import { trackReferral } from '../../../utils/analytics'
-import { COMMIT, REGISTER } from '../../../graphql/mutations'
+import { trackReferral } from '../../../utils/analytics';
+import { COMMIT, REGISTER } from '../../../graphql/mutations';
 
-import Tooltip from 'components/Tooltip/Tooltip'
-import PendingTx from '../../PendingTx'
-import Button from '../../Forms/Button'
-import AddToCalendar from '../../Calendar/RenewalCalendar'
-import { ReactComponent as DefaultPencil } from '../../Icons/SmallPencil.svg'
-import { ReactComponent as DefaultOrangeExclamation } from '../../Icons/OrangeExclamation.svg'
-import { useAccount } from '../../QueryAccount'
+import Tooltip from 'components/Tooltip/Tooltip';
+import PendingTx from '../../PendingTx';
+import Button from '../../Forms/Button';
+import AddToCalendar from '../../Calendar/RenewalCalendar';
+import { ReactComponent as DefaultPencil } from '../../Icons/SmallPencil.svg';
+import { ReactComponent as DefaultOrangeExclamation } from '../../Icons/OrangeExclamation.svg';
+import { useAccount } from '../../QueryAccount';
 
 const CTAContainer = styled('div')`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`
+`;
 
 const Pencil = styled(DefaultPencil)`
   margin-right: 5px;
-`
+`;
 
 const Prompt = styled('span')`
   color: #ffa600;
   margin-right: 10px;
-`
+`;
 
 const OrangeExclamation = styled(DefaultOrangeExclamation)`
   margin-right: 5px;
   height: 12px;
   width: 12px;
-`
+`;
 
 const LeftLink = styled(Link)`
   margin-right: 20px;
-`
+`;
 
 function getCTA({
   step,
@@ -75,10 +75,10 @@ function getCTA({
         mutation={COMMIT}
         variables={{ label, secret, commitmentTimerRunning }}
         onCompleted={data => {
-          const txHash = Object.values(data)[0]
-          setTxHash(txHash)
-          setCommitmentTimerRunning(true)
-          incrementStep()
+          const txHash = Object.values(data)[0];
+          setTxHash(txHash);
+          setCommitmentTimerRunning(true);
+          incrementStep();
         }}
       >
         {mutate =>
@@ -111,15 +111,15 @@ function getCTA({
                     data-testid="request-register-button"
                     type="disabled"
                     onMouseOver={() => {
-                      showTooltip()
+                      showTooltip();
                     }}
                     onMouseLeave={() => {
-                      hideTooltip()
+                      hideTooltip();
                     }}
                   >
                     {t('register.buttons.request')}
                   </Button>
-                )
+                );
               }}
             </Tooltip>
           ) : (
@@ -141,9 +141,9 @@ function getCTA({
         mutation={REGISTER}
         variables={{ label, duration, secret }}
         onCompleted={data => {
-          const txHash = Object.values(data)[0]
-          setTxHash(txHash)
-          incrementStep()
+          const txHash = Object.values(data)[0];
+          setTxHash(txHash);
+          incrementStep();
         }}
       >
         {mutate => (
@@ -189,9 +189,9 @@ function getCTA({
                 .toFixed(2), // in wei, // in wei
               years,
               premium
-            })
+            });
           }
-          incrementStep()
+          incrementStep();
         }}
       />
     ),
@@ -209,8 +209,8 @@ function getCTA({
         />
         <LeftLink
           onClick={async () => {
-            await Promise.all([refetch(), refetchIsMigrated()])
-            history.push(`/name/${label}.ftm`)
+            await Promise.all([refetch(), refetchIsMigrated()]);
+            history.push(`/name/${label}.ftm`);
           }}
           data-testid="manage-name-button"
         >
@@ -218,8 +218,8 @@ function getCTA({
         </LeftLink>
         <Button
           onClick={async () => {
-            await Promise.all([refetch(), refetchIsMigrated()])
-            history.push(`/address/${account}`)
+            await Promise.all([refetch(), refetchIsMigrated()]);
+            history.push(`/address/${account}`);
           }}
         >
           <Pencil />
@@ -227,8 +227,8 @@ function getCTA({
         </Button>
       </>
     )
-  }
-  return CTAs[step]
+  };
+  return CTAs[step];
 }
 
 const CTA = ({
@@ -251,10 +251,10 @@ const CTA = ({
   premium,
   ethUsdPrice
 }) => {
-  const { t } = useTranslation()
-  const history = useHistory()
-  const account = useAccount()
-  const [txHash, setTxHash] = useState(undefined)
+  const { t } = useTranslation();
+  const history = useHistory();
+  const account = useAccount();
+  const [txHash, setTxHash] = useState(undefined);
   return (
     <CTAContainer>
       {getCTA({
@@ -283,7 +283,7 @@ const CTA = ({
         account
       })}
     </CTAContainer>
-  )
-}
+  );
+};
 
-export default CTA
+export default CTA;

@@ -55,25 +55,23 @@ const Price = ({
   let ftmValue, ethVal, basePrice, withPremium, usdPremium;
 
   if (!loading && price) {
-    // console.log('price (converted): ', price.toNumber());
     ethVal = new EthVal(`${price}`).toEth(); //in USD
     ethPrice = ethVal && ethVal.toFixed(3);
-    // console.log('FTM: ', ethPrice / ethUsdPrice);
-    ftmValue = (ethPrice / ethUsdPrice).toFixed(3);
-    // // console.log('Ethprice: ', ethVal.toFixed(3) / 10 ** 18);
-    // console.log('EthUSDprice: ', ethUsdPrice);
-    // console.log('Price: ', price);
 
-    // if (ethUsdPrice && ethUsdPremiumPrice) {
-    //   basePrice = ethVal.mul(ethUsdPrice) - ethUsdPremiumPrice;
-    //   withPremium =
-    //     underPremium && ethUsdPremiumPrice
-    // ? `$${basePrice.toFixed(0)}(+$${ethUsdPremiumPrice.toFixed(2)}) =`
-    //       : null;
-    //   usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
-    // } else if (ethUsdPrice) {
-    //   usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
-    // }
+    ftmValue = (ethPrice / ethUsdPrice).toFixed(3);
+
+    /*
+    if (ethUsdPrice && ethUsdPremiumPrice) {
+      basePrice = ethVal.mul(ethUsdPrice) - ethUsdPremiumPrice;
+      withPremium =
+        underPremium && ethUsdPremiumPrice
+          ? `$${basePrice.toFixed(0)}(+$${ethUsdPremiumPrice.toFixed(2)}) =`
+          : null;
+      usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
+    } else if (ethUsdPrice) {
+      usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
+    }
+    */
   }
   return (
     <PriceContainer>
