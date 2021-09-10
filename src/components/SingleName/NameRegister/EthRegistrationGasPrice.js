@@ -57,41 +57,28 @@ const Input = styled(DefaultInput)`
 
 const EthRegistrationGasPrice = ({ price, ethUsdPrice, gasPrice }) => {
   const { t } = useTranslation();
-
-  const tempVal = new EthVal(`${price || 0}`).toEth();
-  let ftmValue = (tempVal.toFixed(3) / ethUsdPrice).toFixed(3);
-
   const ethVal = new EthVal(`${price || 0}`).toEth();
-
   const registerGasSlow = new EthVal(
     `${TOGAL_GAS_WEI * gasPrice.slow}`
   ).toEth();
-
   const registerGasFast = new EthVal(
     `${TOGAL_GAS_WEI * gasPrice.fast}`
   ).toEth();
-
   const gasPriceToGweiSlow = new EthVal(`${gasPrice.slow}`).toGwei();
   const gasPriceToGweiFast = new EthVal(`${gasPrice.fast}`).toGwei();
-
   const totalSlow = ethVal.add(registerGasSlow);
   const totalFast = ethVal.add(registerGasFast);
-
-  const totalAmount = Number(ftmValue) + Number(registerGasFast.toFixed(3));
-
   let totalInUsdSlow, totalInUsdFast;
-  // // No price oracle on Goerli
+  // No price oracle on Goerli
   if (ethUsdPrice) {
-    totalInUsdSlow = totalSlow * ethUsdPrice;
-    totalInUsdFast = totalAmount * ethUsdPrice;
-    // console.log('totalInUsdFast: ', totalInUsdFast.toFixed(2));
+    totalInUsdSlow = totalSlow.mul(ethUsdPrice);
+    totalInUsdFast = totalFast.mul(ethUsdPrice);
   }
-
   return (
     <PriceContainer>
       <TotalValue>
-        {ftmValue} FTM + at most {registerGasFast.toFixed(3)} FTM gas fee = at
-        most {totalAmount.toFixed(3)} FTM
+        {ethVal.toFixed(3)} FTM + at most {registerGasFast.toFixed(3)} FTM gas
+        fee = at most {totalFast.toFixed(3)} FTM
         {ethVal && ethUsdPrice && (
           <USD>
             {' '}
