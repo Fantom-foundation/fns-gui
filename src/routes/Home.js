@@ -66,26 +66,11 @@ const NetworkStatus = styled('div')`
   color: white;
   font-weight: 200;
   text-transform: capitalize;
-  margin-left: 
-  ${mq.small`
+  margin-left: ${mq.small`
     display: block;
-  `}
-  ${mq.medium`
+  `} ${mq.medium`
     left: 40px;
-  `}
-
-  &:before {
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    transform: translate(-5px, -50%);
-    content: '';
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #fff;
-  }
+  `};
 `;
 
 const Nav = styled('div')`
@@ -95,9 +80,15 @@ const Nav = styled('div')`
     justify-content: flex-end;
   `}
   a {
-    font-weight: 300;
-    color: white;
     margin-right: 45px;
+    font-family: 'SF Pro Text';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.5px;
+
+    color: #161b24;
   }
 `;
 
@@ -429,6 +420,8 @@ export default ({ match }) => {
                   {!isSafeApp && (
                     <NoAccounts
                       onClick={isReadOnly ? handleConnect : handleDisconnect}
+                      colour="#FFF"
+                      textColour="#1969FF"
                       buttonText={
                         isReadOnly ? t('c.connect') : t('c.disconnect')
                       }

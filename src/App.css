@@ -58,3 +58,31 @@
     url(./assets/fonts/SFProDisplay-Black.ttf) format('truetype');
   font-weight: 900;
 }
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Regular.ttf) format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Medium.ttf) format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Bold.ttf) format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Bold.ttf) format('truetype');
+  font-weight: 900;
+}
