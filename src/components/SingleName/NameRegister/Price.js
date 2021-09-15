@@ -52,36 +52,33 @@ const Price = ({
   const { t } = useTranslation();
 
   let ethPrice = <InlineLoader />;
-  let ftmValue, ethVal, basePrice, withPremium, usdPremium;
+  let ethVal, basePrice, withPremium, usdPremium;
 
   if (!loading && price) {
-    // console.log('price (converted): ', price.toNumber());
-    ethVal = new EthVal(`${price}`).toEth(); //in USD
+    ethVal = new EthVal(`${price}`).toEth();
     ethPrice = ethVal && ethVal.toFixed(3);
-    // console.log('FTM: ', ethPrice / ethUsdPrice);
-    ftmValue = (ethPrice / ethUsdPrice).toFixed(3);
-    // // console.log('Ethprice: ', ethVal.toFixed(3) / 10 ** 18);
-    // console.log('EthUSDprice: ', ethUsdPrice);
-    // console.log('Price: ', price);
 
-    // if (ethUsdPrice && ethUsdPremiumPrice) {
-    //   basePrice = ethVal.mul(ethUsdPrice) - ethUsdPremiumPrice;
-    //   withPremium =
-    //     underPremium && ethUsdPremiumPrice
-    // ? `$${basePrice.toFixed(0)}(+$${ethUsdPremiumPrice.toFixed(2)}) =`
-    //       : null;
-    //   usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
-    // } else if (ethUsdPrice) {
-    //   usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
-    // }
+    if (ethUsdPrice && ethUsdPremiumPrice) {
+      basePrice = ethVal.mul(ethUsdPrice) - ethUsdPremiumPrice;
+
+      withPremium =
+        underPremium && ethUsdPremiumPrice
+          ? `$${basePrice.toFixed(0)}(+$${ethUsdPremiumPrice.toFixed(2)}) =`
+          : null;
+
+      usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
+    } else if (ethUsdPrice) {
+      usdPremium = ethVal.mul(ethUsdPrice).toFixed(2);
+    }
   }
+
   return (
     <PriceContainer>
       <Value>
-        {ftmValue} FTM
+        {ethPrice} FTM
         {ethVal && ethUsdPrice && (
           <USD>
-            {withPremium}${ethPrice}
+            {withPremium}${usdPremium}
             USD
           </USD>
         )}

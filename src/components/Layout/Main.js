@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import styled from '@emotion/styled/macro';
 
-import mq from 'mediaQuery'
-import { hasNonAscii } from '../../utils/utils'
+import mq from 'mediaQuery';
+import { hasNonAscii } from '../../utils/utils';
 
 const MainContainer = styled('main')`
   margin-top: 50px;
@@ -15,12 +15,12 @@ const MainContainer = styled('main')`
   `
       : mq.medium`
     margin-left: 200px;
-    margin-top: 150px;
+    margin-top: 50px;
   `}
-`
+`;
 
 const Main = ({ children }) => (
   <MainContainer hasNonAscii={hasNonAscii()}>{children}</MainContainer>
-)
+);
 
-export default Main
+export default Main;

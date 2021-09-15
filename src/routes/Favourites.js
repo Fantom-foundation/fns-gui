@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import styled from '@emotion/styled/macro'
-import { Query } from 'react-apollo'
-import DomainItem from '../components/DomainItem/DomainItem'
-import { getNamehash } from '@ensdomains/ui'
-import { useQuery } from 'react-apollo'
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import styled from '@emotion/styled/macro';
+import { Query } from 'react-apollo';
+import DomainItem from '../components/DomainItem/DomainItem';
+import { getNamehash } from '@ensdomains/ui';
+import { useQuery } from 'react-apollo';
 import {
   GET_FAVOURITES,
   GET_SUBDOMAIN_FAVOURITES,
   GET_OWNER,
   GET_REGISTRATIONS_BY_IDS_SUBGRAPH
-} from '../graphql/queries'
+} from '../graphql/queries';
 
-import mq from 'mediaQuery'
-import moment from 'moment'
+import mq from 'mediaQuery';
+import moment from 'moment';
 
-import { H2 as DefaultH2 } from '../components/Typography/Basic'
-import LargeHeart from '../components/Icons/LargeHeart'
-import RenewAll from '../components/Address/RenewAll'
-import Checkbox from '../components/Forms/Checkbox'
-import { useAccount } from '../components/QueryAccount'
-import { filterNormalised } from '../utils/utils'
+import { H2 as DefaultH2 } from '../components/Typography/Basic';
+import LargeHeart from '../components/Icons/LargeHeart';
+import RenewAll from '../components/Address/RenewAll';
+import Checkbox from '../components/Forms/Checkbox';
+import { useAccount } from '../components/QueryAccount';
+import { filterNormalised } from '../utils/utils';
 
 const SelectAll = styled('div')`
   grid-area: selectall;
@@ -28,7 +28,7 @@ const SelectAll = styled('div')`
   justify-content: flex-end;
   padding-right: 40px;
   margin: 2em 0;
-`
+`;
 
 const NoDomainsContainer = styled('div')`
   display: flex;
@@ -60,7 +60,7 @@ const NoDomainsContainer = styled('div')`
     text-align: center;
     max-width: 400px;
   }
-`
+`;
 
 const H2 = styled(DefaultH2)`
   margin-top: 50px;
@@ -68,84 +68,84 @@ const H2 = styled(DefaultH2)`
   ${mq.medium`
     margin-left: 0;
   `}
-`
+`;
 
 const NoDomains = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <NoDomainsContainer>
       <LargeHeart />
       <h2>{t('favourites.nofavouritesDomains.title')}</h2>
       <p>{t('favourites.nofavouritesDomains.text')}</p>
     </NoDomainsContainer>
-  )
-}
+  );
+};
 
 function getAvailable(expiryDate) {
-  let e = moment(parseInt(expiryDate * 1000))
-  let e2 = moment().subtract(90, 'days')
-  return e2.diff(e) > 0
+  let e = moment(parseInt(expiryDate * 1000));
+  let e2 = moment().subtract(90, 'days');
+  return e2.diff(e) > 0;
 }
 
 function getDomainState(owner, available) {
-  if (!owner || available) return 'Open'
-  return parseInt(owner, 16) === 0 ? 'Open' : 'Owned'
+  if (!owner || available) return 'Open';
+  return parseInt(owner, 16) === 0 ? 'Open' : 'Owned';
 }
 
 function Favourites() {
-  const { t } = useTranslation()
-  let [years, setYears] = useState(1)
-  let [checkedBoxes, setCheckedBoxes] = useState({})
-  const [selectAll, setSelectAll] = useState(false)
+  const { t } = useTranslation();
+  let [years, setYears] = useState(1);
+  let [checkedBoxes, setCheckedBoxes] = useState({});
+  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
-    document.title = 'ENS Favourites'
-  }, [])
+    document.title = 'FNS Favourites';
+  }, []);
   const { data: { favourites: favouritesWithUnnormalised } = [] } = useQuery(
     GET_FAVOURITES
-  )
+  );
   const { data: { subDomainFavourites } = [] } = useQuery(
     GET_SUBDOMAIN_FAVOURITES
-  )
-  const favourites = filterNormalised(favouritesWithUnnormalised, 'name')
-  const ids = favourites && favourites.map(f => getNamehash(f.name))
+  );
+  const favourites = filterNormalised(favouritesWithUnnormalised, 'name');
+  const ids = favourites && favourites.map(f => getNamehash(f.name));
   const { data: { registrations } = [], refetch } = useQuery(
     GET_REGISTRATIONS_BY_IDS_SUBGRAPH,
     {
       variables: { ids }
     }
-  )
+  );
 
   if (!favourites || (favourites.length === 0 && !registrations)) {
-    return <NoDomains />
+    return <NoDomains />;
   }
-  let favouritesList = []
+  let favouritesList = [];
   if (favourites.length > 0) {
     if (registrations && registrations.length > 0) {
       favouritesList = favourites.map(f => {
         let r = registrations.filter(
           a => a.domain.id === getNamehash(f.name)
-        )[0]
+        )[0];
         return {
           name: f.name,
           owner: r && r.domain.owner.id,
           available: getAvailable(r && r.expiryDate),
           expiryDate: r && r.expiryDate
-        }
-      })
+        };
+      });
     } else {
       // Fallback when subgraph is not returning result
       favouritesList = favourites.map(f => {
         return {
           name: f.name
-        }
-      })
+        };
+      });
     }
   }
 
   const hasFavourites =
     (favouritesList && favouritesList.length > 0) ||
-    (subDomainFavourites && subDomainFavourites.length > 0)
+    (subDomainFavourites && subDomainFavourites.length > 0);
   if (!hasFavourites) {
     return (
       <FavouritesContainer data-testid="favourites-container">
@@ -156,33 +156,33 @@ function Favourites() {
           <p>{t('favourites.nofavouritesDomains.text')}</p>
         </NoDomains>
       </FavouritesContainer>
-    )
+    );
   }
 
   const selectedNames = Object.entries(checkedBoxes)
     .filter(([key, value]) => value)
-    .map(([key]) => key)
+    .map(([key]) => key);
 
-  const allNames = favouritesList.map(f => f.name)
+  const allNames = favouritesList.map(f => f.name);
   const selectAllNames = () => {
     const obj = favouritesList.reduce((acc, f) => {
       if (f.expiryDate) {
-        acc[f.name] = true
+        acc[f.name] = true;
       }
-      return acc
-    }, {})
-    setCheckedBoxes(obj)
-  }
-  let data = []
-  const account = useAccount()
+      return acc;
+    }, {});
+    setCheckedBoxes(obj);
+  };
+  let data = [];
+  const account = useAccount();
   const checkedOtherOwner =
     favouritesList.filter(
       f =>
         f.expiryDate &&
         f.owner !== account?.toLowerCase() &&
         checkedBoxes[f.name]
-    ).length > 0
-  const canRenew = favouritesList.filter(f => f.expiryDate).length > 0
+    ).length > 0;
+  const canRenew = favouritesList.filter(f => f.expiryDate).length > 0;
   return (
     <FavouritesContainer data-testid="favourites-container">
       <H2>{t('favourites.favouriteTitle')}</H2>
@@ -207,11 +207,11 @@ function Favourites() {
               checked={selectAll}
               onClick={() => {
                 if (!selectAll) {
-                  selectAllNames()
+                  selectAllNames();
                 } else {
-                  setCheckedBoxes({})
+                  setCheckedBoxes({});
                 }
-                setSelectAll(selectAll => !selectAll)
+                setSelectAll(selectAll => !selectAll);
               }}
             />
           </SelectAll>
@@ -232,7 +232,7 @@ function Favourites() {
               setCheckedBoxes={setCheckedBoxes}
               setSelectAll={setSelectAll}
             />
-          )
+          );
         })}
       {subDomainFavourites &&
         subDomainFavourites.map(domain => (
@@ -243,7 +243,7 @@ function Favourites() {
           >
             {({ loading, error, data }) => {
               if (error)
-                return <div>{(console.log(error), JSON.stringify(error))}</div>
+                return <div>{(console.log(error), JSON.stringify(error))}</div>;
               return (
                 <DomainItem
                   loading={loading}
@@ -255,16 +255,16 @@ function Favourites() {
                   isSubDomain={true}
                   isFavourite={true}
                 />
-              )
+              );
             }}
           </Query>
         ))}
     </FavouritesContainer>
-  )
+  );
 }
 
 const FavouritesContainer = styled('div')`
   padding-bottom: 60px;
-`
+`;
 
-export default Favourites
+export default Favourites;
