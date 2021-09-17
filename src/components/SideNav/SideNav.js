@@ -4,11 +4,14 @@ import { useTranslation } from 'react-i18next';
 
 import NetworkInformation from '../NetworkInformation/NetworkInformation';
 import useNetworkInfo from '../NetworkInformation/useNetworkInfo';
+import Window from '../Icons/Window';
+import User from '../Icons/User';
 import Heart from '../Icons/Heart';
 import File from '../Icons/File';
+import Question from '../Icons/Question';
 import { aboutPageURL, hasNonAscii } from '../../utils/utils';
 import DefaultLogo from '../Logo';
-import SpeechBubble from '../Icons/SpeechBubble';
+import FantomLogo from '../Icons/FantomLogo';
 
 import mq from 'mediaQuery';
 import { Link, withRouter } from 'react-router-dom';
@@ -160,6 +163,25 @@ const Logo = styled(DefaultLogo)`
   `}
 `;
 
+const NavbarBottom = styled('div')`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 300px;
+`;
+
+const NavbarBottomLabel = styled('label')`
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11.4px;
+  line-height: 17px;
+  letter-spacing: -0.5px;
+
+  color: #1969ff;
+  margin-right: 5px;
+`;
+
 function SideNav({ match, isMenuOpen, toggleMenu }) {
   const { url } = match;
   const { t } = useTranslation();
@@ -169,6 +191,16 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
       <Logo />
       {/* <NetworkInformation /> */}
       <ul data-testid="sitenav">
+        <li>
+          <NavLink
+            onClick={toggleMenu}
+            active={url === '/dashboard'}
+            to="/dashboard"
+          >
+            <Window active={url === '/dashboard'} />
+            <span>Dashboard</span>
+          </NavLink>
+        </li>
         {accounts && accounts.length > 0 ? (
           <li>
             <NavLink
@@ -176,7 +208,7 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
               active={url === '/address/' + accounts[0]}
               to={'/address/' + accounts[0]}
             >
-              <File active={url === '/address/' + accounts[0]} />
+              <User active={url === '/address/' + accounts[0]} />
               <span>{t('c.mynames')}</span>
             </NavLink>
           </li>
@@ -193,17 +225,21 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
         </li>
         <li>
           <ThirdPartyLink href={aboutPageURL()}>
-            <SpeechBubble />
+            <File />
             <span>{t('c.about')}</span>
           </ThirdPartyLink>
         </li>
         <li>
           <NavLink onClick={toggleMenu} active={url === '/faq'} to="/faq">
-            <SpeechBubble />
+            <Question active={url === '/faq'} />
             <span>{t('c.faq')}</span>
           </NavLink>
         </li>
       </ul>
+      <NavbarBottom>
+        <NavbarBottomLabel>Powered by</NavbarBottomLabel>
+        <FantomLogo />
+      </NavbarBottom>
     </SideNavContainer>
   );
 }
