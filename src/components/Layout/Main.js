@@ -10,11 +10,11 @@ const MainContainer = styled('main')`
   ${p =>
     p.hasNonAscii
       ? mq.medium`
-    margin-left: 200px;
+    margin-left: 270px;
     margin-top: 250px;
   `
       : mq.medium`
-    margin-left: 200px;
+    margin-left: 270px;
     margin-top: 50px;
   `}
 `;
