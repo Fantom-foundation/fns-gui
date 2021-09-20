@@ -19,13 +19,14 @@ const SearchForm = styled('form')`
   &:before {
     content: '';
     position: absolute;
-    left: 20px;
+    left: 24px;
     top: 50%;
     transform: translate(0, -50%);
     display: block;
-    width: 27px;
-    height: 27px;
+    width: 17px;
+    height: 17px;
     background: url(${searchIcon}) no-repeat;
+    background-size: contain;
   }
 
   input {

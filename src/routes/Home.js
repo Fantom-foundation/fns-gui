@@ -181,11 +181,10 @@ const Search = styled(SearchDefault)`
 
   input {
     width: 100%;
-    border-radius: 0px;
-    ${mq.medium`
-      border-radius: 6px 0 0 6px;
-      font-size: 28px;
-    `}
+    font-size: 16px;
+    background: #ffffff;
+    box-shadow: 0px 22.9412px 91.7647px #f2f1fa;
+    border-radius: 16px;
   }
 `;
 

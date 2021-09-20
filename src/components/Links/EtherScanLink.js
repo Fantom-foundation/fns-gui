@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import useNetworkInfo from '../NetworkInformation/useNetworkInfo'
-import { ReactComponent as ExternalLinkIcon } from '../Icons/externalLink.svg'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import useNetworkInfo from '../NetworkInformation/useNetworkInfo';
+import { ReactComponent as ExternalLinkIcon } from '../Icons/externalLink.svg';
 
 const EtherScanLinkContainer = styled('a')`
   display: inline-block;
@@ -9,7 +9,7 @@ const EtherScanLinkContainer = styled('a')`
   text-overflow: ellipsis;
 
   svg {
-    margin-left: 10px;
+    margin-left: 5px;
     transition: 0.1s;
     opacity: 0;
     flex-shrink: 0;
@@ -20,11 +20,11 @@ const EtherScanLinkContainer = styled('a')`
       opacity: 1;
     }
   }
-`
+`;
 
 const EtherScanLink = ({ children, address, className }) => {
-  const { network } = useNetworkInfo()
-  const subdomain = network === 'main' ? '' : `${network}.`
+  const { network } = useNetworkInfo();
+  const subdomain = network === 'main' ? '' : `${network}.`;
   return (
     <EtherScanLinkContainer
       target="_blank"
@@ -35,7 +35,7 @@ const EtherScanLink = ({ children, address, className }) => {
       {children}
       <ExternalLinkIcon />
     </EtherScanLinkContainer>
-  )
-}
+  );
+};
 
-export default EtherScanLink
+export default EtherScanLink;

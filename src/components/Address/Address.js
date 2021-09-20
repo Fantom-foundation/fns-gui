@@ -6,6 +6,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import moment from 'moment';
 import { useAccount } from '../QueryAccount';
 import PageTitle from '../Layout/PageTitle';
+import SearchDefault from '../SearchName/Search';
 
 import {
   GET_FAVOURITES,
@@ -41,7 +42,7 @@ const DEFAULT_RESULTS_PER_PAGE = 25;
 
 const TopBar = styled(DefaultTopBar)`
   justify-content: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 `;
 
 const Title = styled(DefaultTitle)`
@@ -51,7 +52,7 @@ const Title = styled(DefaultTitle)`
 `;
 
 const EtherScanLink = styled(DefaultEtherScanLink)`
-  min-width: 165px;
+  min-width: 150px;
   margin-left: auto;
 `;
 
@@ -99,6 +100,23 @@ const SelectAll = styled('div')`
   ${mq.large`
     padding-right: 10px;
   `}
+`;
+
+const Search = styled(SearchDefault)`
+  min-width: 90%;
+  margin: 0;
+  margin-bottom: 40px;
+  ${mq.medium`
+    min-width: 780px;
+  `}
+
+  input {
+    width: 100%;
+    font-size: 16px;
+    background: #ffffff;
+    box-shadow: 0px 22.9412px 91.7647px #f2f1fa;
+    border-radius: 16px;
+  }
 `;
 
 function filterOutReverse(domains) {
@@ -260,6 +278,7 @@ export default function Address({
   return (
     <>
       <PageTitle>My Account</PageTitle>
+      <Search />
       {showOriginBanner && showOriginBannerFlag && (
         <Banner>
           <Close onClick={() => setShowOriginBannerFlag(false)} src={close} />
@@ -283,7 +302,6 @@ export default function Address({
 
       <AddressContainer>
         <TopBar>
-          <SingleNameBlockies address={address} />
           <Title>{address}</Title>
           {etherScanAddr && (
             <EtherScanLink address={address}>

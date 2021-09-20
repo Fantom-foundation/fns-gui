@@ -1,60 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import _ from 'lodash'
-import { useQuery, useMutation } from 'react-apollo'
-import styled from '@emotion/styled/macro'
-import { useTranslation, Trans } from 'react-i18next'
+import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
+import { useQuery, useMutation } from 'react-apollo';
+import styled from '@emotion/styled/macro';
+import { useTranslation, Trans } from 'react-i18next';
 
-import { emptyAddress, hasValidReverseRecord } from '../utils/utils'
+import { emptyAddress, hasValidReverseRecord } from '../utils/utils';
 
-import { SET_NAME } from 'graphql/mutations'
-import mq from 'mediaQuery'
-import { useEditable } from './hooks'
+import { SET_NAME } from 'graphql/mutations';
+import mq from 'mediaQuery';
+import { useEditable } from './hooks';
 
 import {
   GET_REVERSE_RECORD,
   GET_ETH_RECORD_AVAILABLE_NAMES_FROM_SUBGRAPH
-} from 'graphql/queries'
+} from 'graphql/queries';
 
-import SaveCancel from './SingleName/SaveCancel'
-import PendingTx from './PendingTx'
+import SaveCancel from './SingleName/SaveCancel';
+import PendingTx from './PendingTx';
 
-import { ReactComponent as DefaultCheck } from './Icons/Check.svg'
-import RotatingSmallCaret from './Icons/RotatingSmallCaret'
-import { decryptName, checkIsDecrypted } from '../api/labels'
-import Select from 'react-select'
-import Modal from './Modal/Modal'
-import Bin from '../components/Forms/Bin'
-import Gap from '../components/Utils/Gap'
+import { ReactComponent as Exclamation } from './Icons/Exclamation.svg';
+import RotatingSmallCaret from './Icons/RotatingSmallCaret';
+import { decryptName, checkIsDecrypted } from '../api/labels';
+import Select from 'react-select';
+import Modal from './Modal/Modal';
+import Bin from '../components/Forms/Bin';
+import Gap from '../components/Utils/Gap';
 
 const Loading = styled('span')`
   color: #adbbcd;
-`
+`;
 
 const Warning = styled(`div`)`
-  color: #f5a623;
-`
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.5px;
+
+  color: #1969ff;
+
+  background: rgba(25, 105, 255, 0.04);
+  display: flex;
+  padding: 10px 30px;
+`;
 
 const AddReverseRecordContainer = styled('div')`
-  background: #f0f6fa;
-  border: 1px solid #ededed;
   border-radius: 8px;
-  margin: 20px 30px 20px;
+  margin: 20px 12px 20px;
   padding: 10px 15px;
-
-  ${mq.medium`
-    margin: 20px 40px 20px;
-  `}
-`
+`;
 
 const SetReverseContainer = styled('div')`
   margin-top: 15px;
-  padding: 10px;
-`
+`;
 
 const ErrorMessage = styled('div')`
   font-weight: 300;
   font-size: 14px;
-`
+`;
 
 const Message = styled('div')`
   font-family: Overpass Mono;
@@ -65,64 +69,74 @@ const Message = styled('div')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  &:hover {
-    cursor: pointer;
-  }
-`
+`;
 
 const ReadOnlyMessage = styled(Message)`
   &:hover {
     cursor: default;
   }
-`
+`;
 
 const MessageContent = styled('div')`
   display: flex;
   align-items: center;
-`
+`;
 
 const IconStyles = () => `margin-right: 10px;
   flex-shrink: 0;
-`
+`;
 
-const Check = styled(DefaultCheck)`
+const ExclamationMark = styled(Exclamation)`
   ${IconStyles()};
-`
+`;
 
 const Explanation = styled('div')`
   font-family: Overpass;
-  font-weight: 300;
-  font-size: 14px;
-  color: #2b2b2b;
-  letter-spacing: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+
+  /* or 27px */
+  letter-spacing: -0.5px;
+
+  color: #161b24;
+
   line-height: 25px;
   margin-bottom: 10px;
-  max-width: 768px;
+  margin-right: 90px;
   hyphens: auto;
-`
+`;
 
 const EditableNotSet = styled('div')`
-  color: #5384fe;
-`
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #161b24;
+`;
 
 const ButtonsContainer = styled('div')`
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 function AddReverseRecord({ account, currentAddress }) {
-  const { t } = useTranslation()
-  const { state, actions } = useEditable()
-  const [newName, setNewName] = useState('')
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const { t } = useTranslation();
+  const { state, actions } = useEditable();
+  const [newName, setNewName] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const { editing, txHash, pending, confirmed } = state
+  const { txHash, pending, confirmed } = state;
 
-  const { startEditing, stopEditing, startPending, setConfirmed } = actions
-  let options
+  const editing = true;
+
+  const { startEditing, stopEditing, startPending, setConfirmed } = actions;
+  let options;
 
   const { data: { getReverseRecord } = {}, loading, refetch } = useQuery(
     GET_REVERSE_RECORD,
@@ -131,19 +145,19 @@ function AddReverseRecord({ account, currentAddress }) {
         address: currentAddress
       }
     }
-  )
+  );
 
   const [setName, { data }] = useMutation(SET_NAME, {
     onCompleted: data => {
-      startPending(Object.values(data)[0])
+      startPending(Object.values(data)[0]);
     }
-  })
+  });
 
   useEffect(() => {
     if (account && !getReverseRecord) {
-      startEditing()
+      startEditing();
     }
-  }, [getReverseRecord, account])
+  }, [getReverseRecord, account]);
   const { data: { domains } = {} } = useQuery(
     GET_ETH_RECORD_AVAILABLE_NAMES_FROM_SUBGRAPH,
     {
@@ -151,51 +165,50 @@ function AddReverseRecord({ account, currentAddress }) {
         address: currentAddress
       }
     }
-  )
+  );
 
   const isAccountMatched =
     account &&
     currentAddress &&
-    account.toLowerCase() === currentAddress.toLowerCase()
+    account.toLowerCase() === currentAddress.toLowerCase();
 
   if (domains) {
     options = _.uniq(
       domains
         .map(domain => {
           if (checkIsDecrypted(domain?.name)) {
-            return domain?.name
+            return domain?.name;
           } else {
-            let decrypted = decryptName(domain?.name)
+            let decrypted = decryptName(domain?.name);
             // Ignore if label is not found
             if (checkIsDecrypted(decrypted)) {
-              return decrypted
+              return decrypted;
             } else {
-              return null
+              return null;
             }
           }
         })
         .filter(d => !!d)
         .sort()
     ).map(d => {
-      return { value: d, label: d }
-    })
+      return { value: d, label: d };
+    });
   }
 
   function handleSelect(e) {
     if (e && e.label) {
-      setNewName(e)
+      setNewName(e);
     } else {
-      setNewName('')
+      setNewName('');
     }
   }
 
   function ReverseRecordEditor() {
     return (
       <>
-        <Message onClick={editing ? stopEditing : startEditing}>
+        <Message>
           {hasValidReverseRecord(getReverseRecord) ? (
             <MessageContent data-testid="editable-reverse-record-set">
-              <Check />
               {t('singleName.record.messages.setTo') + getReverseRecord.name}
             </MessageContent>
           ) : (
@@ -207,13 +220,11 @@ function AddReverseRecord({ account, currentAddress }) {
             <PendingTx
               txHash={txHash}
               onConfirmed={() => {
-                setConfirmed()
-                refetch()
+                setConfirmed();
+                refetch();
               }}
             />
-          ) : (
-            <RotatingSmallCaret rotated={editing} testid="open-reverse" />
-          )}
+          ) : null}
         </Message>
         {editing && (
           <SetReverseContainer>
@@ -242,6 +253,7 @@ function AddReverseRecord({ account, currentAddress }) {
               />
             ) : (
               <Warning>
+                <ExclamationMark />
                 {t('singleName.record.messages.noForwardRecordAavilable')}
               </Warning>
             )}
@@ -255,7 +267,7 @@ function AddReverseRecord({ account, currentAddress }) {
             <ButtonsContainer>
               <SaveCancel
                 mutation={() => {
-                  setName({ variables: { name: newName?.value } })
+                  setName({ variables: { name: newName?.value } });
                 }}
                 stopEditing={stopEditing}
                 isValid={!!newName}
@@ -269,12 +281,12 @@ function AddReverseRecord({ account, currentAddress }) {
                       <Gap size={5} />
                       <SaveCancel
                         mutation={() => {
-                          setName({ variables: { name: emptyAddress } })
-                          setIsDeleteModalOpen(false)
+                          setName({ variables: { name: emptyAddress } });
+                          setIsDeleteModalOpen(false);
                         }}
                         stopEditing={e => {
-                          stopEditing(e)
-                          setIsDeleteModalOpen(false)
+                          stopEditing(e);
+                          setIsDeleteModalOpen(false);
                         }}
                         isValid
                       />
@@ -286,7 +298,7 @@ function AddReverseRecord({ account, currentAddress }) {
           </SetReverseContainer>
         )}
       </>
-    )
+    );
   }
 
   return (
@@ -314,7 +326,7 @@ function AddReverseRecord({ account, currentAddress }) {
         </>
       )}
     </AddReverseRecordContainer>
-  )
+  );
 }
 
-export default AddReverseRecord
+export default AddReverseRecord;
