@@ -43,12 +43,14 @@ const Warning = styled(`div`)`
   background: rgba(25, 105, 255, 0.04);
   display: flex;
   padding: 10px 30px;
+  border-left: 2px solid #1969ff;
+  margin: 24px 0;
 `;
 
 const AddReverseRecordContainer = styled('div')`
   border-radius: 8px;
   margin: 20px 12px 20px;
-  padding: 10px 15px;
+  padding: 10px 120px 10px 15px;
 `;
 
 const SetReverseContainer = styled('div')`
@@ -120,7 +122,7 @@ const EditableNotSet = styled('div')`
 
 const ButtonsContainer = styled('div')`
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;

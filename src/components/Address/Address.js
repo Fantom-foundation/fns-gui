@@ -81,7 +81,7 @@ const Controls = styled('div')`
   margin: 20px;
 
   ${mq.large`
-    margin: 20px 30px;
+    margin: 20px 0px;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
     'filters actions'
@@ -310,79 +310,79 @@ export default function Address({
           )}
         </TopBar>
         <AddReverseRecord account={account} currentAddress={address} />
-        <Controls>
-          <Filtering
-            activeFilter={domainType}
-            setActiveSort={setActiveSort}
-            url={url}
-          />
-
-          {domainType === 'registrant' && (
-            <RenewAll
-              years={years}
-              setYears={setYears}
-              activeFilter={domainType}
-              selectedNames={selectedNames}
-              setCheckedBoxes={setCheckedBoxes}
-              setSelectAll={setSelectAll}
-              allNames={allNames}
-              address={address}
-              data={data}
-              refetch={refetch}
-              getterString="account.registrations"
-            />
-          )}
-          <Sorting
-            activeSort={activeSort}
-            setActiveSort={setActiveSort}
-            activeFilter={domainType}
-          />
-
-          {domainType === 'registrant' && (
-            <>
-              <SelectAll>
-                <Checkbox
-                  testid="checkbox-renewall"
-                  type="double"
-                  checked={selectAll}
-                  onClick={() => {
-                    if (!selectAll) {
-                      selectAllNames();
-                    } else {
-                      setCheckedBoxes({});
-                    }
-                    setSelectAll(selectAll => !selectAll);
-                  }}
-                />
-              </SelectAll>
-            </>
-          )}
-        </Controls>
-
-        <DomainList
-          setSelectAll={setSelectAll}
-          address={address}
-          domains={domains}
-          favourites={filterNormalised(favourites, 'labelName')}
-          activeSort={activeSort}
-          activeFilter={domainType}
-          checkedBoxes={checkedBoxes}
-          setCheckedBoxes={setCheckedBoxes}
-          showBlockies={false}
-        />
-        <Pager
-          variables={{ id: address, expiryDate }}
-          currentPage={page}
-          resultsPerPage={resultsPerPage}
-          setResultsPerPage={setResultsPerPage}
-          pageLink={`/address/${address}/${domainType}`}
-          query={
-            domainType === 'registrant'
-              ? GET_REGISTRATIONS_SUBGRAPH
-              : GET_DOMAINS_SUBGRAPH
-          }
-        />
       </AddressContainer>
+      <Controls>
+        <Filtering
+          activeFilter={domainType}
+          setActiveSort={setActiveSort}
+          url={url}
+        />
+
+        {domainType === 'registrant' && (
+          <RenewAll
+            years={years}
+            setYears={setYears}
+            activeFilter={domainType}
+            selectedNames={selectedNames}
+            setCheckedBoxes={setCheckedBoxes}
+            setSelectAll={setSelectAll}
+            allNames={allNames}
+            address={address}
+            data={data}
+            refetch={refetch}
+            getterString="account.registrations"
+          />
+        )}
+        <Sorting
+          activeSort={activeSort}
+          setActiveSort={setActiveSort}
+          activeFilter={domainType}
+        />
+
+        {domainType === 'registrant' && (
+          <>
+            <SelectAll>
+              <Checkbox
+                testid="checkbox-renewall"
+                type="double"
+                checked={selectAll}
+                onClick={() => {
+                  if (!selectAll) {
+                    selectAllNames();
+                  } else {
+                    setCheckedBoxes({});
+                  }
+                  setSelectAll(selectAll => !selectAll);
+                }}
+              />
+            </SelectAll>
+          </>
+        )}
+      </Controls>
+
+      <DomainList
+        setSelectAll={setSelectAll}
+        address={address}
+        domains={domains}
+        favourites={filterNormalised(favourites, 'labelName')}
+        activeSort={activeSort}
+        activeFilter={domainType}
+        checkedBoxes={checkedBoxes}
+        setCheckedBoxes={setCheckedBoxes}
+        showBlockies={false}
+      />
+      <Pager
+        variables={{ id: address, expiryDate }}
+        currentPage={page}
+        resultsPerPage={resultsPerPage}
+        setResultsPerPage={setResultsPerPage}
+        pageLink={`/address/${address}/${domainType}`}
+        query={
+          domainType === 'registrant'
+            ? GET_REGISTRATIONS_SUBGRAPH
+            : GET_DOMAINS_SUBGRAPH
+        }
+      />
     </>
   );
 }

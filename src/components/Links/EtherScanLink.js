@@ -7,6 +7,14 @@ const EtherScanLinkContainer = styled('a')`
   display: inline-block;
   align-items: center;
   text-overflow: ellipsis;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: right;
+  letter-spacing: -0.5px;
+  color: #1969ff;
 
   svg {
     margin-left: 5px;
