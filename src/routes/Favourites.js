@@ -5,6 +5,8 @@ import { Query } from 'react-apollo';
 import DomainItem from '../components/DomainItem/DomainItem';
 import { getNamehash } from '@ensdomains/ui';
 import { useQuery } from 'react-apollo';
+import PageTitle from '../components/Layout/PageTitle';
+import SearchDefault from '../components/SearchName/Search';
 import {
   GET_FAVOURITES,
   GET_SUBDOMAIN_FAVOURITES,
@@ -68,6 +70,23 @@ const H2 = styled(DefaultH2)`
   ${mq.medium`
     margin-left: 0;
   `}
+`;
+
+const Search = styled(SearchDefault)`
+  min-width: 90%;
+  margin: 0;
+  margin-bottom: 40px;
+  ${mq.medium`
+    min-width: 780px;
+  `}
+
+  input {
+    width: 100%;
+    font-size: 16px;
+    background: #ffffff;
+    box-shadow: 0px 22.9412px 91.7647px #f2f1fa;
+    border-radius: 16px;
+  }
 `;
 
 const NoDomains = () => {
@@ -149,7 +168,8 @@ function Favourites() {
   if (!hasFavourites) {
     return (
       <FavouritesContainer data-testid="favourites-container">
-        <H2>{t('favourites.favouriteTitle')}</H2>
+        <PageTitle>{t('favourites.favouriteTitle')}</PageTitle>
+        <Search />
         <NoDomains>
           <LargeHeart />
           <h2>{t('favourites.nofavouritesDomains.title')}</h2>
@@ -185,7 +205,8 @@ function Favourites() {
   const canRenew = favouritesList.filter(f => f.expiryDate).length > 0;
   return (
     <FavouritesContainer data-testid="favourites-container">
-      <H2>{t('favourites.favouriteTitle')}</H2>
+      <PageTitle>{t('favourites.favouriteTitle')}</PageTitle>
+      <Search />
       {canRenew && (
         <>
           <RenewAll
