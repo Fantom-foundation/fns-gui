@@ -1,19 +1,19 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import mq from 'mediaQuery'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import mq from 'mediaQuery';
 
-import AddFavourite from '../AddFavourite/AddFavourite'
-import QueryAccount from '../QueryAccount'
-import ExpiryDate from './ExpiryDate'
-import Loader from '../Loader'
-import { humaniseName } from '../../utils/utils'
-import Checkbox from '../Forms/Checkbox'
+import AddFavourite from '../AddFavourite/AddFavourite';
+import QueryAccount from '../QueryAccount';
+import ExpiryDate from './ExpiryDate';
+import Loader from '../Loader';
+import { humaniseName } from '../../utils/utils';
+import Checkbox from '../Forms/Checkbox';
 
 const CheckBoxContainer = styled('div')`
   margin: 5px;
-`
+`;
 
 const DomainContainer = styled(Link)`
   &:before {
@@ -21,20 +21,20 @@ const DomainContainer = styled(Link)`
     background: ${p => {
       switch (p.state) {
         case 'Yours':
-          return '#52E5FF'
+          return '#52E5FF';
         case 'Open':
-          return '#42E068'
+          return '#42E068';
         case 'Auction':
         case 'Reveal':
-          return 'linear-gradient(-180deg, #42E068 0%, #52E5FF 100%)'
+          return 'linear-gradient(-180deg, #42E068 0%, #52E5FF 100%)';
         case 'Owned':
-          return '#CACACA'
+          return '#CACACA';
         case 'Forbidden':
-          return 'black'
+          return 'black';
         case 'NotYetAvailable':
-          return 'red'
+          return 'red';
         default:
-          return 'red'
+          return 'red';
       }
     }};
     width: 4px;
@@ -79,69 +79,67 @@ const DomainContainer = styled(Link)`
   &:visited {
     color: #2b2b2b;
   }
-`
+`;
 
 const RightContainer = styled('div')`
   display: flex;
   align-items: center;
-`
+`;
 
 const DomainName = styled('h2')`
-  font-size: 18px;
-  font-weight: 100;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
 
-  ${mq.medium`
-    font-size: 28px;
-  `}
-
-  color: ${p => {
-    switch (p.state) {
-      case 'Yours':
-      case 'Owned':
-        return '#2b2b2b'
-      default:
-        return '#2b2b2b'
-    }
-  }};
-`
+  color: #161b24;
+`;
 
 const LabelContainer = styled('div')`
   margin-right: 20px;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
   font-size: 16px;
-  color: #ccd4da;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #0fe698;
   display: none;
   align-items: center;
-`
+`;
 
-const LabelText = styled('div')``
+const LabelText = styled('div')``;
 
 const Label = ({ domain, isOwner }) => {
-  const { t } = useTranslation()
-  let text
+  const { t } = useTranslation();
+  let text;
   switch (domain.state) {
     case 'Open':
-      text = t('singleName.domain.state.available')
-      break
+      text = t('singleName.domain.state.available');
+      break;
     case 'Auction':
-      text = t('singleName.domain.state.auction')
-      break
+      text = t('singleName.domain.state.auction');
+      break;
     case 'Owned':
-      text = t('singleName.domain.state.owned')
-      break
+      text = t('singleName.domain.state.owned');
+      break;
     default:
-      text = t('singleName.domain.state.default')
+      text = t('singleName.domain.state.default');
   }
 
   if (isOwner) {
-    text = t('singleName.domain.state.owned')
+    text = t('singleName.domain.state.owned');
   }
 
   return (
     <LabelContainer className="label-container">
       <LabelText>{text}</LabelText>
     </LabelContainer>
-  )
-}
+  );
+};
 
 const Domain = ({
   domain,
@@ -158,13 +156,13 @@ const Domain = ({
       <DomainContainer state={'Owned'} className={className} to="">
         <Loader />
       </DomainContainer>
-    )
+    );
   }
-  const nameArray = domain.name.split('.')
+  const nameArray = domain.name.split('.');
   return (
     <QueryAccount>
       {({ account }) => {
-        let isOwner = false
+        let isOwner = false;
         if (
           !domain.available &&
           domain.owner &&
@@ -173,12 +171,12 @@ const Domain = ({
           isOwner =
             account &&
             domain.owner &&
-            domain.owner.toLowerCase() === account.toLowerCase()
+            domain.owner.toLowerCase() === account.toLowerCase();
         }
-        const percentDone = 0
-        let expiryDate = domain.expiryDate
+        const percentDone = 0;
+        let expiryDate = domain.expiryDate;
         if (domain.expiryTime) {
-          expiryDate = parseInt(domain.expiryTime.getTime() / 1000)
+          expiryDate = parseInt(domain.expiryTime.getTime() / 1000);
         }
         return (
           <DomainContainer
@@ -207,16 +205,16 @@ const Domain = ({
                     testid={`checkbox-${domain.name}`}
                     checked={checkedBoxes[domain.name]}
                     onClick={e => {
-                      e.preventDefault()
+                      e.preventDefault();
                       setCheckedBoxes &&
                         setCheckedBoxes(prevState => {
                           return {
                             ...prevState,
                             [domain.name]: !prevState[domain.name]
-                          }
-                        })
+                          };
+                        });
                       if (checkedBoxes[domain.name]) {
-                        setSelectAll(false)
+                        setSelectAll(false);
                       }
                     }}
                   />
@@ -224,10 +222,10 @@ const Domain = ({
               )}
             </RightContainer>
           </DomainContainer>
-        )
+        );
       }}
     </QueryAccount>
-  )
-}
+  );
+};
 
-export default Domain
+export default Domain;
