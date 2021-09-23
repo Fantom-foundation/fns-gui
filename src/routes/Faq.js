@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import styled from '@emotion/styled/macro'
-import mq from 'mediaQuery'
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import styled from '@emotion/styled/macro';
+import mq from 'mediaQuery';
 
-import { H2 as DefaultH2, Title } from '../components/Typography/Basic'
-import Anchor from '../components/Icons/Anchor'
-import slugify from 'slugify'
-import ReverseRecordImageSrc from '../assets/reverseRecordImage.png'
+import { H2 as DefaultH2 } from '../components/Typography/Basic';
+import PageTitle from '../components/Layout/PageTitle';
+import SearchDefault from '../components/SearchName/Search';
+import Accordion from '../components/Icons/Accordion';
+import slugify from 'slugify';
+import ReverseRecordImageSrc from '../assets/reverseRecordImage.png';
 
 const H2 = styled(DefaultH2)`
   margin-top: 50px;
@@ -14,74 +16,128 @@ const H2 = styled(DefaultH2)`
   ${mq.medium`
     margin-left: 0;
   `}
-`
+`;
+
+const QuestionContainer = styled('div')`
+  padding: 18px 0;
+  border-bottom: ${p => (p.last ? 'none' : '1px solid #F4F5FB')};
+  position: relative;
+`;
 
 const Question = styled('h3')`
-  font-size: 15px;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #161b24;
   margin-right: 0.5em;
   display: inline;
-`
+`;
 
-const Answer = styled('p')``
+const Answer = styled('p')`
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.5px;
 
-const AnchorContainer = styled(`a`)``
+  color: #161b24;
+  padding-left: 12px;
+  border-left: 3px solid #1969ff;
+`;
+
+const AccordionContainer = styled(`div`)`
+  display: flex;
+  position: absolute;
+  right: 100px;
+  top: 23px;
+  cursor: pointer;
+`;
 
 const ImageContainer = styled('div')`
   margin: 2em;
-`
+`;
 
 const ReverseRecordImage = styled('img')`
   width: 100%;
   ${mq.medium`
     width: 600px;
   `}
-`
+`;
 
-const Section = ({ question, children }) => {
-  let slug
+const Search = styled(SearchDefault)`
+  min-width: 90%;
+  margin: 0;
+  margin-bottom: 40px;
+  ${mq.medium`
+    min-width: 780px;
+  `}
+
+  input {
+    width: 100%;
+    font-size: 16px;
+    background: #ffffff;
+    box-shadow: 0px 22.9412px 91.7647px #f2f1fa;
+    border-radius: 16px;
+  }
+`;
+
+const Section = ({ question, children, last }) => {
+  const [expand, setExpand] = useState(true);
+  let slug;
   if (question) {
     slug = slugify(question, {
       lower: true
-    })
+    });
   }
-  return (
-    <>
-      <Question id={slug}>{question}</Question>
-      <AnchorContainer href={`#${slug}`}>
-        <Anchor />
-      </AnchorContainer>
 
-      <Answer>{children}</Answer>
-    </>
-  )
-}
+  const accordionClickHandler = () => {
+    const newExpand = !expand;
+    setExpand(newExpand);
+  };
+
+  return (
+    <QuestionContainer last={last}>
+      <Question id={slug}>{question}</Question>
+      <AccordionContainer onClick={() => accordionClickHandler()}>
+        <Accordion expand={expand} />
+      </AccordionContainer>
+      {!expand && <Answer>{children}</Answer>}
+    </QuestionContainer>
+  );
+};
 
 function Faq() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   useEffect(() => {
-    document.title = 'ENS Faq'
-  }, [])
+    document.title = 'FNS Faq';
+  }, []);
 
   return (
     <FaqContainer>
-      <Title>FAQ</Title>
+      <PageTitle>FAQ's</PageTitle>
+      <Search />
       <H2>Before You register</H2>
-      <Section question="Is ENS only for storing an Ethereum address?">
+      <Section question="Is FNS only for storing a Fantom address?">
         No, you can store the addresses of many different cryptocurrencies, a
         content hash of a decentralized website, profile information such as an
         avatar and Twitter handle, and more.
       </Section>
 
-      <Section question="Can I use an ENS name to point to my website?">
-        Though ENS can technically store anything, there aren't many third party
-        tools and applications which resolve IP addresses attached to ENS.
+      <Section question="Can I use an FNS name to point to my website?">
+        Though FNS can technically store anything, there aren't many third party
+        tools and applications which resolve IP addresses attached to FNS.
         <br />
         Instead, we suggest hosting your static html/css/images on IPFS and put
-        the hash in your ENS name,s Content record. Then it can be resolved by
-        ENS-aware browsers (e.g. Opera), browser extensions (Metamask), or any
+        the hash in your FNS name,s Content record. Then it can be resolved by
+        FNS-aware browsers (e.g. Opera), browser extensions (Metamask), or any
         browser with ".link" appended to the end (e.g. matoken.eth.link).
         <br />
-        If you want to redirect your ENS name to an existing website, you could
+        If you want to redirect your FNS name to an existing website, you could
         write a html file containing JavasSript logic to redirect your website,
         upload the file into ipfs using services like{' '}
         <a href="https://pinata.cloud/">IPFS Pinata</a>, then set the CID to
@@ -125,10 +181,10 @@ function Faq() {
         relatively expensive.
       </Section>
 
-      <Section question="Can I register names other than .eth?">
+      <Section question="Can I register names other than .eth?" last={true}>
         Yes, if you own DNS domains listed
         <a href="https://app.ens.domains/name/[root]/subdomains"> here </a>, you
-        can use the DNS record as the proof to claim the equivalent ENS names.
+        can use the DNS record as the proof to claim the equivalent FNS names.
         <br />
         Please refer to our{' '}
         <a href="https://docs.ens.domains/dns-registrar-guide">guide</a> for
@@ -152,7 +208,7 @@ function Faq() {
         and you have to start from step 1 again.
       </Section>
 
-      <Section question="My transaction at step 3 failed">
+      <Section question="My transaction at step 3 failed" last={true}>
         This happens occasionally when the USD price changes and you haven,t
         registered with enough ETH. Please try again from step3.
         <br />
@@ -174,15 +230,15 @@ function Faq() {
 
       <Section question="What is a Resolver?">
         A Resolver is a smart contract that holds records. Names are set by
-        default to the Public Resolver managed by the ENS team and has all the
-        standard ENS record types. You can set your Resolver to a custom
+        default to the Public Resolver managed by the FNS team and has all the
+        standard FNS record types. You can set your Resolver to a custom
         resolver contract if you,d like.
       </Section>
 
       <Section question="What is a Reverse Record?">
-        A Reverse Record makes your Ethereum address point to an ENS name
-        (normally ENS names point to addresses, hence "reverse" record). This
-        allows dapps to find and display your ENS name when you connect to them
+        A Reverse Record makes your Ethereum address point to an FNS name
+        (normally FNS names point to addresses, hence "reverse" record). This
+        allows dapps to find and display your FNS name when you connect to them
         with your Ethereum account. This can only be set by you so it is not set
         automatically upon registration.
         <br />
@@ -224,13 +280,16 @@ function Faq() {
       </Section>
 
       <Section question="Why are some of my subdomains shown as a jumble of characters?">
-        ENS names are stored as a hash on-chain so we have to decode the name
+        FNS names are stored as a hash on-chain so we have to decode the name
         using a list of possible names, and it shows in the hashed format if we
         don,t have it on our list. You can still access and manage the name if
         you search for the name directly in the search bar.
       </Section>
 
-      <Section question="How do I find the labelhash/namehash of a name?">
+      <Section
+        question="How do I find the labelhash/namehash of a name?"
+        last={true}
+      >
         Please refer to our{' '}
         <a href="https://docs.ens.domains/contract-api-reference/name-processing#how-do-i-find-the-labelhash-namehash-of-a-name">
           developer documentation page.
@@ -258,7 +317,7 @@ function Faq() {
       </Section>
 
       <Section question="I lost access to the Ethereum account that owns a name I registered. Can I still renew it?">
-        Any Ethereum account can pay to renew any ENS name, though doing so from
+        Any Ethereum account can pay to renew any FNS name, though doing so from
         an account that, s not the owner will not change ownership of the name.
         Just go to the name,s page and click "Renew".
       </Section>
@@ -281,13 +340,11 @@ function Faq() {
         for more detail.
       </Section>
     </FaqContainer>
-  )
+  );
 }
 
 const FaqContainer = styled('div')`
-  margin: 1em;
-  padding: 20px 40px;
-  background-color: white;
-`
+  margin: 0;
+`;
 
-export default Faq
+export default Faq;

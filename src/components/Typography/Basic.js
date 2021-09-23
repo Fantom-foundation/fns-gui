@@ -2,13 +2,14 @@ import styled from '@emotion/styled/macro';
 import mq from 'mediaQuery';
 
 export const H2 = styled('h2')`
-  font-size: 18px;
-  font-weight: 200;
-  color: #adbbcd;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 37px;
+  letter-spacing: -0.5px;
 
-  ${mq.medium`
-    font-size: 22px;
-  `}
+  color: #1969ff;
 `;
 
 export const Title = styled('h2')`

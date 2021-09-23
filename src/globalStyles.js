@@ -1,4 +1,4 @@
-import { injectGlobal } from 'emotion'
+import { injectGlobal } from 'emotion';
 
 injectGlobal`
   * {
@@ -6,7 +6,6 @@ injectGlobal`
   }
   body {
     font-family: Overpass;
-    background: #F0F6FA;
     margin: 0;
   }
 
@@ -23,4 +22,4 @@ injectGlobal`
       color: #5284ff
     } 
   }
-`
+`;
