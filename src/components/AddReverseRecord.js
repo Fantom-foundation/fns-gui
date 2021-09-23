@@ -262,7 +262,7 @@ function AddReverseRecord({ account, currentAddress }) {
             <Explanation>
               <p>
                 <Trans i18nKey="singleName.record.messages.explanation2">
-                  You can only select names you set this Ethereum Address as.
+                  You can only select names you set this Fantom Address as.
                 </Trans>
               </p>
             </Explanation>

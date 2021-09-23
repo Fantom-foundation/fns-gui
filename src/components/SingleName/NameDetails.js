@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { useQuery } from 'react-apollo'
-import { useTranslation, Trans } from 'react-i18next'
-import styled from '@emotion/styled'
-import { Link, Route } from 'react-router-dom'
-import mq from 'mediaQuery'
+import React, { useState } from 'react';
+import { useQuery } from 'react-apollo';
+import { useTranslation, Trans } from 'react-i18next';
+import styled from '@emotion/styled';
+import { Link, Route } from 'react-router-dom';
+import mq from 'mediaQuery';
 
 import {
   SET_OWNER,
@@ -11,32 +11,32 @@ import {
   SET_REGISTRANT,
   RECLAIM,
   RENEW
-} from '../../graphql/mutations'
-import { IS_MIGRATED } from '../../graphql/queries'
+} from '../../graphql/mutations';
+import { IS_MIGRATED } from '../../graphql/queries';
 
-import { formatDate } from '../../utils/dates'
-import { isEmptyAddress } from '../../utils/records'
+import { formatDate } from '../../utils/dates';
+import { isEmptyAddress } from '../../utils/records';
 
-import NameRegister from './NameRegister'
-import SubmitProof from './SubmitProof'
-import Tooltip from '../Tooltip/Tooltip'
-import { HR } from '../Typography/Basic'
-import DefaultButton from '../Forms/Button'
-import SubDomains from './SubDomains'
-import { DetailsItem, DetailsKey, DetailsValue } from './DetailsItem'
-import DetailsItemEditable from './DetailsItemEditable'
-import SetupName from '../SetupName/SetupName'
-import { SingleNameBlockies } from '../Blockies'
-import { ReactComponent as ExternalLinkIcon } from '../Icons/externalLink.svg'
-import DefaultLoader from '../Loader'
-import You from '../Icons/You'
-import dnssecmodes from '../../api/dnssecmodes'
-import { ReactComponent as DefaultOrangeExclamation } from '../Icons/OrangeExclamation.svg'
-import DefaultAddressLink from '../Links/AddressLink'
-import ResolverAndRecords from './ResolverAndRecords'
-import NameClaimTestDomain from './NameClaimTestDomain'
-import RegistryMigration from './RegistryMigration'
-import ReleaseDeed from './ReleaseDeed'
+import NameRegister from './NameRegister';
+import SubmitProof from './SubmitProof';
+import Tooltip from '../Tooltip/Tooltip';
+import { HR } from '../Typography/Basic';
+import DefaultButton from '../Forms/Button';
+import SubDomains from './SubDomains';
+import { DetailsItem, DetailsKey, DetailsValue } from './DetailsItem';
+import DetailsItemEditable from './DetailsItemEditable';
+import SetupName from '../SetupName/SetupName';
+import { SingleNameBlockies } from '../Blockies';
+import { ReactComponent as ExternalLinkIcon } from '../Icons/externalLink.svg';
+import DefaultLoader from '../Loader';
+import You from '../Icons/You';
+import dnssecmodes from '../../api/dnssecmodes';
+import { ReactComponent as DefaultOrangeExclamation } from '../Icons/OrangeExclamation.svg';
+import DefaultAddressLink from '../Links/AddressLink';
+import ResolverAndRecords from './ResolverAndRecords';
+import NameClaimTestDomain from './NameClaimTestDomain';
+import RegistryMigration from './RegistryMigration';
+import ReleaseDeed from './ReleaseDeed';
 
 const Details = styled('section')`
   padding: 20px;
@@ -44,18 +44,18 @@ const Details = styled('section')`
   ${mq.small`
     padding: 40px;
   `}
-`
+`;
 
 const Loader = styled(DefaultLoader)`
   width: 30%;
   margin: auto;
-`
+`;
 
 const Button = styled(DefaultButton)`
   position: absolute;
   width: 130px;
   background-colore: white;
-`
+`;
 
 const ButtonContainer = styled('div')`
   margin-top: 20px;
@@ -69,16 +69,16 @@ const ButtonContainer = styled('div')`
     -ms-transform: translate(0, -65%);
     transform: translate(0, -65%);
   `}
-`
+`;
 
 const ExpirationDetailsValue = styled(DetailsValue)`
   color: ${p => (p.isExpired ? 'red' : null)};
-`
+`;
 
 const AddressLink = styled(DefaultAddressLink)`
   display: flex;
   align-items: center;
-`
+`;
 
 const Explainer = styled('div')`
   background: #f0f6fa;
@@ -92,26 +92,26 @@ const Explainer = styled('div')`
 
   margin-bottom: 45px;
   padding-left 24px;
-`
+`;
 
 const ErrorExplainer = styled(Explainer)`
   background: #fef7e9;
-`
+`;
 
 const OutOfSyncExplainer = styled('div')`
   margin-top: 20px;
   background: #fef7e9;
   display: flex;
-`
+`;
 
 const OutOfSyncExplainerContainer = styled('div')`
   margin-top: 15px;
-`
+`;
 
-const EtherScanLinkContainer = styled('span')`
+const FtmScanLinkContainer = styled('span')`
   display: inline-block;
   transform: translate(25%, 20%);
-`
+`;
 
 const LinkToLearnMore = styled('a')`
   margin-right: ${props => (props.outOfSync ? '' : '')};
@@ -120,53 +120,53 @@ const LinkToLearnMore = styled('a')`
   text-align: center;
   margin-left: auto;
   min-width: 130px;
-`
+`;
 
 const OrangeExclamation = styled(DefaultOrangeExclamation)`
   margin-right: 5px;
   margin-top: 6px;
   width: 20px;
   height: 20px;
-`
+`;
 
 const DNSOwnerError = styled('span')`
   color: #f5a623;
-`
+`;
 
 const OwnerFields = styled('div')`
   background: ${props => (props.outOfSync ? '#fef7e9' : '')};
   padding: ${props => (props.outOfSync ? '1.5em' : '0')};
   margin-bottom: ${props => (props.outOfSync ? '1.5em' : '0')};
-`
+`;
 
 const DomainOwnerAddress = styled(`span`)`
   color: ${props => (props.outOfSync ? '#CACACA' : '')};
-`
+`;
 
 const GracePeriodWarningContainer = styled('div')`
   font-family: 'Overpass';
   background: ${p => (p.isExpired ? '#ff926f' : '#fef7e9')};
   padding: 10px 20px;
   margin: 5px 0px;
-`
+`;
 
 const GracePeriodText = styled('span')`
   color: ${p => (p.isExpired ? 'white' : '#cacaca')};
   margin-left: 0.5em;
-`
+`;
 
 const GracePeriodDate = styled('span')`
   font-weight: bold;
-`
+`;
 
 const Expiration = styled('span')`
   color: ${p => (p.isExpired ? 'white' : '#f5a623')};
   font-weight: bold;
-`
+`;
 
 const GracePeriodWarning = ({ date, expiryTime }) => {
-  let { t } = useTranslation()
-  let isExpired = new Date() > new Date(expiryTime)
+  let { t } = useTranslation();
+  let isExpired = new Date() > new Date(expiryTime);
   return (
     <GracePeriodWarningContainer isExpired={isExpired}>
       <Expiration isExpired={isExpired}>
@@ -179,12 +179,12 @@ const GracePeriodWarning = ({ date, expiryTime }) => {
         <GracePeriodDate>{formatDate(date)}</GracePeriodDate>
       </GracePeriodText>
     </GracePeriodWarningContainer>
-  )
-}
+  );
+};
 
 function canClaim(domain) {
-  if (!domain.name.match(/\.test$/)) return false
-  return parseInt(domain.owner) === 0 || domain.expiryTime < new Date()
+  if (!domain.name.match(/\.test$/)) return false;
+  return parseInt(domain.owner) === 0 || domain.expiryTime < new Date();
 }
 
 function DetailsContainer({
@@ -208,22 +208,22 @@ function DetailsContainer({
   isParentMigratedToNewRegistry,
   loadingIsParentMigrated
 }) {
-  const { t } = useTranslation()
-  const isExpired = domain.expiryTime < new Date()
+  const { t } = useTranslation();
+  const isExpired = domain.expiryTime < new Date();
   const domainOwner =
-    domain.available || domain.owner === '0x0' ? null : domain.owner
+    domain.available || domain.owner === '0x0' ? null : domain.owner;
   const registrant =
-    domain.available || domain.registrant === '0x0' ? null : domain.registrant
+    domain.available || domain.registrant === '0x0' ? null : domain.registrant;
 
   const domainParent =
-    domain.name === '[root]' ? null : domain.parent ? domain.parent : '[root]'
+    domain.name === '[root]' ? null : domain.parent ? domain.parent : '[root]';
 
-  const is2ld = domain.name.split('.').length === 2
+  const is2ld = domain.name.split('.').length === 2;
   const showUnclaimableWarning =
     is2ld &&
     parseInt(domain.owner) === 0 &&
     domain.parent !== 'ftm' &&
-    !domain.isDNSRegistrar
+    !domain.isDNSRegistrar;
 
   return (
     <Details data-testid="name-details">
@@ -262,9 +262,9 @@ function DetailsContainer({
               target="_blank"
             >
               {t('c.learnmore')}{' '}
-              <EtherScanLinkContainer>
+              <FtmScanLinkContainer>
                 <ExternalLinkIcon />
-              </EtherScanLinkContainer>
+              </FtmScanLinkContainer>
             </LinkToLearnMore>
           </DetailsItem>
         </GracePeriodWarningContainer>
@@ -377,17 +377,17 @@ function DetailsContainer({
                     return (
                       <Button
                         onMouseOver={() => {
-                          showTooltip()
+                          showTooltip();
                         }}
                         onMouseLeave={() => {
-                          hideTooltip()
+                          hideTooltip();
                         }}
                         type="disabled"
                       >
                         {t('c.sync')}
                         {tooltipElement}
                       </Button>
-                    )
+                    );
                   }}
                 </Tooltip>
               )}
@@ -438,14 +438,14 @@ function DetailsContainer({
                 ) : (
                   <Button
                     onClick={() => {
-                      setLoading(true)
+                      setLoading(true);
                       refetch()
                         .then(dd => {
-                          setLoading(false)
+                          setLoading(false);
                         })
                         .catch(err => {
-                          console.log('failed to refetch', err)
-                        })
+                          console.log('failed to refetch', err);
+                        });
                     }}
                   >
                     {t('c.refresh')}{' '}
@@ -464,9 +464,9 @@ function DetailsContainer({
                   target="_blank"
                 >
                   {t('c.learnmore')}{' '}
-                  <EtherScanLinkContainer>
+                  <FtmScanLinkContainer>
                     <ExternalLinkIcon />
-                  </EtherScanLinkContainer>
+                  </FtmScanLinkContainer>
                 </LinkToLearnMore>
               </ErrorExplainer>
             ) : outOfSync ? (
@@ -483,9 +483,9 @@ function DetailsContainer({
                     outOfSync={outOfSync}
                   >
                     {t('c.learnmore')}{' '}
-                    <EtherScanLinkContainer>
+                    <FtmScanLinkContainer>
                       <ExternalLinkIcon />
-                    </EtherScanLinkContainer>
+                    </FtmScanLinkContainer>
                   </LinkToLearnMore>
                 </OutOfSyncExplainer>
               </OutOfSyncExplainerContainer>
@@ -499,9 +499,9 @@ function DetailsContainer({
                   target="_blank"
                 >
                   {t('c.learnmore')}{' '}
-                  <EtherScanLinkContainer>
+                  <FtmScanLinkContainer>
                     <ExternalLinkIcon />
-                  </EtherScanLinkContainer>
+                  </FtmScanLinkContainer>
                 </LinkToLearnMore>
               </Explainer>
             )}
@@ -568,7 +568,7 @@ function DetailsContainer({
         <NameClaimTestDomain domain={domain} refetch={refetch} />
       ) : null}
     </Details>
-  )
+  );
 }
 function NameDetails({
   domain,
@@ -580,7 +580,7 @@ function NameDetails({
   tab,
   pathname
 }) {
-  const [loading, setLoading] = useState(undefined)
+  const [loading, setLoading] = useState(undefined);
   const {
     data: { isMigrated } = {},
     loading: loadingIsMigrated,
@@ -589,7 +589,7 @@ function NameDetails({
     variables: {
       name: domain.name
     }
-  })
+  });
 
   const {
     data: { isMigrated: isParentMigrated } = {},
@@ -598,30 +598,32 @@ function NameDetails({
     variables: {
       name: domain.parent
     }
-  })
-  const isLoggedIn = parseInt(account) !== 0
-  const isMigratedToNewRegistry = !loadingIsMigrated && isMigrated
-  const isParentMigratedToNewRegistry = isParentMigrated
+  });
+  const isLoggedIn = parseInt(account) !== 0;
+  const isMigratedToNewRegistry = !loadingIsMigrated && isMigrated;
+  const isParentMigratedToNewRegistry = isParentMigrated;
 
-  const isDeedOwner = domain.deedOwner === account
-  const isRegistrant = !domain.available && domain.registrant === account
-  let dnssecmode, canSubmit
+  const isDeedOwner = domain.deedOwner === account;
+  const isRegistrant = !domain.available && domain.registrant === account;
+  let dnssecmode, canSubmit;
   if ([5, 6].includes(domain.state) && !isMigrated) {
-    dnssecmode = dnssecmodes[7]
+    dnssecmode = dnssecmodes[7];
     canSubmit =
-      isLoggedIn && domain.isDNSRegistrar && dnssecmode.state === 'SUBMIT_PROOF'
+      isLoggedIn &&
+      domain.isDNSRegistrar &&
+      dnssecmode.state === 'SUBMIT_PROOF';
   } else {
-    dnssecmode = dnssecmodes[domain.state]
+    dnssecmode = dnssecmodes[domain.state];
     canSubmit =
       isLoggedIn &&
       domain.isDNSRegistrar &&
       dnssecmode.state === 'SUBMIT_PROOF' && // This is for not allowing the case user does not have record rather than having empty address record.
-      domain.owner.toLowerCase() !== domain.dnsOwner.toLowerCase()
+      domain.owner.toLowerCase() !== domain.dnsOwner.toLowerCase();
   }
-  const showExplainer = !parseInt(domain.resolver)
-  const outOfSync = dnssecmode && dnssecmode.outOfSync
-  const releaseDeed = domain.deedOwner && parseInt(domain.deedOwner, 16) !== 0
-  const isAnAbsolutePath = pathname.split('/').length > 3
+  const showExplainer = !parseInt(domain.resolver);
+  const outOfSync = dnssecmode && dnssecmode.outOfSync;
+  const releaseDeed = domain.deedOwner && parseInt(domain.deedOwner, 16) !== 0;
+  const isAnAbsolutePath = pathname.split('/').length > 3;
 
   if (domain.parent === 'ftm' && tab === 'register' && !isAnAbsolutePath) {
     return (
@@ -632,7 +634,7 @@ function NameDetails({
         refetchIsMigrated={refetchIsMigrated}
         readOnly={isEmptyAddress(account)}
       />
-    )
+    );
   } else if (
     domain.parent === 'ftm' &&
     tab === 'details' &&
@@ -660,7 +662,7 @@ function NameDetails({
         dnssecmode={dnssecmode}
         account={account}
       />
-    )
+    );
   } else if (domain.parent !== 'ftm' && !isAnAbsolutePath) {
     //subdomain or dns
     return (
@@ -685,7 +687,7 @@ function NameDetails({
         dnssecmode={dnssecmode}
         account={account}
       />
-    )
+    );
   }
 
   return (
@@ -713,7 +715,7 @@ function NameDetails({
               dnssecmode={dnssecmode}
               account={account}
             />
-          )
+          );
         }}
       />
 
@@ -747,7 +749,7 @@ function NameDetails({
         )}
       />
     </>
-  )
+  );
 }
 
-export default NameDetails
+export default NameDetails;

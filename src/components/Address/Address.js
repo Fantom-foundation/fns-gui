@@ -20,7 +20,7 @@ import mq from 'mediaQuery';
 import AddressContainer from '../Basic/MainContainer';
 import DefaultTopBar from '../Basic/TopBar';
 import { Title as DefaultTitle } from '../Typography/Basic';
-import DefaultEtherScanLink from '../Links/EtherScanLink';
+import DefaultFtmScanLink from '../Links/FtmScanLink';
 import { getEtherScanAddr, filterNormalised } from '../../utils/utils';
 import { calculateIsExpiredSoon } from '../../utils/dates';
 import DomainList from './DomainList';
@@ -51,7 +51,7 @@ const Title = styled(DefaultTitle)`
   text-overflow: ellipsis;
 `;
 
-const EtherScanLink = styled(DefaultEtherScanLink)`
+const FtmScanLink = styled(DefaultFtmScanLink)`
   min-width: 150px;
   margin-left: auto;
 `;
@@ -304,9 +304,9 @@ export default function Address({
         <TopBar>
           <Title>{address}</Title>
           {etherScanAddr && (
-            <EtherScanLink address={address}>
+            <FtmScanLink address={address}>
               {t('address.etherscanButton')}
-            </EtherScanLink>
+            </FtmScanLink>
           )}
         </TopBar>
         <AddReverseRecord account={account} currentAddress={address} />

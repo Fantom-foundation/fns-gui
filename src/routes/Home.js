@@ -389,7 +389,7 @@ export default ({ match }) => {
     <>
       {delayInMin >= 0 && (
         <Warning>
-          Warning: The data on this stie has only synced to Ethereum block{' '}
+          Warning: The data on this stie has only synced to Fantom block{' '}
           {graphBlockNumber} out of {block?.number}( {delayInMin} min delay)
         </Warning>
       )}

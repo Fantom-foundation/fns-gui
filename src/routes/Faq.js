@@ -200,7 +200,7 @@ function Faq() {
 
       <Section question="I am stuck at step 2">
         At times, the counter waits for up to a minute at the end of step 2 to
-        make sure that the Ethereum blockchain has progressed. If this continues
+        make sure that the Fantom blockchain has progressed. If this continues
         for more than 5 min after moving to step 2, please contact us on
         Discord.
         <br />
@@ -219,7 +219,7 @@ function Faq() {
       <H2>After you register</H2>
 
       <Section question="What is the difference between the Registrant and Controller?">
-        If your Ethereum address is set as the Controller you can change the
+        If your Fantom address is set as the Controller you can change the
         resolver and add/edit records. Some dapps (eg: Fleek, OpenSea) set
         themselves as the Controller so they can update records on your behalf.
         <br />
@@ -236,10 +236,10 @@ function Faq() {
       </Section>
 
       <Section question="What is a Reverse Record?">
-        A Reverse Record makes your Ethereum address point to an FNS name
+        A Reverse Record makes your Fantom address point to an FNS name
         (normally FNS names point to addresses, hence "reverse" record). This
         allows dapps to find and display your FNS name when you connect to them
-        with your Ethereum account. This can only be set by you so it is not set
+        with your Fantom account. This can only be set by you so it is not set
         automatically upon registration.
         <br />
         To set the reverse record, please click "My account", and select
@@ -263,7 +263,7 @@ function Faq() {
 
       <Section question="How do I transfer my name?">
         For a ".eth" name, transfer both the Registrant and the Controller to
-        the new Ethereum account. Since ".eth" names are ERC721 compliant NFTs,
+        the new Fantom account. Since ".eth" names are ERC721 compliant NFTs,
         you can change the Registrant by simply transferring the NFT from any
         NFT compliant wallet/marketplace as well.
         <br />
@@ -271,8 +271,8 @@ function Faq() {
         does not change the controller nor records, so the recipient may need to
         update them once received. If the recipient is not experienced or you
         prefer your address not to be associated to the transferring names, it
-        may be a good idea for you to set the ETH Address record to their
-        Ethereum address, set the controller, then transfer the name.
+        may be a good idea for you to set the ETH Address record to their Fantom
+        address, set the controller, then transfer the name.
         <br />
         For subdomains, there are no registrants unless the subdomain is
         customised to be ERC721 compliant. Simply set the controller to the new
@@ -316,8 +316,8 @@ function Faq() {
         overwrites it.
       </Section>
 
-      <Section question="I lost access to the Ethereum account that owns a name I registered. Can I still renew it?">
-        Any Ethereum account can pay to renew any FNS name, though doing so from
+      <Section question="I lost access to the Fantom account that owns a name I registered. Can I still renew it?">
+        Any Fantom account can pay to renew any FNS name, though doing so from
         an account that, s not the owner will not change ownership of the name.
         Just go to the name,s page and click "Renew".
       </Section>
