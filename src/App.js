@@ -70,6 +70,7 @@ import Home from './routes/Home';
 import SearchResults from './routes/SearchResults';
 import SingleName from './routes/SingleName';
 import Favourites from './routes/Favourites';
+import Dashboard from './routes/Dashboard';
 import Faq from './routes/Faq';
 import Address from './routes/AddressPage';
 import Renew from './routes/Renew';
@@ -140,6 +141,7 @@ const App = ({ initialClient, initialNetworkId }) => {
                       component={Home}
                       layout={HomePageLayout}
                     />
+                    <Route path="/dashboard" component={Dashboard} />
                     <Route path="/test-registrar" component={TestRegistrar} />
                     <Route path="/favourites" component={Favourites} />
                     <Route path="/faq" component={Faq} />
