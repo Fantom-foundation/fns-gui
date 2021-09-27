@@ -7,7 +7,7 @@ const TopBar = styled('div')`
   justify-content: space-between;
   align-items: center;
   background: #ffffff;
-  box-shadow: 0px 22.9412px 91.7647px #f2f1fa;
+  box-shadow: 0px 22.9412px 25.7647px #f2f1fa;
   border-radius: 16px;
 `;
 

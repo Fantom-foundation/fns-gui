@@ -14,7 +14,6 @@ function getButtonStyles({ type }) {
           border: 2px solid #2c46a6;
           background: #2c46a6;
           box-shadow: 0 10px 21px 0 rgba(161, 175, 184, 0.89);
-          border-radius: 23px;
         }
       `;
     case 'hollow':

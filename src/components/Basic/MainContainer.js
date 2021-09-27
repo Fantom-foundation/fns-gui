@@ -3,7 +3,7 @@ import mq from 'mediaQuery';
 
 const MainContainer = styled('div')`
   background: #ffffff;
-  box-shadow: 0px 22.9412px 91.7647px #f2f1fa;
+  box-shadow: 0px 22.9412px 25px #f2f1fa;
   border-radius: 16px;
 
   margin-bottom: 60px;
