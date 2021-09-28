@@ -1,35 +1,35 @@
-import React, { useReducer } from 'react'
-import { useTranslation } from 'react-i18next'
-import styled from '@emotion/styled/macro'
-import { registerMachine, registerReducer } from './registerReducer'
+import React, { useReducer } from 'react';
+import { useTranslation } from 'react-i18next';
+import styled from '@emotion/styled/macro';
+import { registerMachine, registerReducer } from './registerReducer';
 
-import Explainer from './Explainer'
-import CTA from './CTA'
-import { SingleNameBlockies } from '../../Blockies'
-import DefaultEtherScanLink from '../../Links/EtherScanLink'
+import Explainer from './Explainer';
+import CTA from './CTA';
+import { SingleNameBlockies } from '../../Blockies';
+import DefaultFtmScanLink from '../../Links/FtmScanLink';
 
-import dnssecmodes from '../../../api/dnssecmodes'
-import You from '../../Icons/You'
+import dnssecmodes from '../../../api/dnssecmodes';
+import You from '../../Icons/You';
 
-const EtherScanLink = styled(DefaultEtherScanLink)`
+const FtmScanLink = styled(DefaultFtmScanLink)`
   display: flex;
   overflow: hidden;
   svg {
     flex-grow: 1;
   }
-`
+`;
 
 const NameRegisterContainer = styled('div')`
   padding: 20px 40px;
-`
+`;
 
 const Title = styled('span')`
   color: ${p => p.color};
-`
+`;
 
 const Address = styled('span')`
   color: #d8d8d8;
-`
+`;
 
 const DNSOwnerContainer = styled('div')`
   background: #f0f6fa;
@@ -38,7 +38,7 @@ const DNSOwnerContainer = styled('div')`
   *{
     padding-left 24px;
   }
-`
+`;
 
 const BreadcrumbsCaontainer = styled('ul')`
   background: #f0f6fa;
@@ -65,23 +65,23 @@ const BreadcrumbsCaontainer = styled('ul')`
   li:last-child {
     border-right: none;
   }
-`
+`;
 const NumberContainer = styled('span')`
   margin-right: 0.5em;
-`
+`;
 
 const Number = ({ number, currentNumber, text }) => {
-  const green = '#42E068'
-  const grey = '#D8D8D8'
-  const black = '#2B2B2B'
-  const displayNumber = number < currentNumber ? '✓' : number
-  let color
+  const green = '#42E068';
+  const grey = '#D8D8D8';
+  const black = '#2B2B2B';
+  const displayNumber = number < currentNumber ? '✓' : number;
+  let color;
   if (number === currentNumber) {
-    color = black
+    color = black;
   } else if (number < currentNumber) {
-    color = green
+    color = green;
   } else {
-    color = grey
+    color = grey;
   }
 
   return (
@@ -116,8 +116,8 @@ const Number = ({ number, currentNumber, text }) => {
       </NumberContainer>
       <Title color={color}>{text}</Title>
     </>
-  )
-}
+  );
+};
 
 const getContent = (step, account, dnsOwner, t) => {
   let content = {
@@ -175,13 +175,15 @@ const getContent = (step, account, dnsOwner, t) => {
         number: 4
       }
     ]
-  }[step]
+  }[step];
   if (content.length >= 0) {
     content =
-      dnsOwner.toLowerCase() === account.toLowerCase() ? content[0] : content[1]
+      dnsOwner.toLowerCase() === account.toLowerCase()
+        ? content[0]
+        : content[1];
   }
-  return content
-}
+  return content;
+};
 
 const NameRegister = ({
   account,
@@ -190,20 +192,20 @@ const NameRegister = ({
   readOnly,
   registrarAddress
 }) => {
-  const { t } = useTranslation()
-  const dnssecmode = dnssecmodes[domain.state]
+  const { t } = useTranslation();
+  const dnssecmode = dnssecmodes[domain.state];
   let [step, dispatch] = useReducer(
     registerReducer,
     dnssecmode.state || registerMachine.initialState
-  )
-  const incrementStep = () => dispatch('NEXT')
-  const content = getContent(step, account, domain.dnsOwner, t)
+  );
+  const incrementStep = () => dispatch('NEXT');
+  const content = getContent(step, account, domain.dnsOwner, t);
   const errorMessage =
-    dnssecmode.displayError && (domain.stateError || dnssecmode.title)
+    dnssecmode.displayError && (domain.stateError || dnssecmode.title);
   const showDNSOwner =
     domain.dnsOwner &&
     [2, 3, 4].includes(content.number) &&
-    parseInt(domain.dnsOwner) !== 0
+    parseInt(domain.dnsOwner) !== 0;
   return (
     <NameRegisterContainer>
       <BreadcrumbsCaontainer>
@@ -248,10 +250,10 @@ const NameRegister = ({
           <span>
             {t('dns.dnsowner')} {content.owner ? <You /> : null}
           </span>
-          <EtherScanLink address={domain.dnsOwner}>
+          <FtmScanLink address={domain.dnsOwner}>
             <SingleNameBlockies address={domain.dnsOwner} imageSize={24} />
             {domain.dnsOwner}
-          </EtherScanLink>
+          </FtmScanLink>
         </DNSOwnerContainer>
       ) : null}
       <CTA
@@ -266,11 +268,11 @@ const NameRegister = ({
         readOnly={readOnly}
       />
     </NameRegisterContainer>
-  )
-}
+  );
+};
 
 const NameRegisterDataWrapper = props => {
-  return <NameRegister {...props} />
-}
+  return <NameRegister {...props} />;
+};
 
-export default NameRegisterDataWrapper
+export default NameRegisterDataWrapper;

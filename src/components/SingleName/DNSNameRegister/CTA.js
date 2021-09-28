@@ -1,34 +1,34 @@
-import React, { useState } from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
-import { Mutation } from 'react-apollo'
-import { SUBMIT_PROOF } from '../../../graphql/mutations'
+import React, { useState } from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
+import { Mutation } from 'react-apollo';
+import { SUBMIT_PROOF } from '../../../graphql/mutations';
 
-import PendingTx from '../../PendingTx'
-import Button from '../../Forms/Button'
-import { ReactComponent as DefaultPencil } from '../../Icons/SmallPencil.svg'
-import { ReactComponent as ExternalLinkIcon } from '../../Icons/externalLink.svg'
-import DefaultLoader from '../../Loader'
+import PendingTx from '../../PendingTx';
+import Button from '../../Forms/Button';
+import { ReactComponent as DefaultPencil } from '../../Icons/SmallPencil.svg';
+import { ReactComponent as ExternalLinkIcon } from '../../Icons/externalLink.svg';
+import DefaultLoader from '../../Loader';
 
 const LoaderContainer = styled('div')`
   width: 60px;
-`
+`;
 const Loader = styled(DefaultLoader)`
   width: 30%;
   margin: auto;
-`
+`;
 
-const EtherScanLinkContainer = styled('span')`
+const FtmScanLinkContainer = styled('span')`
   display: inline-block;
   transform: translate(25%, 20%);
-`
+`;
 
 const CTAContainer = styled('div')`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding-top: 20px;
-`
+`;
 
 const LinkToLearnMore = styled('a')`
   margin-right: 1em;
@@ -36,11 +36,11 @@ const LinkToLearnMore = styled('a')`
   letter-spacing: 0.58px;
   text-align: center;
   margin-left: auto;
-`
+`;
 
 const Pencil = styled(DefaultPencil)`
   margin-right: 5px;
-`
+`;
 
 const Exclamation = () => (
   <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
@@ -50,13 +50,13 @@ const Exclamation = () => (
       fillRule="evenodd"
     />
   </svg>
-)
+);
 
 const Error = styled('span')`
   margin-left: 0.2em;
   font-size: 14px;
   color: #f5a623;
-`
+`;
 
 function CallToAction({
   step,
@@ -70,7 +70,7 @@ function CallToAction({
   setLoading,
   readOnly
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const RefreshButton = number => {
     return loading ? (
       <Button>
@@ -81,19 +81,19 @@ function CallToAction({
     ) : (
       <Button
         onClick={() => {
-          setLoading(true)
+          setLoading(true);
           refetch().then(data => {
-            setLoading(false)
+            setLoading(false);
             if (data.data.singleName.state > number) {
-              incrementStep()
+              incrementStep();
             }
-          })
+          });
         }}
       >
         {t('c.refresh')}
       </Button>
-    )
-  }
+    );
+  };
 
   const CTAs = {
     ENABLE_DNSSEC: <RefreshButton number={2} />,
@@ -102,14 +102,14 @@ function CallToAction({
       <Mutation
         mutation={SUBMIT_PROOF}
         onCompleted={data => {
-          setTxHash(Object.values(data)[0])
-          incrementStep()
+          setTxHash(Object.values(data)[0]);
+          incrementStep();
         }}
       >
         {mutate => (
           <Button
             onClick={() => {
-              mutate({ variables: { name, parentOwner } })
+              mutate({ variables: { name, parentOwner } });
             }}
             type={readOnly ? 'disabled' : 'primary'}
           >
@@ -122,7 +122,7 @@ function CallToAction({
       <PendingTx
         txHash={txHash}
         onConfirmed={() => {
-          incrementStep()
+          incrementStep();
         }}
       />
     ),
@@ -132,8 +132,8 @@ function CallToAction({
         {t('dns.viewinmanager')}
       </Button>
     )
-  }
-  return CTAs[step]
+  };
+  return CTAs[step];
 }
 
 const CTA = ({
@@ -145,9 +145,9 @@ const CTA = ({
   error,
   readOnly
 }) => {
-  const { t } = useTranslation()
-  const [txHash, setTxHash] = useState(undefined)
-  const [loading, setLoading] = useState(undefined)
+  const { t } = useTranslation();
+  const [txHash, setTxHash] = useState(undefined);
+  const [loading, setLoading] = useState(undefined);
 
   return (
     <CTAContainer>
@@ -162,9 +162,9 @@ const CTA = ({
         target="_blank"
       >
         {t('c.learnmore')}
-        <EtherScanLinkContainer>
+        <FtmScanLinkContainer>
           <ExternalLinkIcon />
-        </EtherScanLinkContainer>
+        </FtmScanLinkContainer>
       </LinkToLearnMore>
       <CallToAction
         step={step}
@@ -179,7 +179,7 @@ const CTA = ({
         readOnly={readOnly}
       />
     </CTAContainer>
-  )
-}
+  );
+};
 
-export default CTA
+export default CTA;

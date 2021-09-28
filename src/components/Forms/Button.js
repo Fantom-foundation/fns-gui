@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { Link } from 'react-router-dom';
 
 function getButtonStyles({ type }) {
   switch (type) {
@@ -14,12 +14,10 @@ function getButtonStyles({ type }) {
           border: 2px solid #2c46a6;
           background: #2c46a6;
           box-shadow: 0 10px 21px 0 rgba(161, 175, 184, 0.89);
-          border-radius: 23px;
         }
-      `
+      `;
     case 'hollow':
       return `
-        background: transparent;
         color: #DFDFDF;
         border: 2px solid #DFDFDF;
         &:hover {
@@ -28,7 +26,7 @@ function getButtonStyles({ type }) {
           background: #2c46a6;
           box-shadow: 0 10px 21px 0 rgba(161, 175, 184, 0.89);
         }
-      `
+      `;
     case 'hollow-white':
       return `
         background: transparent;
@@ -44,7 +42,7 @@ function getButtonStyles({ type }) {
           background: #2c46a6;
           box-shadow: 0 10px 21px 0 rgba(161, 175, 184, 0.89);
         }
-      `
+      `;
     case 'hollow-primary':
       return `
         color: #5384FE;
@@ -58,7 +56,7 @@ function getButtonStyles({ type }) {
           border: 2px solid #2C46A6;
           color: #2C46A6;
         }
-      `
+      `;
     case 'hollow-primary-disabled':
       return `
         color: #dfdfdf;
@@ -71,7 +69,7 @@ function getButtonStyles({ type }) {
           color: #dfdfdf;
           cursor: default
         }
-      `
+      `;
     case 'disabled':
       return `
         border: 2px solid #dfdfdf;
@@ -80,18 +78,18 @@ function getButtonStyles({ type }) {
           cursor: default
         }
         
-      `
+      `;
     default:
-      return ''
+      return '';
   }
 }
 
 function getButtonDefaultStyles(p) {
   return `
     color: white;
-    background: #5384FE;
+    background: #1969FF;
     padding: 10px 25px;
-    border-radius: 25px;
+    border-radius: 16px;
     font-size: 14px;
     font-weight: 700;
     font-family: Overpass;
@@ -101,22 +99,26 @@ function getButtonDefaultStyles(p) {
     border: 2px solid #5384FE;
     text-align: center;
 
+    &:disabled {
+      background: #B1BBCE;
+    }
+
     &:focus {
       outline: 0;
     }
-  `
+  `;
 }
 
 const ButtonContainer = styled('button')`
   ${p => getButtonDefaultStyles(p)};
   ${p => getButtonStyles(p)};
-`
+`;
 
 const ExternalButtonLinkContainer = styled('a')`
   text-decoration: none;
   ${p => getButtonDefaultStyles(p)};
   ${p => getButtonStyles(p)};
-`
+`;
 
 const ButtonLinkContainer = styled(Link)`
   color: white;
@@ -128,10 +130,10 @@ const ButtonLinkContainer = styled(Link)`
   }
   ${p => getButtonDefaultStyles(p)};
   ${p => getButtonStyles(p)};
-`
+`;
 
 const Button = props => {
-  const { className, children, type = 'primary', onClick } = props
+  const { className, children, type = 'primary', onClick } = props;
   return (
     <ButtonContainer
       className={className}
@@ -141,20 +143,20 @@ const Button = props => {
     >
       {children}
     </ButtonContainer>
-  )
-}
+  );
+};
 
 export const ButtonLink = props => {
-  const { className, children, type = 'primary', to = '' } = props
+  const { className, children, type = 'primary', to = '' } = props;
   return (
     <ButtonLinkContainer className={className} to={to} type={type} {...props}>
       {children}
     </ButtonLinkContainer>
-  )
-}
+  );
+};
 
 export const ExternalButtonLink = props => {
-  const { className, children, type = 'primary', href } = props
+  const { className, children, type = 'primary', href } = props;
   return (
     <ExternalButtonLinkContainer
       className={className}
@@ -164,9 +166,9 @@ export const ExternalButtonLink = props => {
     >
       {children}
     </ExternalButtonLinkContainer>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;
 
-export { getButtonDefaultStyles, getButtonStyles }
+export { getButtonDefaultStyles, getButtonStyles };

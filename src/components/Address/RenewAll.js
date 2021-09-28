@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
-import { useMutation, useQuery } from 'react-apollo'
-import { motion, AnimatePresence } from 'framer-motion'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
-import EthVal from 'ethval'
-import mq from 'mediaQuery'
+import React, { useState } from 'react';
+import { useMutation, useQuery } from 'react-apollo';
+import { motion, AnimatePresence } from 'framer-motion';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
+import EthVal from 'ethval';
+import mq from 'mediaQuery';
 
-import { RENEW_DOMAINS } from '../../graphql/mutations'
-import { GET_RENT_PRICES } from 'graphql/queries'
-import { calculateDuration } from 'utils/dates'
-import { useEthPrice, useEditable } from '../hooks'
-import { trackReferral } from '../../utils/analytics'
-import { refetchTilUpdated } from '../../utils/graphql'
+import { RENEW_DOMAINS } from '../../graphql/mutations';
+import { GET_RENT_PRICES } from 'graphql/queries';
+import { calculateDuration } from 'utils/dates';
+import { useEthPrice, useEditable } from '../hooks';
+import { trackReferral } from '../../utils/analytics';
+import { refetchTilUpdated } from '../../utils/graphql';
 
-import PendingTx from '../PendingTx'
-import DefaultButton from '../Forms/Button'
-import SaveCancel from '../SingleName/SaveCancel'
-import { PricerAll as PriceAllDefault } from '../SingleName/Pricer'
-import ExpiryNotifyDropdown from '../ExpiryNotification/ExpiryNotifyDropdown'
+import PendingTx from '../PendingTx';
+import DefaultButton from '../Forms/Button';
+import SaveCancel from '../SingleName/SaveCancel';
+import { PricerAll as PriceAllDefault } from '../SingleName/Pricer';
+import ExpiryNotifyDropdown from '../ExpiryNotification/ExpiryNotifyDropdown';
 
 const ActionsContainer = styled('div')`
   align-items: start;
@@ -38,18 +38,18 @@ const ActionsContainer = styled('div')`
   ${mq.large`
     justify-content: flex-end;
   `}
-`
+`;
 
 const RenewContainer = styled('div')`
   grid-area: renew;
   display: flex;
   flex-direction: column;
-`
+`;
 
 const RenewSelected = styled(DefaultButton)`
   margin-right: 20px;
   align-self: flex-start;
-`
+`;
 
 const RenewPricer = styled(motion.div)`
   background: #f0f6fa;
@@ -58,22 +58,22 @@ const RenewPricer = styled(motion.div)`
   margin-left: 0;
   display: flex;
   flex-direction: column;
-`
+`;
 
 const Buttons = styled('div')`
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-`
+`;
 
-const StyledPricer = styled(PriceAllDefault)``
+const StyledPricer = styled(PriceAllDefault)``;
 
-const PricerAll = motion.custom(StyledPricer)
+const PricerAll = motion.custom(StyledPricer);
 
 const ConfirmationList = styled('div')`
   max-height: 500px;
   overflow-y: scroll;
-`
+`;
 
 const WarningMessage = styled('span')`
   color: #f6412d;
@@ -82,10 +82,10 @@ const WarningMessage = styled('span')`
   ${mq.small`
     margin-bottom: 0em;
   `}
-`
+`;
 
 function isValid(selectedNames) {
-  return selectedNames.length > 0
+  return selectedNames.length > 0;
 }
 
 export default function Renew({
@@ -101,16 +101,16 @@ export default function Renew({
   getterString,
   checkedOtherOwner
 }) {
-  let { t } = useTranslation()
-  const { state, actions } = useEditable()
-  const { editing, txHash, pending, confirmed } = state
+  let { t } = useTranslation();
+  const { state, actions } = useEditable();
+  const { editing, txHash, pending, confirmed } = state;
 
-  const { startEditing, stopEditing, startPending, setConfirmed } = actions
+  const { startEditing, stopEditing, startPending, setConfirmed } = actions;
 
-  const [years, setYears] = useState(1)
-  const { price: ethUsdPrice, loading: ethUsdPriceLoading } = useEthPrice()
-  const duration = calculateDuration(years)
-  let labelsToRenew = selectedNames.map(name => name.split('.')[0])
+  const [years, setYears] = useState(1);
+  const { price: ethUsdPrice, loading: ethUsdPriceLoading } = useEthPrice();
+  const duration = calculateDuration(years);
+  let labelsToRenew = selectedNames.map(name => name.split('.')[0]);
 
   const { data: { getRentPrices } = {}, loading: loadingRentPrices } = useQuery(
     GET_RENT_PRICES,
@@ -120,12 +120,12 @@ export default function Renew({
         duration
       }
     }
-  )
+  );
 
   const [mutation] = useMutation(RENEW_DOMAINS, {
     onCompleted: res => {
-      const txHash = Object.values(res)[0]
-      startPending(txHash)
+      const txHash = Object.values(res)[0];
+      startPending(txHash);
       if (getRentPrices && txHash && ethUsdPrice) {
         trackReferral({
           labels: labelsToRenew, // labels array
@@ -136,10 +136,10 @@ export default function Renew({
             .mul(ethUsdPrice)
             .toFixed(2), // in wei
           years
-        })
+        });
       }
     }
-  })
+  });
 
   return (
     <>
@@ -149,7 +149,7 @@ export default function Renew({
             <PendingTx
               txHash={txHash}
               onConfirmed={() => {
-                setConfirmed()
+                setConfirmed();
                 refetchTilUpdated(
                   refetch,
                   300,
@@ -157,9 +157,9 @@ export default function Renew({
                   selectedNames[0],
                   data,
                   getterString
-                )
-                setCheckedBoxes({})
-                setSelectAll(false)
+                );
+                setCheckedBoxes({});
+                setSelectAll(false);
               }}
             />
           ) : (
@@ -171,7 +171,7 @@ export default function Renew({
               )}
               <RenewSelected
                 onClick={() => {
-                  if (labelsToRenew.length > 0) startEditing()
+                  if (labelsToRenew.length > 0) startEditing();
                 }}
                 type={labelsToRenew.length > 0 ? 'primary' : 'disabled'}
               >
@@ -215,11 +215,11 @@ export default function Renew({
                     let variables = {
                       labels: labelsToRenew,
                       duration
-                    }
+                    };
 
                     mutation({
                       variables
-                    })
+                    });
                   }}
                   mutationButton={t('address.renew.confirmButton')}
                   confirm={true}
@@ -244,5 +244,5 @@ export default function Renew({
         )}
       </RenewContainer>
     </>
-  )
+  );
 }

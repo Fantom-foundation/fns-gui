@@ -1,20 +1,12 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import styled from '@emotion/styled/macro';
 
 const NoAccountsContainer = styled('div')`
   box-shadow: ${({ active }) =>
-    active ? '0 -10px 30px 0 rgba(108, 143, 167, 0.05)' : 'none'};
-  padding: 5px 20px;
-  border-bottom: 1px solid
-    ${({ active, colour }) => (active ? '#F5A623' : colour)};
-  border-top: ${({ active, colour }) =>
-    `1px solid ${active ? '#fff' : colour}`};
-  border-left: ${({ active, colour }) =>
-    `1px solid ${active ? '#fff' : colour}`};
-  border-right: ${({ active, colour }) =>
-    `1px solid ${active ? '#fff' : colour}`};
-  border-radius: ${({ active }) => (active ? '6px 6px 0 0' : '6px')};
-  background: ${({ active }) => (active ? 'white' : 'transparent')};
+    active ? '0px 22.9412px 91.7647px #ECECF5' : 'none'};
+  padding: 17px 40px;
+  border-radius: 16px;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,17 +15,26 @@ const NoAccountsContainer = styled('div')`
   transition: 0.2s;
 
   span {
-    color: ${({ active, colour }) => (active ? '#F5A623' : colour)};
+    color: ${({ textColour }) => textColour};
+    font-family: SF Pro Text;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+
+    /* identical to box height */
+    text-align: center;
+    letter-spacing: -0.5px;
   }
 
   &:hover {
     cursor: ${({ onClick }) => (onClick ? 'pointer' : 'auto')};
   }
-`
+`;
 
 const SVG = styled('svg')`
   margin-right: 10px;
-`
+`;
 
 const NoAccounts = ({
   className,
@@ -52,6 +53,6 @@ const NoAccounts = ({
   >
     <span>{buttonText}</span>
   </NoAccountsContainer>
-)
+);
 
-export default NoAccounts
+export default NoAccounts;

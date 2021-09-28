@@ -1,90 +1,112 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
 
-import { useMediaMin } from 'mediaQuery'
-import { EMPTY_ADDRESS, isEmptyAddress } from '../../utils/records'
-import { Title } from '../Typography/Basic'
-import TopBar from '../Basic/TopBar'
-import DefaultFavourite from '../AddFavourite/Favourite'
-import NameDetails from './NameDetails'
-import DNSNameRegister from './DNSNameRegister'
-import ShortName from './ShortName'
-import Tabs from './Tabs'
-import { useAccount } from '../QueryAccount'
-import NameContainer from '../Basic/MainContainer'
-import Copy from '../CopyToClipboard/'
+import { useMediaMin } from 'mediaQuery';
+import mq from 'mediaQuery';
+import { EMPTY_ADDRESS, isEmptyAddress } from '../../utils/records';
+import { Title } from '../Typography/Basic';
+import TopBar from '../Basic/TopBar';
+import DefaultFavourite from '../AddFavourite/Favourite';
+import NameDetails from './NameDetails';
+import DNSNameRegister from './DNSNameRegister';
+import ShortName from './ShortName';
+import Tabs from './Tabs';
+import { useAccount } from '../QueryAccount';
+import NameContainer from '../Basic/MainContainer';
+import Copy from '../CopyToClipboard/';
+import PageTitle from '../Layout/PageTitle';
+import SearchDefault from '../SearchName/Search';
 
 const Owner = styled('div')`
   color: #ccd4da;
   margin-right: 20px;
-`
+`;
 
 const RightBar = styled('div')`
   display: flex;
   align-items: center;
-`
+`;
 
-const Favourite = styled(DefaultFavourite)``
+const Search = styled(SearchDefault)`
+  min-width: 90%;
+  margin: 0;
+  margin-bottom: 40px;
+  ${mq.medium`
+    min-width: 780px;
+  `}
+
+  input {
+    width: 100%;
+    font-size: 16px;
+    background: #ffffff;
+    box-shadow: 0px 22.9412px 25px #f2f1fa;
+    border-radius: 16px;
+  }
+`;
+
+const Favourite = styled(DefaultFavourite)``;
 
 function isRegistrationOpen(available, parent, isDeedOwner) {
-  return parent === 'ftm' && !isDeedOwner && available
+  return parent === 'ftm' && !isDeedOwner && available;
 }
 
 function isDNSRegistrationOpen(domain) {
-  const nameArray = domain.name.split('.')
+  const nameArray = domain.name.split('.');
   if (nameArray.length !== 2 || nameArray[1] === 'ftm') {
-    return false
+    return false;
   }
-  return domain.isDNSRegistrar && domain.owner === EMPTY_ADDRESS
+  return domain.isDNSRegistrar && domain.owner === EMPTY_ADDRESS;
 }
 
 function isOwnerOfDomain(domain, account) {
   if (domain.owner !== EMPTY_ADDRESS && !domain.available) {
-    return domain.owner.toLowerCase() === account.toLowerCase()
+    return domain.owner.toLowerCase() === account.toLowerCase();
   }
-  return false
+  return false;
 }
 
 function isOwnerOfParentDomain(domain, account) {
   if (domain.parentOwner !== EMPTY_ADDRESS) {
-    return domain.parentOwner.toLowerCase() === account.toLowerCase()
+    return domain.parentOwner.toLowerCase() === account.toLowerCase();
   }
-  return false
+  return false;
 }
 
 function Name({ details: domain, name, pathname, type, refetch }) {
-  const { t } = useTranslation()
-  const smallBP = useMediaMin('small')
-  const percentDone = 0
-  const account = useAccount()
-  const isOwner = isOwnerOfDomain(domain, account)
-  const isOwnerOfParent = isOwnerOfParentDomain(domain, account)
-  const isDeedOwner = domain.deedOwner === account
-  const isRegistrant = !domain.available && domain.registrant === account
+  const { t } = useTranslation();
+  const smallBP = useMediaMin('small');
+  const percentDone = 0;
+  const account = useAccount();
+  const isOwner = isOwnerOfDomain(domain, account);
+  const isOwnerOfParent = isOwnerOfParentDomain(domain, account);
+  const isDeedOwner = domain.deedOwner === account;
+  const isRegistrant = !domain.available && domain.registrant === account;
   const registrationOpen = isRegistrationOpen(
     domain.available,
     domain.parent,
     isDeedOwner
-  )
-  const preferredTab = registrationOpen ? 'register' : 'details'
+  );
+  const preferredTab = registrationOpen ? 'register' : 'details';
 
   let ownerType,
-    registrarAddress = domain.parentOwner
+    registrarAddress = domain.parentOwner;
   if (isDeedOwner || isRegistrant) {
-    ownerType = 'Registrant'
+    ownerType = 'Registrant';
   } else if (isOwner) {
-    ownerType = 'Controller'
+    ownerType = 'Controller';
   }
-  let containerState
+  let containerState;
   if (isDNSRegistrationOpen(domain)) {
-    containerState = 'Open'
+    containerState = 'Open';
   } else {
-    containerState = isOwner ? 'Yours' : domain.state
+    containerState = isOwner ? 'Yours' : domain.state;
   }
   return (
     <>
       <NameContainer state={containerState}>
+        <PageTitle>{t('dashboard.dashboardTitle')}</PageTitle>
+        <Search />
         <TopBar percentDone={percentDone}>
           <Title>
             {domain.decrypted
@@ -159,7 +181,7 @@ function Name({ details: domain, name, pathname, type, refetch }) {
         )}
       </NameContainer>
     </>
-  )
+  );
 }
 
-export default Name
+export default Name;

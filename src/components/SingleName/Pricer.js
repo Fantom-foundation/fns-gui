@@ -1,12 +1,12 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import Years from './NameRegister/Years'
-import Price from './NameRegister/Price'
-import EthRegistrationGasPrice from './NameRegister/EthRegistrationGasPrice'
-import { ReactComponent as DefaultOrangeExclamation } from '../Icons/OrangeExclamation.svg'
-import mq from 'mediaQuery'
-import { ReactComponent as ChainDefault } from '../Icons/chain.svg'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import Years from './NameRegister/Years';
+import Price from './NameRegister/Price';
+import EthRegistrationGasPrice from './NameRegister/EthRegistrationGasPrice';
+import { ReactComponent as DefaultOrangeExclamation } from '../Icons/OrangeExclamation.svg';
+import mq from 'mediaQuery';
+import { ReactComponent as ChainDefault } from '../Icons/chain.svg';
+import { useTranslation } from 'react-i18next';
 
 const PricingContainer = styled('div')`
   display: grid;
@@ -17,7 +17,7 @@ const PricingContainer = styled('div')`
       minmax(min-content, 200px) minmax(min-content, min-content)
       minmax(200px, 1fr);
   `}
-`
+`;
 const Chain = styled(ChainDefault)`
   display: none;
 
@@ -27,17 +27,17 @@ const Chain = styled(ChainDefault)`
     margin-left: 20px;
     margin-right: 20px;
   `}
-`
+`;
 
 const OrangeExclamation = styled(DefaultOrangeExclamation)`
   height: 12px;
   width: 12px;
-`
+`;
 
 const Prompt = styled('div')`
   color: #ffa600;
   margin-bottom: 10px;
-`
+`;
 
 function PricerInner({
   years,
@@ -54,7 +54,7 @@ function PricerInner({
   underPremium,
   displayGas = false
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       {years <= 1 && (
@@ -90,15 +90,15 @@ function PricerInner({
         </div>
       )}
     </>
-  )
+  );
 }
 
 export const PricerAll = React.forwardRef((props, reference) => {
-  return <PricerInner reference={reference} {...props} />
-})
+  return <PricerInner reference={reference} {...props} />;
+});
 
 const Pricer = React.forwardRef((props, reference) => {
-  return <PricerInner reference={reference} {...props} />
-})
+  return <PricerInner reference={reference} {...props} />;
+});
 
-export default Pricer
+export default Pricer;
