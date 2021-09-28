@@ -18,7 +18,7 @@ const endpoints = {
   '3': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensropsten',
   '4': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensrinkeby',
   '5': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli',
-  '6': 'http://localhost:8000/subgraphs/name/graphprotocol/ens'
+  '6': 'http://127.0.0.1:8000/subgraphs/name/graphprotocol/ens'
 };
 
 function getGraphQLAPI(network) {
