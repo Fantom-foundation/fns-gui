@@ -148,7 +148,6 @@ function AddReverseRecord({ account, currentAddress }) {
       }
     }
   );
-
   const [setName, { data }] = useMutation(SET_NAME, {
     onCompleted: data => {
       startPending(Object.values(data)[0]);

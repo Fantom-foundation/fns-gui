@@ -84,7 +84,7 @@ const resolvers = {
     publicResolver: async () => {
       try {
         const ens = getENS();
-        const resolver = await ens.getAddress('resolver');
+        const resolver = await ens.getAddress('resolver.ftm');
         return {
           address: resolver,
           __typename: 'Resolver'

@@ -505,7 +505,7 @@ const resolvers = {
       }
 
       async function calculateIsPublicResolverReady() {
-        const publicResolver = await ens.getAddress('resolver');
+        const publicResolver = await ens.getAddress('resolver.ftm');
         return !OLD_RESOLVERS.map(a => a.toLowerCase()).includes(
           publicResolver
         );
@@ -921,7 +921,7 @@ const resolvers = {
 
       // get public resolver
       try {
-        const publicResolver = await ens.getAddress('resolver');
+        const publicResolver = await ens.getAddress('resolver.ftm');
         const resolver = await ens.getResolver(name);
         const isOldContentResolver = calculateIsOldContentResolver(resolver);
 
