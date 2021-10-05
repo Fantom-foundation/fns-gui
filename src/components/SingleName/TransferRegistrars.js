@@ -1,17 +1,17 @@
-import React from 'react'
-import { Mutation } from 'react-apollo'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import { Mutation } from 'react-apollo';
+import styled from '@emotion/styled/macro';
 
-import { useEditable } from '../hooks'
-import mq from 'mediaQuery'
-import { TRANSFER_REGISTRARS } from '../../graphql/mutations'
+import { useEditable } from '../hooks';
+import mq from 'mediaQuery';
+import { TRANSFER_REGISTRARS } from '../../graphql/mutations';
 
-import { DetailsItem } from './DetailsItem'
-import Button from '../Forms/Button'
-import PendingTx from '../PendingTx'
-import { formatDate } from '../../utils/dates'
-import { ReactComponent as DefaultMigrationIcon } from 'components/Icons/Migration.svg'
-import ReleaseDeed from './ReleaseDeed'
+import { DetailsItem } from './DetailsItem';
+import Button from '../Forms/Button';
+import PendingTx from '../PendingTx';
+import { formatDate } from '../../utils/dates';
+import { ReactComponent as DefaultMigrationIcon } from 'components/Icons/Migration.svg';
+import ReleaseDeed from './ReleaseDeed';
 
 const CloseLink = styled('a')`
   position: relative;
@@ -19,7 +19,7 @@ const CloseLink = styled('a')`
   ${mq.small`
     top:-46px;
   `}
-`
+`;
 
 const MigrationInstruction = styled('h3')`
   margin: 0;
@@ -31,7 +31,7 @@ const MigrationInstruction = styled('h3')`
   ${mq.small`
       font-size: 20px;
   `}
-`
+`;
 
 const MigrationExplanation = styled('p')`
   font-weight: 300;
@@ -45,11 +45,11 @@ const MigrationExplanation = styled('p')`
     font-weight: 700;
     text-decoration: underline;
   }
-`
+`;
 
 const TransferButton = styled(Button)`
   width: 130px;
-`
+`;
 
 const MigrationIcon = styled(DefaultMigrationIcon)`
   position: absolute;
@@ -59,7 +59,7 @@ const MigrationIcon = styled(DefaultMigrationIcon)`
   ${mq.small`
     left: 30px;
   `}
-`
+`;
 
 const TransferDetail = styled(DetailsItem)`
   padding: 20px;
@@ -75,7 +75,7 @@ const TransferDetail = styled(DetailsItem)`
     padding-left: 75px;
     margin-bottom: 25px;
   `}
-`
+`;
 
 const Action = styled('div')`
   margin-bottom: 1em;
@@ -86,9 +86,9 @@ const Action = styled('div')`
     right:30px;
     transform: translate(0, -65%);
   `}
-`
+`;
 
-const LearnMoreLink = styled('a')``
+const LearnMoreLink = styled('a')``;
 
 const LearnMore = () => (
   <LearnMoreLink
@@ -97,7 +97,7 @@ const LearnMore = () => (
   >
     {t('c.learnmore')}
   </LearnMoreLink>
-)
+);
 
 const ReleaseInstead = ({ label, isDeedOwner }) => (
   <MigrationExplanation>
@@ -110,7 +110,7 @@ const ReleaseInstead = ({ label, isDeedOwner }) => (
     />{' '}
     the domain to get your locked ETH back if you don’t want it anymore.
   </MigrationExplanation>
-)
+);
 
 function displayMigrationDiralogue({
   parent,
@@ -119,7 +119,7 @@ function displayMigrationDiralogue({
   isNewRegistrar,
   confirmed
 }) {
-  return (parent === 'ftm' && (isDeedOwner && !isNewRegistrar)) || confirmed
+  return (parent === 'ftm' && (isDeedOwner && !isNewRegistrar)) || confirmed;
 }
 
 function TransferRegistrars({
@@ -133,9 +133,9 @@ function TransferRegistrars({
   isDeedOwner,
   isNewRegistrar
 }) {
-  const { state, actions } = useEditable()
-  const { txHash, pending, confirmed } = state
-  const { startPending, stopEditing, setConfirmed } = actions
+  const { state, actions } = useEditable();
+  const { txHash, pending, confirmed } = state;
+  const { startPending, stopEditing, setConfirmed } = actions;
 
   const MigrationConfirmed = (
     <>
@@ -143,21 +143,21 @@ function TransferRegistrars({
         Congratulations on Migrating your domain!
       </MigrationInstruction>
       <MigrationExplanation>
-        You successfully migrated this domain to the new ENS Permanent
+        You successfully migrated this domain to the new FNS Permanent
         Registrar. We've sent back to you the ETH that you had locked in the
         older registrar contract.
       </MigrationExplanation>
     </>
-  )
+  );
 
   const TooEarly = (
     <>
       <MigrationInstruction>
-        Be Ready! ENS is migrating to a new Registrar.
+        Be Ready! FNS is migrating to a new Registrar.
       </MigrationInstruction>
       <MigrationExplanation>
-        This domain is currently recorded in the old ENS Registrar which will be
-        discontinued after 2019.05.04. Migrate to the new ENS Registrar between{' '}
+        This domain is currently recorded in the old FNS Registrar which will be
+        discontinued after 2019.05.04. Migrate to the new FNS Registrar between{' '}
         <strong>
           {formatDate(migrationStartDate, true)} -{' '}
           {formatDate(transferEndDate, true)}
@@ -166,19 +166,19 @@ function TransferRegistrars({
       </MigrationExplanation>
       <ReleaseInstead label={label} isDeedOwner={isDeedOwner} />
     </>
-  )
+  );
 
   const TooLate = (
     <>
       <MigrationInstruction>Migration period ended</MigrationInstruction>
       <MigrationExplanation>
         You no longer own this name and it has been made available for
-        registration in the new ENS Permanent Registrar. You can release the
+        registration in the new FNS Permanent Registrar. You can release the
         domain from the older registrar to get your locked ETH back and register
-        it again in the new ENS Permanent Registrar. <LearnMore />
+        it again in the new FNS Permanent Registrar. <LearnMore />
       </MigrationExplanation>
     </>
-  )
+  );
 
   const MigrateNow = (
     <>
@@ -193,7 +193,7 @@ function TransferRegistrars({
       </MigrationExplanation>
       <ReleaseInstead label={label} isDeedOwner={isDeedOwner} />
     </>
-  )
+  );
 
   const ReleaseAction = (
     <ReleaseDeed
@@ -203,7 +203,7 @@ function TransferRegistrars({
       actionType="button"
       explanation="You already lost ownership of this name but will get ETH back"
     />
-  )
+  );
 
   const MigrateAction = (
     <>
@@ -211,8 +211,8 @@ function TransferRegistrars({
         <PendingTx
           txHash={txHash}
           onConfirmed={() => {
-            setConfirmed()
-            refetch()
+            setConfirmed();
+            refetch();
           }}
         />
       ) : (
@@ -220,7 +220,7 @@ function TransferRegistrars({
           mutation={TRANSFER_REGISTRARS}
           variables={{ label }}
           onCompleted={data => {
-            startPending(Object.values(data)[0])
+            startPending(Object.values(data)[0]);
           }}
         >
           {mutate => (
@@ -231,26 +231,26 @@ function TransferRegistrars({
         </Mutation>
       )}
     </>
-  )
+  );
 
-  let CurrentMigrationInstruction, CurrentAction, condition
+  let CurrentMigrationInstruction, CurrentAction, condition;
   if (confirmed) {
-    CurrentMigrationInstruction = MigrationConfirmed
-    CurrentAction = <CloseLink onClick={stopEditing}>x</CloseLink>
+    CurrentMigrationInstruction = MigrationConfirmed;
+    CurrentAction = <CloseLink onClick={stopEditing}>x</CloseLink>;
   } else {
     if (currentBlockDate < migrationStartDate) {
-      CurrentMigrationInstruction = TooEarly
+      CurrentMigrationInstruction = TooEarly;
       CurrentAction = (
         <TransferButton type="hollow-primary-disabled">Migrate</TransferButton>
-      )
-      condition = 'warning'
+      );
+      condition = 'warning';
     } else if (currentBlockDate < transferEndDate) {
-      CurrentMigrationInstruction = MigrateNow
-      CurrentAction = MigrateAction
-      condition = 'warning'
+      CurrentMigrationInstruction = MigrateNow;
+      CurrentAction = MigrateAction;
+      condition = 'warning';
     } else if (currentBlockDate >= transferEndDate) {
-      CurrentMigrationInstruction = TooLate
-      CurrentAction = ReleaseAction
+      CurrentMigrationInstruction = TooLate;
+      CurrentAction = ReleaseAction;
     }
   }
   return displayMigrationDiralogue({
@@ -267,7 +267,7 @@ function TransferRegistrars({
     </TransferDetail>
   ) : (
     ''
-  )
+  );
 }
 
-export default TransferRegistrars
+export default TransferRegistrars;

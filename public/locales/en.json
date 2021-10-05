@@ -91,7 +91,7 @@
     "steps": {
       "addtext": {
         "text": "Click 'learn more' to read about the process.",
-        "title": "Set up a text record in your domain registrar then click refresh. The text record should contain your Ethereum address in the form:"
+        "title": "Set up a text record in your domain registrar then click refresh. The text record should contain your Fantom address in the form:"
       },
       "enable": {
         "text": "Click 'learn more' to read about the process.",
@@ -100,13 +100,13 @@
       "manage": {
         "text1": "Since you are the owner, you can manage your name now. ",
         "text2": "Since you are not the owner, you can only view the name in the manager.",
-        "title": "Congratulations! You have successfully added this DNS domain to the ENS Registry."
+        "title": "Congratulations! You have successfully added this DNS domain to the FNS Registry."
       },
       "proof": {
         "text1": "The address that appears in the DNS txt record is your same address.",
-        "text2": "If you know you own this domain, change it's TXT record to contain your Ethereum Address and refresh this page to perform the DNSSEC verification again.",
-        "title1": "You are the owner of this address. Add your domain to the ENS Registry now.",
-        "title2": "You don't appear to be the DNS Owner of this domain, but anyone can add this domain to the ENS Registry."
+        "text2": "If you know you own this domain, change it's TXT record to contain your Fantom Address and refresh this page to perform the DNSSEC verification again.",
+        "title1": "You are the owner of this address. Add your domain to the FNS Registry now.",
+        "title2": "You don't appear to be the DNS Owner of this domain, but anyone can add this domain to the FNS Registry."
       }
     },
     "viewinmanager": "View in Manager"
@@ -130,11 +130,11 @@
   "home": {
     "announcements": {},
     "howtouse": {
-      "body": "The ENS App is a Graphical User Interface for non-technical users. It allows you to search any name, manage their addresses or resources it points to and create subdomains for each name.",
-      "title": "How to use ENS"
+      "body": "The FNS App is a Graphical User Interface for non-technical users. It allows you to search any name, manage their addresses or resources it points to and create subdomains for each name.",
+      "title": "How to use FNS"
     },
     "whatisens": {
-      "body": "The Ethereum Name Service is a distributed, open, and extensible naming system based on the Ethereum blockchain. ENS eliminates the need to copy or type long addresses.",
+      "body": "The Fantom Name Service is a distributed, open, and extensible naming system based on the Fantom blockchain. FNS eliminates the need to copy or type long addresses.",
       "title": "What it is"
     }
   },
@@ -221,7 +221,7 @@
     ]
   },
   "registrymigration": {
-    "donotaccept": "*If you trade ENS names, do not accept this name!",
+    "donotaccept": "*If you trade FNS names, do not accept this name!",
     "messages": {
       "controller": "This name is controlled by a contract and can't be migrated automatically. Please redeploy your contract to use the new registry before setting the new controller",
       "default": "This name needs to be migrated to the new Registry. Only the parent of this name ({{parent}}) can do this.",
@@ -239,8 +239,8 @@
       "title": "Register {{name}}"
     },
     "renewal": {
-      "description": "Your ENS name is expiring soon, please renew it",
-      "title": "Renew your ENS domain {{name}}"
+      "description": "Your FNS name is expiring soon, please renew it",
+      "title": "Renew your FNS domain {{name}}"
     }
   },
   "search": {
@@ -300,7 +300,7 @@
     },
     "learnmore": {
       "step1": {
-        "text": "Once you register your name, Go to 'My Account' page and set a reverse record. This allows dapps to find and display your ENS name when you connect to them with your Ethereum account. ",
+        "text": "Once you register your name, Go to 'My Account' page and set a reverse record. This allows dapps to find and display your FNS name when you connect to them with your Fantom account. ",
         "title": "1. Set a reverse record"
       },
       "step2": {
@@ -308,7 +308,7 @@
         "title": "2. Set other records"
       },
       "step3": {
-        "text": "You can host your static html/css/images on IPFS and put the hash in your ENS name's Content record. Then it can be resolved by ENS-aware browsers (e.g. Opera), browser extensions (Metamask), or any browser with '.link' appended to the end (e.g. ens.eth.link).",
+        "text": "You can host your static html/css/images on IPFS and put the hash in your FNS name's Content record. Then it can be resolved by FNS-aware browsers (e.g. Opera), browser extensions (Metamask), or any browser with '.link' appended to the end (e.g. ens.eth.link).",
         "title": "3. Set a content hash of a decentralized website"
       },
       "title": "Learn how to manage your name."
@@ -325,11 +325,11 @@
       "closeEdit": "Close Add/Edit Records",
       "messages": {
         "explanation": "The Reverse Resolution translates an address into a name. It allows Dapps to show in their interfaces '{{name}}' rather than the long address '{{account}}'. If you would like to set up your reverse for a different account, please switch accounts in your dapp browser",
-        "explanation2": "You can only select names you set this Ethereum Address as.",
-        "noForwardRecordAavilable": "You either do not own any ENS names, or your ENS names have no ETH records set to this address.",
+        "explanation2": "You can only select names you set this Fantom Address as.",
+        "noForwardRecordAavilable": "You either do not own any FNS names, or your FNS names have no ETH records set to this address.",
         "notSet": "Reverse record: not set",
         "reverseRecordRemoval": "Are you sure you want to delete the reverse record?",
-        "selectPlaceholder": "Select your ENS name",
+        "selectPlaceholder": "Select your FNS name",
         "setTo": "Reverse record: Set to ",
         "setToDifferent": "Reverse record: Set to a different name:"
       },

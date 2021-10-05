@@ -1,8 +1,6 @@
-# ENS Application
+# FNS Application
 
-ENS Application
-
-
+FNS Application
 
 ## Installation
 
@@ -27,7 +25,7 @@ yarn start:ipfs
 
 The main difference of the ipfs-build is that it uses HashRouter instead of BrowserRouter and makes sure all links are relative.
 
-The ENS app can be used with the Gnosis Safe web interface. The required steps are outline [here](./docs/gnosis_safe_app_support.md).
+The FNS app can be used with the Gnosis Safe web interface. The required steps are outline [here](./docs/gnosis_safe_app_support.md).
 
 ## Unit Testing
 
@@ -94,11 +92,11 @@ export
 We use a functional components, using hooks instead of class based components. For basic state we use `useState` and for more complicated state `useReducer`. If they reusable, then you can abstract them to the `hooks` file, which can additionally by split up into a folder once we have enough hooks.
 
 ```js
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 export default function Component({ someProp }) {
-  const [state, setState] = useState(null)
-  return <div>...</div>
+  const [state, setState] = useState(null);
+  return <div>...</div>;
 }
 ```
 
@@ -107,11 +105,11 @@ export default function Component({ someProp }) {
 Styling in this app is done with Emotion, with `styled` components style CSS. We do not use `css` or classNames, unless we are [passing through the styles to a component](https://emotion.sh/docs/styled#styling-any-component). We use the babel plugin macros import as this enables labels and source mapping for our components. We also use parentheses for all styled components to keep consistency when we create components that compose with each other.
 
 ```js
-import styled from '@emotion/styled/macro'
+import styled from '@emotion/styled/macro';
 
 const Component = styled('div')`
   display: flex;
-`
+`;
 ```
 
 ### Media Queries
@@ -126,21 +124,21 @@ const breakpoints = {
   medium: 768,
   large: 992,
   xLarge: 1200
-}
+};
 ```
 
 You can use it as follows:
 
 ```js
-import styled from '@emotion/styled/macro'
-import mq from 'mediaQuery'
+import styled from '@emotion/styled/macro';
+import mq from 'mediaQuery';
 
 const SomeComponent = styled('div')`
   font-size: 14px;
   ${mq.small`
     font-size: 22px;
   `}
-`
+`;
 ```
 
 The second way is using hooks, which uses `useEffect` and `useState` underneath. This must be used with functional components.
@@ -228,9 +226,9 @@ This should open up cypress. To run the tests click on 'Run n integration tests'
 
 ---
 
-The main package for the E2E tests is `ensdomains/mock`, which exposes a script that will prepopulate ganache with ENS so you have everything setup to run Cypress on.
+The main package for the E2E tests is `ensdomains/mock`, which exposes a script that will prepopulate ganache with FNS so you have everything setup to run Cypress on.
 
-The ENS app has end to end tests with Cypress. To run them you need to start ganache, run the seed script, run the app and then run cypress. This should start chrome and the Cypress GUI. Each time the test run, the script needs to be re-run and the app restarted for it to work.
+The FNS app has end to end tests with Cypress. To run them you need to start ganache, run the seed script, run the app and then run cypress. This should start chrome and the Cypress GUI. Each time the test run, the script needs to be re-run and the app restarted for it to work.
 
 ```bash
 ganache-cli
@@ -301,7 +299,7 @@ cd graph-node/docker
 docker-compose up
 ```
 
-### Deploy ENS contracts and update subgraph.yml
+### Deploy FNS contracts and update subgraph.yml
 
 ```
 cd ens-app
@@ -309,9 +307,9 @@ yarn preTest
 yarn subgraph
 ```
 
-`subgraph` job updates ENS contract addresses and updates environment from `mainnet` to `dev`
+`subgraph` job updates FNS contract addresses and updates environment from `mainnet` to `dev`
 
-### Deploy ENS subgraph
+### Deploy FNS subgraph
 
 ### Generate deployment code
 
