@@ -13,31 +13,35 @@ const PriceContainer = styled('div')`
 `;
 
 const Value = styled('div')`
+  background: #f9fafb;
+  border-radius: 12px;
+
   font-family: Overpass;
-  font-weight: 100;
-  font-size: 22px;
-  color: #2b2b2b;
-  border-bottom: 1px solid #dbdbdb;
-  ${mq.small`
-    font-size: 28px;
-  `}
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+
+  padding: 15px;
 `;
 
 const Description = styled('div')`
   font-family: Overpass;
-  font-weight: 300;
-  font-size: 14px;
-  color: #adbbcd;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #b1bbce;
   margin-top: 10px;
+  margin-bottom: 9px;
 `;
 
 const USD = styled('span')`
-  font-size: 22px;
-  color: #adbbcd;
   margin-left: 20px;
-  ${mq.small`
-    font-size: 28px;
-  `}
+  color: #b1bbce;
 `;
 
 const Price = ({
@@ -74,20 +78,15 @@ const Price = ({
 
   return (
     <PriceContainer>
-      <Value>
-        {ethPrice} FTM
-        {ethVal && ethUsdPrice && (
-          <USD>
-            {withPremium}${usdPremium}
-            USD
-          </USD>
-        )}
-      </Value>
       <Description>
         {ethUsdPremiumPrice
           ? t('pricer.pricePerAmount')
           : t('pricer.registrationPriceLabel')}
       </Description>
+      <Value>
+        {ethPrice} FTM
+        {ethVal && ethUsdPrice && <USD>({usdPremium} USD)</USD>}
+      </Value>
     </PriceContainer>
   );
 };

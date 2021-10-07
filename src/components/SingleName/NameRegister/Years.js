@@ -1,35 +1,40 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
-import mq from 'mediaQuery'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
+import mq from 'mediaQuery';
 
-const YearsContainer = styled('div')`
-  ${mq.medium`
-    max-width: 220px;
-  `}
-`
+const YearsContainer = styled('div')``;
 
 const Stepper = styled('div')`
   display: grid;
   grid-template-columns:
     30px auto
     30px;
-  border-bottom: 1px solid #dfdfdf;
-`
+  background: #f9fafb;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: 15px;
+
+  &.error {
+    border: 1px solid #ff395d;
+  }
+`;
 
 const Icon = styled('div')`
   font-family: Overpass;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 100;
-  color: #adbbcd;
-  ${p => p.emphasize && 'background-color: #5384fe;'}
-  ${p => (p.emphasize ? 'color: white;' : 'color: #adbbcd;')}
-  ${p => (p.emphasize ? 'border-color: white;' : 'color: #adbbcd;')}
+  color: white;
+  ${p => p.emphasize && 'background-color: #1969FF;'}
+  ${p =>
+    p.emphasize
+      ? 'border-color: white;'
+      : 'color: #adbbcd;'}
   
   border-radius: 50%;
   border: solid 1px;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,50 +42,57 @@ const Icon = styled('div')`
   transition: 0.2s;
 
   &:hover {
-    border: solid #2500a6 1px;
     color: #2500a6;
     cursor: pointer;
   }
-`
+`;
 
 const Amount = styled('div')`
   width: 150px;
   padding-left: 20px;
   display: flex;
-  font-family: Overpass;
-  font-size: 28px;
-  font-weight: 100;
-  color: #2b2b2b;
   justify-self: left;
   align-self: center;
 
+  font-family: Overpass;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: -0.5px;
+
+  color: #161b24;
+
   input {
     background: transparent;
-    font-family: Overpass;
-    font-size: 28px;
-    font-weight: 100;
-    color: #2b2b2b;
     border: none;
     max-width: 45px;
     outline: 0;
+    font-weight: 800;
   }
-`
+`;
 
 const Description = styled('div')`
   font-family: Overpass;
-  font-weight: 300;
-  font-size: 14px;
-  color: #adbbcd;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #b1bbce;
   margin-top: 10px;
-`
+  margin-bottom: 9px;
+`;
 
 const Years = ({ years, setYears }) => {
-  const { t } = useTranslation()
-  const incrementYears = () => setYears(years + 1)
-  const decrementYears = () => (years >= 1 ? setYears(years - 1) : null)
-  const currentLanguage = window.localStorage.getItem('language')
+  const { t } = useTranslation();
+  const incrementYears = () => setYears(years + 1);
+  const decrementYears = () => (years >= 1 ? setYears(years - 1) : null);
+  const currentLanguage = window.localStorage.getItem('language');
   return (
     <YearsContainer>
+      <Description>{t('pricer.registrationPeriodLabel')}</Description>
       <Stepper>
         <Icon onClick={decrementYears}>-</Icon>
         <Amount>
@@ -88,11 +100,11 @@ const Years = ({ years, setYears }) => {
             type="text"
             value={years}
             onChange={e => {
-              const sign = Math.sign(e.target.value)
+              const sign = Math.sign(e.target.value);
               if (sign === -1 || isNaN(sign)) {
-                setYears(0)
+                setYears(0);
               } else {
-                setYears(e.target.value)
+                setYears(e.target.value);
               }
             }}
           />{' '}
@@ -103,9 +115,8 @@ const Years = ({ years, setYears }) => {
           +
         </Icon>
       </Stepper>
-      <Description>{t('pricer.registrationPeriodLabel')}</Description>
     </YearsContainer>
-  )
-}
+  );
+};
 
-export default Years
+export default Years;

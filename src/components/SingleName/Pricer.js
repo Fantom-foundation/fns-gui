@@ -3,9 +3,9 @@ import styled from '@emotion/styled/macro';
 import Years from './NameRegister/Years';
 import Price from './NameRegister/Price';
 import EthRegistrationGasPrice from './NameRegister/EthRegistrationGasPrice';
-import { ReactComponent as DefaultOrangeExclamation } from '../Icons/OrangeExclamation.svg';
+import { ReactComponent as DefaultRedExclamation } from '../Icons/RedExclamation.svg';
 import mq from 'mediaQuery';
-import { ReactComponent as ChainDefault } from '../Icons/chain.svg';
+import ReverseArrows from '../Icons/ReverseArrows';
 import { useTranslation } from 'react-i18next';
 
 const PricingContainer = styled('div')`
@@ -18,25 +18,29 @@ const PricingContainer = styled('div')`
       minmax(200px, 1fr);
   `}
 `;
-const Chain = styled(ChainDefault)`
-  display: none;
 
-  ${mq.medium`
-    display: block;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-  `}
-`;
-
-const OrangeExclamation = styled(DefaultOrangeExclamation)`
+const RedExclamation = styled(DefaultRedExclamation)`
   height: 12px;
   width: 12px;
+  margin-right: 9px;
 `;
 
 const Prompt = styled('div')`
-  color: #ffa600;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.5px;
+
+  color: #ff395d;
+  background: rgba(255, 57, 93, 0.04);
   margin-bottom: 10px;
+  padding: 9px 9px 9px 50px;
+  border-left: 2px solid #ff395d;
+
+  display: flex;
+  align-items: center;
 `;
 
 function PricerInner({
@@ -59,13 +63,13 @@ function PricerInner({
     <>
       {years <= 1 && (
         <Prompt>
-          <OrangeExclamation />
+          <RedExclamation />
           {t('register.increaseRegistrationPeriod')}
         </Prompt>
       )}
       <PricingContainer className={className} ref={reference}>
         <Years years={years} setYears={setYears} />
-        <Chain />
+        <ReverseArrows />
         <Price
           price={price}
           gasPrice={gasPrice}

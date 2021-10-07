@@ -18,35 +18,40 @@ const PriceContainer = styled('div')`
 `;
 
 const Value = styled('div')`
-  font-family: Overpass;
-  font-weight: 100;
-  font-size: 22px;
-  color: #2b2b2b;
-  border-bottom: 1px solid #dbdbdb;
-  ${mq.small`
-    font-size: 28px;
-  `}
+  margin-top: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #f4f5fb;
 `;
 
 const TotalValue = styled(Value)`
-  font-weight: 300;
+  font-family: Overpass;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #161b24;
 `;
 
 const Description = styled('div')`
   font-family: Overpass;
-  font-weight: 300;
-  font-size: 14px;
-  color: #adbbcd;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #b1bbce;
   margin-top: 10px;
 `;
 
+const FTMValue = styled('span')`
+  font-weight: 800;
+`;
+
 const USD = styled('span')`
-  font-size: 22px;
   color: #adbbcd;
   margin-left: 20px;
-  ${mq.small`
-    font-size: 28px;
-  `}
 `;
 
 const Input = styled(DefaultInput)`
@@ -76,23 +81,26 @@ const EthRegistrationGasPrice = ({ price, ethUsdPrice, gasPrice }) => {
   }
   return (
     <PriceContainer>
-      <TotalValue>
-        {ethVal.toFixed(3)} FTM + at most {registerGasFast.toFixed(3)} FTM gas
-        fee = at most {totalFast.toFixed(3)} FTM
-        {ethVal && ethUsdPrice && (
-          <USD>
-            {' '}
-            ${totalInUsdFast.toFixed(2)}
-            USD
-          </USD>
-        )}
-      </TotalValue>
       <Description>
         {t('pricer.totalDescription', {
           gasPriceToGweiSlow: gasPriceToGweiSlow.toFixed(0),
           gasPriceToGweiFast: gasPriceToGweiFast.toFixed(0)
         })}
       </Description>
+      <TotalValue>
+        <FTMValue>{ethVal.toFixed(3)} FTM</FTMValue>
+        &nbsp;+ at most <FTMValue>
+          {registerGasFast.toFixed(3)} FTM
+        </FTMValue>{' '}
+        gas fee = at most <FTMValue>{totalFast.toFixed(3)} FTM</FTMValue>
+        {ethVal && ethUsdPrice && (
+          <USD>
+            {' '}
+            (${totalInUsdFast.toFixed(2)}
+            USD)
+          </USD>
+        )}
+      </TotalValue>
     </PriceContainer>
   );
 };
