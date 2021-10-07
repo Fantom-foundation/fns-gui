@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
 
-import mq from 'mediaQuery'
-import Step from './Step'
-import Button from '../../Forms/Button'
-import { ReactComponent as Bell } from '../../Icons/Bell.svg'
-import { ReactComponent as Tick } from '../../Icons/GreyCircleTick.svg'
+import mq from 'mediaQuery';
+import Step from './Step';
+import Button from '../../Forms/Button';
+import { ReactComponent as Bell } from '../../Icons/Bell.svg';
+import { ReactComponent as Tick } from '../../Icons/GreyCircleTick.svg';
 
-import { requestPermission, hasPermission } from './notification'
+import { requestPermission, hasPermission } from './notification';
 
 const Steps = styled('section')`
   display: grid;
@@ -19,50 +19,69 @@ const Steps = styled('section')`
     grid-column-gap: 30px;
     grid-template-rows: 1fr;
   `}
-`
+`;
 
 const Header = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: 50px;
 
   h2 {
     font-family: Overpass;
-    font-weight: 300;
-    font-size: 18px;
-    color: #2b2b2b;
-    letter-spacing: 0;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.5px;
+
+    color: #161b24;
     margin: 0;
     margin-bottom: 5px;
-
-    ${mq.medium`
-      font-size: 24px;
-      color: #2B2B2B;
-      letter-spacing: 0;
-    `}
   }
 
   p {
     margin: 0;
-    font-weight: 400;
     font-family: Overpass;
+    font-style: normal;
+    font-weight: normal;
     font-size: 14px;
-    color: #adbbcd;
-    letter-spacing: 0;
-  }
-`
+    line-height: 21px;
+    letter-spacing: -0.5px;
 
-const NotifyButton = styled(Button)`
+    color: #b1bbce;
+  }
+`;
+
+const NotifyButton = styled('div')`
   flex-shrink: 0;
-`
+  cursor: pointer;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: right;
+  letter-spacing: -0.5px;
+
+  color: #1969ff;
+`;
 
 const NotifyButtonDisabled = styled('div')`
   color: hsla(0, 0%, 82%, 1);
-`
+  cursor: not-allowed;
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: right;
+  letter-spacing: -0.5px;
+`;
 
 const Explainer = ({ step, waitPercentComplete, waitTime }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const titles = {
     PRICE_DECISION: t('register.titles.0'),
     COMMIT_SENT: t('register.titles.1'),
@@ -70,7 +89,7 @@ const Explainer = ({ step, waitPercentComplete, waitTime }) => {
     AWAITING_REGISTER: t('register.titles.1'),
     REVEAL_SENT: t('register.titles.1'),
     REVEAL_CONFIRMED: t('register.titles.2')
-  }
+  };
 
   return (
     <>
@@ -80,13 +99,9 @@ const Explainer = ({ step, waitPercentComplete, waitTime }) => {
           <p>{t('register.favourite')}</p>
         </div>
         {hasPermission() ? (
-          <NotifyButtonDisabled>
-            <Tick style={{ marginRight: 5 }} />
-            {t('register.notify')}
-          </NotifyButtonDisabled>
+          <NotifyButtonDisabled>{t('register.notify')}</NotifyButtonDisabled>
         ) : (
           <NotifyButton type="hollow-primary" onClick={requestPermission}>
-            <Bell style={{ marginRight: 5 }} />
             {t('register.notify')}
           </NotifyButton>
         )}
@@ -129,7 +144,7 @@ const Explainer = ({ step, waitPercentComplete, waitTime }) => {
         />
       </Steps>
     </>
-  )
-}
+  );
+};
 
-export default Explainer
+export default Explainer;

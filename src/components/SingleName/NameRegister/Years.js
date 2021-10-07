@@ -69,6 +69,8 @@ const Amount = styled('div')`
     max-width: 45px;
     outline: 0;
     font-weight: 800;
+    font-size: 18px;
+    line-height: 28px;
   }
 `;
 
