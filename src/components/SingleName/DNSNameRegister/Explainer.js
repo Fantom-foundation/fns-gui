@@ -1,13 +1,14 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import Step from './Step'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import Step from './Step';
 
 const Steps = styled('section')`
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 30px;
   border-bottom: ${p => (p.border ? '1' : '0')}px solid #dfdfdf;
-`
+  margin-bottom: 20px;
+`;
 
 const Explainer = ({ step, number, title, text, border }) => {
   return (
@@ -23,7 +24,7 @@ const Explainer = ({ step, number, title, text, border }) => {
         />
       </Steps>
     </>
-  )
-}
+  );
+};
 
-export default Explainer
+export default Explainer;
