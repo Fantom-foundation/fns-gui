@@ -144,11 +144,11 @@
       "title": "Save favourite names"
     },
     "manage": {
-      "text": "Point domains to your ethereum addresses, transfer ownership to other people and more.",
+      "text": "Point domains to your fantom addresses, transfer ownership to other people and more.",
       "title": "Manage names"
     },
     "register": {
-      "text": "Register .eth names for $5/year. Renew or cancel your name registration at any time.",
+      "text": "Register .ftm names for $5/year. Renew or cancel your name registration at any time.",
       "title": "Register names"
     },
     "search": {
@@ -249,7 +249,7 @@
   },
   "searchErrors": {
     "domainMalformed": {
-      "long": "You have either added a domain without a TLD such as .eth or you have added unsupported characters.",
+      "long": "You have either added a domain without a TLD such as .ftm or you have added unsupported characters.",
       "short": "Domain malformed. {{searchTerm}} is not a valid domain."
     },
     "tooShort": {
@@ -308,7 +308,7 @@
         "title": "2. Set other records"
       },
       "step3": {
-        "text": "You can host your static html/css/images on IPFS and put the hash in your FNS name's Content record. Then it can be resolved by FNS-aware browsers (e.g. Opera), browser extensions (Metamask), or any browser with '.link' appended to the end (e.g. ens.eth.link).",
+        "text": "You can host your static html/css/images on IPFS and put the hash in your FNS name's Content record. Then it can be resolved by FNS-aware browsers (e.g. Opera), browser extensions (Metamask), or any browser with '.link' appended to the end (e.g. ens.ftm.link).",
         "title": "3. Set a content hash of a decentralized website"
       },
       "title": "Learn how to manage your name."

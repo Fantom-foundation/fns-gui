@@ -135,13 +135,13 @@ function Faq() {
         Instead, we suggest hosting your static html/css/images on IPFS and put
         the hash in your FNS name,s Content record. Then it can be resolved by
         FNS-aware browsers (e.g. Opera), browser extensions (Metamask), or any
-        browser with ".link" appended to the end (e.g. matoken.eth.link).
+        browser with ".link" appended to the end (e.g. matoken.ftm.link).
         <br />
         If you want to redirect your FNS name to an existing website, you could
         write a html file containing JavasSript logic to redirect your website,
         upload the file into ipfs using services like{' '}
         <a href="https://pinata.cloud/">IPFS Pinata</a>, then set the CID to
-        your contenthash. See the source code of depositcontract.eth.link as an
+        your contenthash. See the source code of depositcontract.ftm.link as an
         example.
       </Section>
 
@@ -154,9 +154,9 @@ function Faq() {
       <Section question="How much does it cost to register?">
         Currently, registration costs are set at the following prices:
         <ul>
-          <li>5+ character .eth names: $5 in ETH per year.</li>
-          <li>4 character .eth names: $160 in ETH per year.</li>
-          <li>3 character .eth names $640 in ETH per year.</li>
+          <li>5+ character .ftm names: $5 in FTM per year.</li>
+          <li>4 character .ftm names: $160 in FTM per year.</li>
+          <li>3 character .ftm names $640 in FTM per year.</li>
         </ul>
         3 and 4 character names have 'premium' pricing to reflect the small
         number of these names available.
@@ -181,7 +181,7 @@ function Faq() {
         relatively expensive.
       </Section>
 
-      <Section question="Can I register names other than .eth?" last={true}>
+      <Section question="Can I register names other than .ftm?" last={true}>
         Yes, if you own DNS domains listed
         <a href="https://app.ens.domains/name/[root]/subdomains"> here </a>, you
         can use the DNS record as the proof to claim the equivalent FNS names.
@@ -210,7 +210,7 @@ function Faq() {
 
       <Section question="My transaction at step 3 failed" last={true}>
         This happens occasionally when the USD price changes and you haven,t
-        registered with enough ETH. Please try again from step3.
+        registered with enough FTM. Please try again from step3.
         <br />
         Please also be noted that the registration step will expire if you don't
         complete within 24 hrs and you have to start from step 1 again.
@@ -223,7 +223,7 @@ function Faq() {
         resolver and add/edit records. Some dapps (eg: Fleek, OpenSea) set
         themselves as the Controller so they can update records on your behalf.
         <br />
-        The Registrant only exists on ".eth" names and it allows you to change
+        The Registrant only exists on ".ftm" names and it allows you to change
         the Controller. If you transfer the Registrant to an address you don,t
         own, you lose the ownership of the name.
       </Section>
@@ -253,7 +253,7 @@ function Faq() {
         If you click the "trash bin" icon on the address record, it will unset
         your address so that people can no longer look up your address with the
         name. You can also unset ownership of subdomains in this way, but you
-        cannot do so on ".eth" addresses. Because ‘.eth` names are
+        cannot do so on ".ftm" addresses. Because ‘.ftm` names are
         ERC721-compliant NFTs, you cannot transfer them to an empty address
         (0x00000...). You can transfer it to a burn address (eg: 0x00001), but
         that does not erase the fact that you used to own the name. Also, the
@@ -262,8 +262,8 @@ function Faq() {
       </Section>
 
       <Section question="How do I transfer my name?">
-        For a ".eth" name, transfer both the Registrant and the Controller to
-        the new Fantom account. Since ".eth" names are ERC721 compliant NFTs,
+        For a ".ftm" name, transfer both the Registrant and the Controller to
+        the new Fantom account. Since ".ftm" names are ERC721 compliant NFTs,
         you can change the Registrant by simply transferring the NFT from any
         NFT compliant wallet/marketplace as well.
         <br />
@@ -271,7 +271,7 @@ function Faq() {
         does not change the controller nor records, so the recipient may need to
         update them once received. If the recipient is not experienced or you
         prefer your address not to be associated to the transferring names, it
-        may be a good idea for you to set the ETH Address record to their Fantom
+        may be a good idea for you to set the FTM Address record to their Fantom
         address, set the controller, then transfer the name.
         <br />
         For subdomains, there are no registrants unless the subdomain is
@@ -312,7 +312,7 @@ function Faq() {
         owner can't edit the records but can still renew the name. After the
         grace period, the name is released for registration by anyone with a
         temporary premium which decreases over a 28 days period. The released
-        name continues to resolve your ETH address until the new owner
+        name continues to resolve your FTM address until the new owner
         overwrites it.
       </Section>
 
@@ -320,24 +320,6 @@ function Faq() {
         Any Fantom account can pay to renew any FNS name, though doing so from
         an account that, s not the owner will not change ownership of the name.
         Just go to the name,s page and click "Renew".
-      </Section>
-
-      <Section question="I registered names before 2019 May. Can I have my deposit back?">
-        Yes, you can get your deposit back from
-        <a href="https://reclaim.ens.domains"> reclaim.ens.domains </a> whether
-        you renewed the name or not.
-        <br />
-        Please remember that the amount you will receive is the amount of the
-        second-highest bidder (unless you were the only bidder). For example, if
-        you bid 1 ETH and the second highest bidder bid 0.1 ETH, you deposited
-        0.1 ETH and you have already received the remaining (0.9 ETH) when you
-        finailsed the auction. Therefore you can now only reclaim 0.1 ETH back.
-        Please read the{' '}
-        <a href="https://medium.com/the-ethereum-name-service/a-beginners-guide-to-buying-an-ens-domain-3ccac2bdc770">
-          {' '}
-          the initial guide back in 2017{' '}
-        </a>{' '}
-        for more detail.
       </Section>
     </FaqContainer>
   );
