@@ -4,6 +4,7 @@ import getEtherPrice from 'api/price';
 import { useLocation } from 'react-router-dom';
 import { loggedIn, logout } from './IPFS/auth';
 import { getBlock, getProvider } from '@ensdomains/ui';
+import BigNumber from 'bignumber.js';
 
 export function useDocumentTitle(title) {
   useEffect(() => {
@@ -203,12 +204,22 @@ export function useGasPrice(enabled = true) {
           setPrice(price);
           setLoading(false);
         } else {
-          const gasApi = 'https://www.gasnow.org/api/v3/gas/price';
+          const gasApi =
+            'https://gftm.blockscan.com/gasapi.ashx?apikey=key&method=pendingpooltxgweidata';
           const result = await fetch(gasApi);
-          if (!result.ok)
-            throw `Failed to get gas estimate: ${result.statusText}`;
+          if (!result.ok) throw `Failed to get gas estimate: ${result.status}`;
           const data = await result.json();
-          setPrice(data?.data);
+          const slowPrice = new BigNumber(data.result.standardgaspricegwei)
+            .div(new BigNumber(10).pow(9))
+            .toString();
+          const fastPrice = new BigNumber(data.result.rapidgaspricegwei)
+            .div(new BigNumber(10).pow(9))
+            .toString();
+          let price = {
+            slow: slowPrice,
+            fast: fastPrice
+          };
+          setPrice(price);
           setLoading(false);
         }
       };
