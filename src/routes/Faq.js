@@ -133,7 +133,7 @@ function Faq() {
         tools and applications which resolve IP addresses attached to FNS.
         <br />
         Instead, we suggest hosting your static html/css/images on IPFS and put
-        the hash in your FNS name,s Content record. Then it can be resolved by
+        the hash in your FNS name's Content record. Then it can be resolved by
         FNS-aware browsers (e.g. Opera), browser extensions (Metamask), or any
         browser with ".link" appended to the end (e.g. matoken.ftm.link).
         <br />
@@ -209,7 +209,7 @@ function Faq() {
       </Section>
 
       <Section question="My transaction at step 3 failed" last={true}>
-        This happens occasionally when the USD price changes and you haven,t
+        This happens occasionally when the USD price changes and you haven't
         registered with enough FTM. Please try again from step3.
         <br />
         Please also be noted that the registration step will expire if you don't
@@ -224,7 +224,7 @@ function Faq() {
         themselves as the Controller so they can update records on your behalf.
         <br />
         The Registrant only exists on ".ftm" names and it allows you to change
-        the Controller. If you transfer the Registrant to an address you don,t
+        the Controller. If you transfer the Registrant to an address you don't
         own, you lose the ownership of the name.
       </Section>
 
@@ -232,7 +232,7 @@ function Faq() {
         A Resolver is a smart contract that holds records. Names are set by
         default to the Public Resolver managed by the FNS team and has all the
         standard FNS record types. You can set your Resolver to a custom
-        resolver contract if you,d like.
+        resolver contract if you'd like.
       </Section>
 
       <Section question="What is a Reverse Record?">
@@ -282,7 +282,7 @@ function Faq() {
       <Section question="Why are some of my subdomains shown as a jumble of characters?">
         FNS names are stored as a hash on-chain so we have to decode the name
         using a list of possible names, and it shows in the hashed format if we
-        don,t have it on our list. You can still access and manage the name if
+        don't have it on our list. You can still access and manage the name if
         you search for the name directly in the search bar.
       </Section>
 
@@ -291,7 +291,7 @@ function Faq() {
         last={true}
       >
         Please refer to our{' '}
-        <a href="https://docs.ens.domains/contract-api-reference/name-processing#how-do-i-find-the-labelhash-namehash-of-a-name">
+        <a href="https://docs.fantom.foundation/">
           developer documentation page.
         </a>
       </Section>
@@ -299,7 +299,7 @@ function Faq() {
       <H2>When you renew your registration</H2>
 
       <Section question="How do I receive a renewal reminder?">
-        Click the "Remind me" button on the name,s page or your address page so
+        Click the "Remind me" button on the name's page or your address page so
         that you can set a calendar reminder or email reminder. Note that you
         have to set calendar reminders per name, whereas you only need to set
         email reminders per the address of the owner. Also note that you can
@@ -318,8 +318,8 @@ function Faq() {
 
       <Section question="I lost access to the Fantom account that owns a name I registered. Can I still renew it?">
         Any Fantom account can pay to renew any FNS name, though doing so from
-        an account that, s not the owner will not change ownership of the name.
-        Just go to the name,s page and click "Renew".
+        an account that's not the owner will not change ownership of the name.
+        Just go to the name's page and click "Renew".
       </Section>
     </FaqContainer>
   );
