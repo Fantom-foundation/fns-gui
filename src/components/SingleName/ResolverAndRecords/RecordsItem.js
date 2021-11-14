@@ -1,35 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from '@emotion/styled/macro'
-import { Mutation } from 'react-apollo'
-import { useTranslation } from 'react-i18next'
-import DefaultAddressInput from '@ensdomains/react-ens-address'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from '@emotion/styled/macro';
+import { Mutation } from 'react-apollo';
+import { useTranslation } from 'react-i18next';
+import DefaultAddressInput from '@ensdomains/react-ens-address';
 
-import { SET_CONTENT, SET_CONTENTHASH, SET_ADDRESS } from 'graphql/mutations'
+import { SET_CONTENT, SET_CONTENTHASH, SET_ADDRESS } from 'graphql/mutations';
 
-import { validateRecord } from 'utils/records'
-import { emptyAddress } from 'utils/utils'
-import mq from 'mediaQuery'
-import { getOldContentWarning } from './warnings'
-import { getEnsAddress } from '../../../api/ens'
+import { validateRecord } from 'utils/records';
+import { emptyAddress } from 'utils/utils';
+import mq from 'mediaQuery';
+import { getOldContentWarning } from './warnings';
+import { getFnsAddress } from '../../../api/fns';
 
-import { DetailsItem, DetailsKey, DetailsValue } from '../DetailsItem'
-import Upload from '../../IPFS/Upload'
-import IpfsLogin from '../../IPFS/Login'
-import StyledUpload from '../../Forms/Upload'
-import AddressLink from '../../Links/AddressLink'
-import ContentHashLink from '../../Links/ContentHashLink'
-import Pencil from '../../Forms/Pencil'
-import Bin from '../../Forms/Bin'
-import { SaveCancel, SaveCancelSwitch } from '../SaveCancel'
-import DefaultPendingTx from '../../PendingTx'
-import DetailsItemInput from '../DetailsItemInput'
-import CopyToClipBoard from '../../CopyToClipboard/'
-import { useEditable } from '../../hooks'
+import { DetailsItem, DetailsKey, DetailsValue } from '../DetailsItem';
+import Upload from '../../IPFS/Upload';
+import IpfsLogin from '../../IPFS/Login';
+import StyledUpload from '../../Forms/Upload';
+import AddressLink from '../../Links/AddressLink';
+import ContentHashLink from '../../Links/ContentHashLink';
+import Pencil from '../../Forms/Pencil';
+import Bin from '../../Forms/Bin';
+import { SaveCancel, SaveCancelSwitch } from '../SaveCancel';
+import DefaultPendingTx from '../../PendingTx';
+import DetailsItemInput from '../DetailsItemInput';
+import CopyToClipBoard from '../../CopyToClipboard/';
+import { useEditable } from '../../hooks';
 
 const AddressInput = styled(DefaultAddressInput)`
   margin-bottom: 10px;
-`
+`;
 
 export const RecordsItem = styled(DetailsItem)`
   ${p => !p.hasRecord && 'display: none;'}
@@ -46,7 +46,7 @@ export const RecordsItem = styled(DetailsItem)`
     display: flex;
     flex-direction: column;
   `}
-`
+`;
 
 export const RecordsContent = styled('div')`
   display: grid;
@@ -57,7 +57,7 @@ export const RecordsContent = styled('div')`
   ${mq.medium`
     display: flex;
   `}
-`
+`;
 
 export const RecordsKey = styled(DetailsKey)`
   font-size: 12px;
@@ -68,7 +68,7 @@ export const RecordsKey = styled(DetailsKey)`
     width: 200px;
     margin-right: 0px;
   `}
-`
+`;
 
 export const RecordsSubKey = styled('div')`
   font-family: Overpass Mono;
@@ -82,7 +82,7 @@ export const RecordsSubKey = styled('div')`
     max-width: 220px;
     min-width: 180px;
   `}
-`
+`;
 
 export const RecordsValue = styled(DetailsValue)`
   font-size: 14px;
@@ -91,7 +91,7 @@ export const RecordsValue = styled(DetailsValue)`
   ${mq.small`
       margin-top: 0;
   `}
-`
+`;
 
 const NewRecordsContainer = styled('div')`
   display: flex;
@@ -108,22 +108,22 @@ const NewRecordsContainer = styled('div')`
     justify-content: center;
     align-items: center;
   `}
-`
+`;
 
 const EditRecord = styled('div')`
   width: 100%;
-`
+`;
 
 const Action = styled('div')`
   margin-left: 0;
   ${mq.small`
     margin-left: auto;
   `};
-`
+`;
 
 const SecondaryAction = styled('div')`
   margin-right: 10px;
-`
+`;
 
 const ActionContainer = styled('div')`
   display: flex;
@@ -134,27 +134,27 @@ const ActionContainer = styled('div')`
     margin-top: 0;
     margin-left: auto;
   `};
-`
+`;
 
 const PendingTx = styled(DefaultPendingTx)`
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translate(0, -65%);
-`
+`;
 
 function chooseMutation(recordType, contentType) {
   switch (recordType) {
     case 'Content':
       if (contentType === 'oldcontent') {
-        return SET_CONTENT
+        return SET_CONTENT;
       } else {
-        return SET_CONTENTHASH
+        return SET_CONTENTHASH;
       }
     case 'Address':
-      return SET_ADDRESS
+      return SET_ADDRESS;
     default:
-      throw new Error('Not a recognised record type')
+      throw new Error('Not a recognised record type');
   }
 }
 
@@ -167,9 +167,9 @@ const Actionable = ({ startEditing, keyName, value }) => {
           data-testid={`edit-${keyName.toLowerCase()}`}
         />
       </Action>
-    )
+    );
   }
-}
+};
 
 const Uploadable = ({ startUploading, keyName, value }) => {
   if (value && !value.error) {
@@ -180,9 +180,9 @@ const Uploadable = ({ startUploading, keyName, value }) => {
           data-testid={`edit-upload-temporal`}
         />
       </SecondaryAction>
-    )
+    );
   }
-}
+};
 
 const RecordItemEditable = ({
   domain,
@@ -194,8 +194,8 @@ const RecordItemEditable = ({
   variableName,
   account
 }) => {
-  const { t } = useTranslation()
-  const { state, actions } = useEditable()
+  const { t } = useTranslation();
+  const { state, actions } = useEditable();
 
   const {
     editing,
@@ -205,7 +205,7 @@ const RecordItemEditable = ({
     txHash,
     pending,
     confirmed
-  } = state
+  } = state;
 
   const {
     startEditing,
@@ -217,22 +217,22 @@ const RecordItemEditable = ({
     stopUploading,
     startAuthorizing,
     stopAuthorizing
-  } = actions
+  } = actions;
 
   const isValid = validateRecord({
     type,
     value: newValue,
     contentType: domain.contentType
-  })
+  });
 
-  const isInvalid = newValue !== '' && !isValid
+  const isInvalid = newValue !== '' && !isValid;
 
   return (
     <>
       <Mutation
         mutation={mutation}
         onCompleted={data => {
-          startPending(Object.values(data)[0])
+          startPending(Object.values(data)[0]);
         }}
       >
         {mutation => (
@@ -256,8 +256,8 @@ const RecordItemEditable = ({
                 <PendingTx
                   txHash={txHash}
                   onConfirmed={() => {
-                    setConfirmed()
-                    refetch()
+                    setConfirmed();
+                    refetch();
                   }}
                 />
               ) : editing || uploading ? (
@@ -269,15 +269,15 @@ const RecordItemEditable = ({
                       recordValue: emptyAddress
                     }}
                     onCompleted={data => {
-                      startPending(Object.values(data)[0])
+                      startPending(Object.values(data)[0]);
                     }}
                   >
                     {mutate => (
                       <Bin
                         data-testid={`delete-${type.toLowerCase()}`}
                         onClick={e => {
-                          e.preventDefault()
-                          mutate()
+                          e.preventDefault();
+                          mutate();
                         }}
                       />
                     )}
@@ -320,12 +320,12 @@ const RecordItemEditable = ({
                       }
                       onResolve={({ address }) => {
                         if (address) {
-                          updateValue(address)
+                          updateValue(address);
                         } else {
-                          updateValue('')
+                          updateValue('');
                         }
                       }}
-                      ensAddress={getEnsAddress()}
+                      ensAddress={getFnsAddress()}
                     />
                   ) : (
                     <DetailsItemInput
@@ -344,14 +344,14 @@ const RecordItemEditable = ({
                     domain.contentType
                   )}
                   mutation={e => {
-                    e.preventDefault()
+                    e.preventDefault();
                     const variables = {
                       name: domain.name,
                       [variableName ? variableName : 'recordValue']: newValue
-                    }
+                    };
                     mutation({
                       variables
-                    })
+                    });
                   }}
                   isValid={isValid}
                   stopEditing={stopEditing}
@@ -378,14 +378,14 @@ const RecordItemEditable = ({
                     domain.contentType
                   )}
                   mutation={e => {
-                    e.preventDefault()
+                    e.preventDefault();
                     const variables = {
                       name: domain.name,
                       [variableName ? variableName : 'recordValue']: newValue
-                    }
+                    };
                     mutation({
                       variables
-                    })
+                    });
                   }}
                   isValid={isValid}
                   newValue={newValue}
@@ -403,14 +403,14 @@ const RecordItemEditable = ({
                     domain.contentType
                   )}
                   mutation={e => {
-                    e.preventDefault()
+                    e.preventDefault();
                     const variables = {
                       name: domain.name,
                       [variableName ? variableName : 'recordValue']: newValue
-                    }
+                    };
                     mutation({
                       variables
-                    })
+                    });
                   }}
                   isValid={isValid}
                   stopEditing={stopUploading}
@@ -423,12 +423,12 @@ const RecordItemEditable = ({
         )}
       </Mutation>
     </>
-  )
-}
+  );
+};
 
 function RecordItemViewOnly({ keyName, value, type, domain, account }) {
-  const { name, contentType } = domain
-  const { t } = useTranslation()
+  const { name, contentType } = domain;
+  const { t } = useTranslation();
   return keyName !== 'Address' && contentType === 'error' ? (
     ''
   ) : (
@@ -455,14 +455,14 @@ function RecordItemViewOnly({ keyName, value, type, domain, account }) {
         </Action>
       </RecordsContent>
     </RecordsItem>
-  )
+  );
 }
 
 function RecordItem(props) {
-  const { canEdit } = props
-  if (canEdit) return <RecordItemEditable {...props} />
+  const { canEdit } = props;
+  if (canEdit) return <RecordItemEditable {...props} />;
 
-  return <RecordItemViewOnly {...props} />
+  return <RecordItemViewOnly {...props} />;
 }
 
 RecordItem.propTypes = {
@@ -476,6 +476,6 @@ RecordItem.propTypes = {
   variableName: PropTypes.string, //can change the variable name for mutation
   refetch: PropTypes.func.isRequired,
   account: PropTypes.string
-}
+};
 
-export default RecordItem
+export default RecordItem;

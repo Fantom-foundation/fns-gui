@@ -1,10 +1,10 @@
-import { queryAll } from '../subDomainRegistrar'
-import { fromWei } from 'ethjs-unit'
-import getENS from 'api/ens'
+import { queryAll } from '../subDomainRegistrar';
+import { fromWei } from 'ethjs-unit';
+import getFNS from 'api/fns';
 
 const defaults = {
   subDomainState: []
-}
+};
 
 const resolvers = {
   Mutation: {
@@ -14,18 +14,18 @@ const resolvers = {
         data: {
           subDomainState: []
         }
-      })
-      const nodes = await queryAll(name)
-      const cachedNodes = []
+      });
+      const nodes = await queryAll(name);
+      const cachedNodes = [];
 
       const promises = nodes.map(subDomainPromise =>
         subDomainPromise
           .then(async node => {
-            let owner = null
+            let owner = null;
 
             if (!node.available) {
-              const ens = getENS()
-              owner = await ens.getOwner(`${node.label}.${node.domain}.ftm`)
+              const fns = getFNS();
+              owner = await fns.getOwner(`${node.label}.${node.domain}.ftm`);
             }
             const newNode = {
               ...node,
@@ -35,26 +35,26 @@ const resolvers = {
               state: node.available ? 'Open' : 'Owned',
               price: fromWei(node.price, 'ether'),
               __typename: 'SubDomain'
-            }
+            };
 
-            cachedNodes.push(newNode)
+            cachedNodes.push(newNode);
 
             const data = {
               subDomainState: [...cachedNodes]
-            }
+            };
 
-            cache.writeData({ data })
+            cache.writeData({ data });
           })
           .catch(e => console.log('ERROR in subdomain results', e))
-      )
+      );
 
       return Promise.all(promises).then(() => {
-        return cachedNodes
-      })
+        return cachedNodes;
+      });
     }
   }
-}
+};
 
-export default resolvers
+export default resolvers;
 
-export { defaults }
+export { defaults };

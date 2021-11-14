@@ -1,5 +1,5 @@
 import { ethers, getNetworkId, getNetworkProviderUrl } from '@ensdomains/ui';
-import getENS, { getRegistrar } from 'api/ens';
+import getFNS, { getRegistrar } from 'api/fns';
 
 const ChainLinkABI = [
   {

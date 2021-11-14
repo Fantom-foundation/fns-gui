@@ -6,7 +6,7 @@ import {
   emptyAddress
 } from '@ensdomains/ui';
 
-import getENS from 'api/ens';
+import getFNS from 'api/fns';
 import merge from 'lodash/merge';
 import { isRunningAsSafeApp } from 'utils/safeApps';
 import managerResolvers, {
@@ -83,8 +83,8 @@ const resolvers = {
     },
     publicResolver: async () => {
       try {
-        const ens = getENS();
-        const resolver = await ens.getAddress('resolver.ftm');
+        const fns = getFNS();
+        const resolver = await fns.getAddress('resolver.ftm');
         return {
           address: resolver,
           __typename: 'Resolver'

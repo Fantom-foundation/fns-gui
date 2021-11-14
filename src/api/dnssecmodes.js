@@ -19,7 +19,7 @@ export default [
   // 3
   {
     state: 'ADD_TEXT',
-    title: 'Please add text record into _ens.name.tld'
+    title: 'Please add text record into _fns.name.tld'
   },
   // 4,
   {
@@ -56,4 +56,4 @@ export default [
     title: 'DNS Record does not exist',
     displayError: true
   }
-]
+];

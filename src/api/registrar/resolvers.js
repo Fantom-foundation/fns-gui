@@ -1,6 +1,6 @@
 import { isShortName } from '../../utils/utils';
 
-import getENS, { getRegistrar } from 'api/ens';
+import getFNS, { getRegistrar } from 'api/fns';
 
 import modeNames from '../modes';
 import { sendHelper } from '../resolverUtils';
@@ -82,7 +82,7 @@ const resolvers = {
     },
     async getDomainAvailability(_, { name }, { cache }) {
       const registrar = getRegistrar();
-      const ens = getENS();
+      const fns = getFNS();
       try {
         const {
           state,
@@ -100,7 +100,7 @@ const resolvers = {
         }
 
         if (modeNames[state] === 'Owned') {
-          owner = await ens.getOwner(`${name}.ftm`);
+          owner = await fns.getOwner(`${name}.ftm`);
         }
 
         const data = {

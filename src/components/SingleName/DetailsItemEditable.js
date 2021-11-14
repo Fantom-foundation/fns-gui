@@ -1,73 +1,73 @@
-import React, { useState, useEffect } from 'react'
-import { css } from 'emotion'
-import moment from 'moment'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
-import { Mutation, Query, useQuery } from 'react-apollo'
-import PropTypes from 'prop-types'
-import { motion, AnimatePresence } from 'framer-motion'
-import EthVal from 'ethval'
+import React, { useState, useEffect } from 'react';
+import { css } from 'emotion';
+import moment from 'moment';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
+import { Mutation, Query, useQuery } from 'react-apollo';
+import PropTypes from 'prop-types';
+import { motion, AnimatePresence } from 'framer-motion';
+import EthVal from 'ethval';
 
 import {
   GET_PUBLIC_RESOLVER,
   GET_RENT_PRICE,
   IS_CONTRACT_CONTROLLER
-} from '../../graphql/queries'
-import { SET_RESOLVER, SET_SUBNODE_OWNER, SET_OWNER } from 'graphql/mutations'
+} from '../../graphql/queries';
+import { SET_RESOLVER, SET_SUBNODE_OWNER, SET_OWNER } from 'graphql/mutations';
 
-import mq from 'mediaQuery'
-import { useEditable, useEthPrice } from '../hooks'
-import { calculateDuration, formatDate } from 'utils/dates'
-import { trackReferral } from 'utils/analytics'
-import { addressUtils, emptyAddress } from 'utils/utils'
-import { refetchTilUpdatedSingle } from 'utils/graphql'
-import Bin from '../Forms/Bin'
-import { useAccount } from '../QueryAccount'
-import { getEnsAddress } from '../../api/ens'
+import mq from 'mediaQuery';
+import { useEditable, useEthPrice } from '../hooks';
+import { calculateDuration, formatDate } from 'utils/dates';
+import { trackReferral } from 'utils/analytics';
+import { addressUtils, emptyAddress } from 'utils/utils';
+import { refetchTilUpdatedSingle } from 'utils/graphql';
+import Bin from '../Forms/Bin';
+import { useAccount } from '../QueryAccount';
+import { getFnsAddress } from '../../api/fns';
 
-import AddToCalendar from '../Calendar/RenewalCalendar'
-import Tooltip from '../Tooltip/Tooltip'
-import { SingleNameBlockies } from '../Blockies'
-import DefaultAddressLink from '../Links/AddressLink'
+import AddToCalendar from '../Calendar/RenewalCalendar';
+import Tooltip from '../Tooltip/Tooltip';
+import { SingleNameBlockies } from '../Blockies';
+import DefaultAddressLink from '../Links/AddressLink';
 import {
   DetailsItem,
   DetailsKey,
   DetailsValue as DefaultDetailsValue,
   DetailsContent
-} from './DetailsItem'
-import DefaultSaveCancel from './SaveCancel'
-import DefaultInput from '../Forms/Input'
-import Button from '../Forms/Button'
-import Pencil from '../Forms/Pencil'
-import DefaultInfo from '../Icons/Info'
-import DefaultPendingTx from '../PendingTx'
-import DefaultPricer from './Pricer'
-import DefaultAddressInput from '@ensdomains/react-ens-address'
-import CopyToClipboard from '../CopyToClipboard/'
+} from './DetailsItem';
+import DefaultSaveCancel from './SaveCancel';
+import DefaultInput from '../Forms/Input';
+import Button from '../Forms/Button';
+import Pencil from '../Forms/Pencil';
+import DefaultInfo from '../Icons/Info';
+import DefaultPendingTx from '../PendingTx';
+import DefaultPricer from './Pricer';
+import DefaultAddressInput from '@ensdomains/react-ens-address';
+import CopyToClipboard from '../CopyToClipboard/';
 
 const AddressInput = styled(DefaultAddressInput)`
   margin-bottom: 10px;
-`
+`;
 
 const AddressLink = styled(DefaultAddressLink)`
   display: flex;
   align-items: center;
-`
+`;
 
 const Address = styled('span')`
   display: block;
   align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
-`
+`;
 
 const Info = styled(DefaultInfo)`
   flex-shrink: 0;
-`
+`;
 
 const EditButton = styled(Button)`
   width: 130px;
-`
+`;
 
 const WarningMessage = styled('span')`
   color: #f6412d;
@@ -76,7 +76,7 @@ const WarningMessage = styled('span')`
   ${mq.small`
     margin-bottom: 0em;
   `}
-`
+`;
 
 const DetailsEditableContainer = styled(DetailsItem)`
   flex-direction: column;
@@ -85,9 +85,9 @@ const DetailsEditableContainer = styled(DetailsItem)`
   background: ${({ editing, backgroundStyle }) => {
     switch (backgroundStyle) {
       case 'warning':
-        return editing ? 'transparent' : 'transparent'
+        return editing ? 'transparent' : 'transparent';
       default:
-        return editing ? '#F0F6FA' : 'transparent'
+        return editing ? '#F0F6FA' : 'transparent';
     }
   }};
   padding: ${({ editing }) => (editing ? '20px' : '0')};
@@ -95,7 +95,7 @@ const DetailsEditableContainer = styled(DetailsItem)`
   transition: 0.3s;
 
   ${({ editing }) => editing && mq.small` flex-direction: column;`};
-`
+`;
 
 const DetailsValue = styled(DefaultDetailsValue)`
   ${p =>
@@ -114,19 +114,19 @@ const DetailsValue = styled(DefaultDetailsValue)`
       align-items: center;
       flex-direction: row;
   `}
-`
+`;
 
 const ExpiryDate = styled('span')`
   margin-right: 10px;
-`
+`;
 
 const EditRecord = styled(motion.div)`
   width: 100%;
-`
+`;
 
 const Input = styled(DefaultInput)`
   margin-bottom: 20px;
-`
+`;
 
 const Action = styled(motion.div)`
   margin-left: 0;
@@ -136,14 +136,14 @@ const Action = styled(motion.div)`
   align-self: center;
   margin-top: -10px;
   `}
-`
+`;
 
 const PendingTx = styled(DefaultPendingTx)`
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translate(0, -65%);
-`
+`;
 
 const DefaultResolverButton = styled('a')`
   display: flex;
@@ -151,88 +151,88 @@ const DefaultResolverButton = styled('a')`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 
-const Pricer = styled(DefaultPricer)``
+const Pricer = styled(DefaultPricer)``;
 
 const Buttons = styled('div')`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
-`
+`;
 
 const ResolverAddressWarning = styled('span')`
   color: #f6412d;
   margin-left: 3em;
   margin-right: auto;
-`
+`;
 
-const SaveCancel = motion.custom(DefaultSaveCancel)
+const SaveCancel = motion.custom(DefaultSaveCancel);
 
 function getMessages({ keyName, parent, deedOwner, isDeedOwner, t }) {
-  let [newValue, newType] = getDefaultMessage(keyName, t)
+  let [newValue, newType] = getDefaultMessage(keyName, t);
   if (
     keyName === 'Owner' &&
     parent === 'ftm' &&
     parseInt(deedOwner, 16) !== 0
   ) {
-    newValue = t('singleName.messages.noresolver')
+    newValue = t('singleName.messages.noresolver');
     if (isDeedOwner) {
-      newValue += t('singleName.messages.notfinalise')
+      newValue += t('singleName.messages.notfinalise');
     }
   }
 
-  return [newValue, newType]
+  return [newValue, newType];
 }
 
 function getDefaultMessage(keyName, t) {
   switch (keyName) {
     case 'Resolver':
-      return [t('singleName.messages.noresolver'), 'message']
+      return [t('singleName.messages.noresolver'), 'message'];
     case 'Controller':
     case 'registrant':
-      return [t('singleName.messages.noowner'), 'message']
+      return [t('singleName.messages.noowner'), 'message'];
     default:
-      return ['No 0x message set', 'message']
+      return ['No 0x message set', 'message'];
   }
 }
 
 function getToolTipMessage({ keyName, t, isExpiredRegistrant }) {
   switch (keyName) {
     case 'Resolver':
-      return t(`singleName.tooltips.detailsItem.${keyName}`)
+      return t(`singleName.tooltips.detailsItem.${keyName}`);
     case 'Controller':
-      return t(`singleName.tooltips.detailsItem.${keyName}`)
+      return t(`singleName.tooltips.detailsItem.${keyName}`);
     case 'registrant':
       if (isExpiredRegistrant) {
-        return t(`singleName.tooltips.detailsItem.${keyName}Expired`)
+        return t(`singleName.tooltips.detailsItem.${keyName}Expired`);
       }
-      return t(`singleName.tooltips.detailsItem.${keyName}`)
+      return t(`singleName.tooltips.detailsItem.${keyName}`);
     default:
-      return 'You can only make changes if you are the controller and are logged into your wallet'
+      return 'You can only make changes if you are the controller and are logged into your wallet';
   }
 }
 
 function isOwnerOfParentDomain(domain, account) {
   if (domain.parentOwner !== emptyAddress) {
-    return domain.parentOwner.toLowerCase() === account.toLowerCase()
+    return domain.parentOwner.toLowerCase() === account.toLowerCase();
   }
-  return false
+  return false;
 }
 
 function chooseMutation(recordType, isOwnerOfParent) {
   switch (recordType) {
     case 'Controller':
       if (isOwnerOfParent) {
-        return SET_SUBNODE_OWNER
+        return SET_SUBNODE_OWNER;
       } else {
-        return SET_OWNER
+        return SET_OWNER;
       }
     case 'Resolver':
-      return SET_RESOLVER
+      return SET_RESOLVER;
     default:
-      throw new Error('Not a recognised record type')
+      throw new Error('Not a recognised record type');
   }
 }
 
@@ -264,8 +264,8 @@ function getInputType(
         duration={duration}
         years={years}
         setYears={years => {
-          setYears(years)
-          updateValue(formatDate(expirationDate))
+          setYears(years);
+          updateValue(formatDate(expirationDate));
         }}
         ethUsdPriceLoading={ethUsdPriceLoading}
         ethUsdPrice={ethUsdPrice}
@@ -273,27 +273,27 @@ function getInputType(
         loading={rentPriceLoading}
         price={rentPrice}
       />
-    )
+    );
   }
-  const ensAddress = getEnsAddress()
+  const fnsAddress = getFnsAddress();
   const provider =
     process.env.REACT_APP_STAGE === 'local'
       ? 'http://localhost:8545'
-      : window.ethereum || window.web3
+      : window.ethereum || window.web3;
   if (type === 'address' && keyName !== 'Resolver') {
     let option = {
       presetValue: presetValue || '',
       provider,
       onResolve: ({ address }) => {
         if (address) {
-          updateValue(address)
+          updateValue(address);
         } else {
-          updateValue('')
+          updateValue('');
         }
       },
-      ensAddress
-    }
-    return <AddressInput {...option} />
+      fnsAddress
+    };
+    return <AddressInput {...option} />;
   }
 
   return (
@@ -305,17 +305,17 @@ function getInputType(
       placeholder={keyName === 'Resolver' ? placeholder : ''}
       large
     />
-  )
+  );
 }
 
 function getValidation(keyName, newValue, isContractAddress) {
   switch (keyName) {
     case 'Expiration Date':
-      return true
+      return true;
     case 'Resolver':
-      return !!isContractAddress
+      return !!isContractAddress;
     default:
-      return addressUtils.isAddress(newValue) && newValue !== emptyAddress
+      return addressUtils.isAddress(newValue) && newValue !== emptyAddress;
   }
 }
 
@@ -324,12 +324,12 @@ function getVariables(keyName, { domain, variableName, newValue, duration }) {
     return {
       label: domain.name.split('.')[0],
       duration
-    }
+    };
   } else {
     return {
       name: domain.name,
       [variableName ? variableName : 'address']: newValue
-    }
+    };
   }
 }
 
@@ -350,11 +350,11 @@ const Editable = ({
   confirm,
   copyToClipboard
 }) => {
-  const { t } = useTranslation()
-  const { state, actions } = useEditable()
-  const [presetValue, setPresetValue] = useState('')
+  const { t } = useTranslation();
+  const { state, actions } = useEditable();
+  const [presetValue, setPresetValue] = useState('');
 
-  const { editing, newValue, txHash, pending, confirmed } = state
+  const { editing, newValue, txHash, pending, confirmed } = state;
 
   const {
     startEditing,
@@ -362,19 +362,19 @@ const Editable = ({
     updateValue,
     startPending,
     setConfirmed
-  } = actions
+  } = actions;
 
   //only used with Expiration date
-  let duration
-  let expirationDate
-  const [years, setYears] = useState(1)
+  let duration;
+  let expirationDate;
+  const [years, setYears] = useState(1);
 
   const { price: ethUsdPrice, loading: ethUsdPriceLoading } = useEthPrice(
     keyName === 'Expiration Date'
-  )
+  );
   if (keyName === 'Expiration Date') {
-    duration = calculateDuration(years)
-    expirationDate = new Date(new Date(value).getTime() + duration * 1000)
+    duration = calculateDuration(years);
+    expirationDate = new Date(new Date(value).getTime() + duration * 1000);
   }
 
   const { data: { getRentPrice } = {}, loading: rentPriceLoading } = useQuery(
@@ -386,11 +386,11 @@ const Editable = ({
       },
       skip: keyName !== 'Expiration Date'
     }
-  )
+  );
   const isNewResolverAddress =
     keyName === 'Resolver' &&
     addressUtils.isAddress(newValue) &&
-    newValue !== emptyAddress
+    newValue !== emptyAddress;
   const { data: { isContractController: isContractAddress } = {} } = useQuery(
     IS_CONTRACT_CONTROLLER,
     {
@@ -399,21 +399,21 @@ const Editable = ({
       },
       skip: !isNewResolverAddress
     }
-  )
-  const isValid = getValidation(keyName, newValue, isContractAddress)
+  );
+  const isValid = getValidation(keyName, newValue, isContractAddress);
 
-  const isInvalid = !isValid && newValue.length > 0
-  const account = useAccount()
-  const isOwnerOfParent = isOwnerOfParentDomain(domain, account)
-  const isRegistrant = !domain.available && domain.registrant === account
-  const canDelete = ['Resolver'].includes(keyName)
-  const placeholder = t('singleName.resolver.placeholder')
+  const isInvalid = !isValid && newValue.length > 0;
+  const account = useAccount();
+  const isOwnerOfParent = isOwnerOfParentDomain(domain, account);
+  const isRegistrant = !domain.available && domain.registrant === account;
+  const canDelete = ['Resolver'].includes(keyName);
+  const placeholder = t('singleName.resolver.placeholder');
   return (
     <Mutation
       mutation={mutation}
       onCompleted={data => {
-        const txHash = Object.values(data)[0]
-        startPending(txHash)
+        const txHash = Object.values(data)[0];
+        startPending(txHash);
         if (keyName === 'Expiration Date') {
           trackReferral({
             labels: [domain.label], // labels array
@@ -424,7 +424,7 @@ const Editable = ({
               .mul(ethUsdPrice)
               .toFixed(2), // in wei, // in wei
             years
-          })
+          });
         }
       }}
     >
@@ -457,10 +457,10 @@ const Editable = ({
                             <>
                               <Info
                                 onMouseOver={() => {
-                                  showTooltip()
+                                  showTooltip();
                                 }}
                                 onMouseLeave={() => {
-                                  hideTooltip()
+                                  hideTooltip();
                                 }}
                               />
                               {tooltipElement}
@@ -505,11 +505,11 @@ const Editable = ({
                         singleName: domain
                       },
                       getterString: 'singleName'
-                    })
+                    });
                   } else {
-                    refetch()
+                    refetch();
                   }
-                  setConfirmed()
+                  setConfirmed();
                 }}
               />
             ) : (
@@ -552,15 +552,15 @@ const Editable = ({
                     address: emptyAddress
                   }}
                   onCompleted={data => {
-                    startPending(Object.values(data)[0])
+                    startPending(Object.values(data)[0]);
                   }}
                 >
                   {mutate => (
                     <Bin
                       data-testid={`delete-${type.toLowerCase()}`}
                       onClick={e => {
-                        e.preventDefault()
-                        mutate()
+                        e.preventDefault();
+                        mutate();
                       }}
                     />
                   )}
@@ -640,17 +640,17 @@ const Editable = ({
                       )}
                       <Query query={GET_PUBLIC_RESOLVER}>
                         {({ data, loading }) => {
-                          if (loading) return null
+                          if (loading) return null;
                           return (
                             <DefaultResolverButton
                               onClick={e => {
-                                e.preventDefault()
-                                updateValue(data.publicResolver.address)
+                                e.preventDefault();
+                                updateValue(data.publicResolver.address);
                               }}
                             >
                               {t('singleName.resolver.publicResolver')}
                             </DefaultResolverButton>
-                          )
+                          );
                         }}
                       </Query>
                     </>
@@ -664,10 +664,10 @@ const Editable = ({
                         variableName,
                         newValue,
                         duration
-                      })
+                      });
                       mutation({
                         variables
-                      })
+                      });
                     }}
                     value={
                       keyName === 'Expiration Date' ? formatDate(value) : value
@@ -688,8 +688,8 @@ const Editable = ({
         </DetailsEditableContainer>
       )}
     </Mutation>
-  )
-}
+  );
+};
 
 function ViewOnly({
   editButton,
@@ -702,7 +702,7 @@ function ViewOnly({
   isExpiredRegistrant,
   copyToClipboard
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   //get default messages for 0x values
   if (parseInt(value, 16) === 0) {
     let [newValue, newType] = getMessages({
@@ -711,10 +711,10 @@ function ViewOnly({
       deedOwner,
       isDeedOwner,
       t
-    })
+    });
 
-    value = newValue
-    type = newType
+    value = newValue;
+    type = newType;
   }
   return (
     <DetailsEditableContainer>
@@ -747,10 +747,10 @@ function ViewOnly({
                 return (
                   <EditButton
                     onMouseOver={() => {
-                      showTooltip()
+                      showTooltip();
                     }}
                     onMouseLeave={() => {
-                      hideTooltip()
+                      hideTooltip();
                     }}
                     data-testid={`edit-${keyName.toLowerCase()}`}
                     type="disabled"
@@ -758,7 +758,7 @@ function ViewOnly({
                     {editButton}
                     {tooltipElement}
                   </EditButton>
-                )
+                );
               }}
             </Tooltip>
           ) : (
@@ -770,11 +770,11 @@ function ViewOnly({
         </Action>
       </DetailsContent>
     </DetailsEditableContainer>
-  )
+  );
 }
 
 function DetailsEditable(props) {
-  return props.canEdit ? <Editable {...props} /> : <ViewOnly {...props} />
+  return props.canEdit ? <Editable {...props} /> : <ViewOnly {...props} />;
 }
 
 DetailsEditable.propTypes = {
@@ -792,6 +792,6 @@ DetailsEditable.propTypes = {
   variableName: PropTypes.string, //can change the variable name for mutation
   refetch: PropTypes.func.isRequired,
   copyToClipboard: PropTypes.bool
-}
+};
 
-export default DetailsEditable
+export default DetailsEditable;

@@ -30,13 +30,13 @@ import {
   GET_REGISTRANT_FROM_SUBGRAPH
 } from '../../graphql/queries';
 import getClient from '../../apolloClient';
-import getENS, { getRegistrar } from 'api/ens';
+import getFNS, { getRegistrar } from 'api/fns';
 import { normalize } from 'eth-ens-namehash';
 
 let savedFavourites =
-  JSON.parse(window.localStorage.getItem('ensFavourites')) || [];
+  JSON.parse(window.localStorage.getItem('fnsFavourites')) || [];
 let savedSubDomainFavourites =
-  JSON.parse(window.localStorage.getItem('ensSubDomainFavourites')) || [];
+  JSON.parse(window.localStorage.getItem('fnsSubDomainFavourites')) || [];
 const defaults = {
   names: [],
   favourites: savedFavourites,
@@ -49,14 +49,14 @@ async function delay(ms) {
 }
 
 async function getParent(name) {
-  const ens = getENS();
+  const fns = getFNS();
   const nameArray = name.split('.');
   if (nameArray.length < 1) {
     return [null, null];
   }
   nameArray.shift();
   const parent = nameArray.join('.');
-  const parentOwner = await ens.getOwner(parent);
+  const parentOwner = await fns.getOwner(parent);
   return [parent, parentOwner];
 }
 
@@ -107,8 +107,8 @@ async function getRegistrarEntry(name) {
   return node;
 }
 
-async function setDNSSECTldOwner(ens, tld, networkId) {
-  let tldowner = (await ens.getOwner(tld)).toLocaleLowerCase();
+async function setDNSSECTldOwner(fns, tld, networkId) {
+  let tldowner = (await fns.getOwner(tld)).toLocaleLowerCase();
   if (parseInt(tldowner) !== 0) return tldowner;
   switch (networkId) {
     case 1:
@@ -121,7 +121,7 @@ async function setDNSSECTldOwner(ens, tld, networkId) {
 }
 
 async function getDNSEntryDetails(name) {
-  const ens = getENS();
+  const fns = getFNS();
   const registrar = getRegistrar();
   const nameArray = name.split('.');
   const networkId = await getNetworkId();
@@ -129,9 +129,9 @@ async function getDNSEntryDetails(name) {
 
   let tld = nameArray[1];
   let owner;
-  let tldowner = await setDNSSECTldOwner(ens, tld, networkId);
+  let tldowner = await setDNSSECTldOwner(fns, tld, networkId);
   try {
-    owner = (await ens.getOwner(name)).toLocaleLowerCase();
+    owner = (await fns.getOwner(name)).toLocaleLowerCase();
   } catch {
     return {};
   }
@@ -341,14 +341,14 @@ const handleMultipleTransactions = async (name, records, resolverInstance) => {
 const resolvers = {
   Query: {
     getOwner: async (_, { name }, { cache }) => {
-      const ens = getENS();
-      const owner = await ens.getOwner(name);
+      const fns = getFNS();
+      const owner = await fns.getOwner(name);
       return owner;
     },
 
     singleName: async (_, { name }, { cache }) => {
       try {
-        const ens = getENS();
+        const fns = getFNS();
         const decrypted = isDecrypted(name);
         let node = {
           name: null,
@@ -379,7 +379,7 @@ const resolvers = {
         };
         const dataSources = [
           getRegistrarEntry(name),
-          ens.getDomainDetails(name),
+          fns.getDomainDetails(name),
           getParent(name),
           getDNSEntryDetails(name),
           getTestEntry(name),
@@ -437,7 +437,7 @@ const resolvers = {
     },
     getResolverMigrationInfo: async (_, { name, resolver }, { cache }) => {
       /* TODO add hardcoded resolver addresses */
-      const ens = getENS();
+      const fns = getFNS();
       const networkId = await getNetworkId();
 
       const RESOLVERS = {
@@ -505,7 +505,7 @@ const resolvers = {
       }
 
       async function calculateIsPublicResolverReady() {
-        const publicResolver = await ens.getAddress('resolver.ftm');
+        const publicResolver = await fns.getAddress('resolver.ftm');
         return !OLD_RESOLVERS.map(a => a.toLowerCase()).includes(
           publicResolver
         );
@@ -524,8 +524,8 @@ const resolvers = {
       return resolverMigrationInfo;
     },
     isMigrated: async (_, { name }, { cache }) => {
-      const ens = getENS();
-      let result = await ens.isMigrated(name);
+      const fns = getFNS();
+      let result = await fns.isMigrated(name);
       return result;
     },
     isContractController: async (_, { address }, { cache }) => {
@@ -534,8 +534,8 @@ const resolvers = {
       return bytecode !== '0x';
     },
     getSubDomains: async (_, { name }, { cache }) => {
-      const ens = getENS();
-      const rawSubDomains = await ens.getSubdomains(name);
+      const fns = getFNS();
+      const rawSubDomains = await fns.getSubdomains(name);
 
       return {
         subDomains: rawSubDomains,
@@ -544,7 +544,7 @@ const resolvers = {
     },
     getReverseRecord: async (_, { address }, { cache }) => {
       let name = emptyAddress;
-      const ens = getENS();
+      const fns = getFNS();
       const obj = {
         name,
         address,
@@ -553,8 +553,8 @@ const resolvers = {
       if (!address) return obj;
 
       try {
-        const { name: reverseName } = await ens.getName(address);
-        const reverseAddress = await ens.getAddress(reverseName);
+        const { name: reverseName } = await fns.getName(address);
+        const reverseAddress = await fns.getAddress(reverseName);
         const normalisedName = normalize(reverseName);
         if (
           parseInt(address) === parseInt(reverseAddress) &&
@@ -563,7 +563,7 @@ const resolvers = {
           name = reverseName;
         }
         if (name !== null) {
-          const avatar = await ens.getText(name, 'avatar');
+          const avatar = await fns.getText(name, 'avatar');
           return {
             ...obj,
             name,
@@ -588,8 +588,8 @@ const resolvers = {
       }
     },
     getText: async (_, { name, key }) => {
-      const ens = getENS();
-      const text = await ens.getText(name, key);
+      const fns = getFNS();
+      const text = await fns.getText(name, key);
       if (text === '') {
         return null;
       }
@@ -597,8 +597,8 @@ const resolvers = {
       return text;
     },
     getAddr: async (_, { name, key }) => {
-      const ens = getENS();
-      const address = await ens.getAddr(name, key);
+      const fns = getFNS();
+      const address = await fns.getAddr(name, key);
       if (address === '') {
         return null;
       }
@@ -606,16 +606,16 @@ const resolvers = {
       return address;
     },
     getAddresses: async (_, { name, keys }) => {
-      const ens = getENS();
+      const fns = getFNS();
       const addresses = keys.map(key =>
-        ens.getAddr(name, key).then(addr => ({ key, value: addr }))
+        fns.getAddr(name, key).then(addr => ({ key, value: addr }))
       );
       return Promise.all(addresses);
     },
     getTextRecords: async (_, { name, keys }) => {
-      const ens = getENS();
+      const fns = getFNS();
       const textRecords = keys.map(key =>
-        ens.getText(name, key).then(addr => ({ key, value: addr }))
+        fns.getText(name, key).then(addr => ({ key, value: addr }))
       );
       return Promise.all(textRecords);
     },
@@ -652,8 +652,8 @@ const resolvers = {
     },
     setName: async (_, { name }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.claimAndSetReverseRecordName(name);
+        const fns = getFNS();
+        const tx = await fns.claimAndSetReverseRecordName(name);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -661,8 +661,8 @@ const resolvers = {
     },
     setOwner: async (_, { name, address }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setOwner(name, address);
+        const fns = getFNS();
+        const tx = await fns.setOwner(name, address);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -670,8 +670,8 @@ const resolvers = {
     },
     setSubnodeOwner: async (_, { name, address }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setSubnodeOwner(name, address);
+        const fns = getFNS();
+        const tx = await fns.setSubnodeOwner(name, address);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -679,8 +679,8 @@ const resolvers = {
     },
     setResolver: async (_, { name, address }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setResolver(name, address);
+        const fns = getFNS();
+        const tx = await fns.setResolver(name, address);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -688,8 +688,8 @@ const resolvers = {
     },
     setAddress: async (_, { name, recordValue }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setAddress(name, recordValue);
+        const fns = getFNS();
+        const tx = await fns.setAddress(name, recordValue);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -697,8 +697,8 @@ const resolvers = {
     },
     setAddr: async (_, { name, key, recordValue }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setAddr(name, key, recordValue);
+        const fns = getFNS();
+        const tx = await fns.setAddr(name, key, recordValue);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -706,8 +706,8 @@ const resolvers = {
     },
     setContent: async (_, { name, recordValue }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setContent(name, recordValue);
+        const fns = getFNS();
+        const tx = await fns.setContent(name, recordValue);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -715,8 +715,8 @@ const resolvers = {
     },
     setContenthash: async (_, { name, recordValue }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setContenthash(name, recordValue);
+        const fns = getFNS();
+        const tx = await fns.setContenthash(name, recordValue);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -724,18 +724,18 @@ const resolvers = {
     },
     setText: async (_, { name, key, recordValue }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.setText(name, key, recordValue);
+        const fns = getFNS();
+        const tx = await fns.setText(name, key, recordValue);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
       }
     },
     addMultiRecords: async (_, { name, records }, { cache }) => {
-      const ens = getENS();
+      const fns = getFNS();
 
       const provider = await getProvider();
-      const resolver = await ens.getResolver(name);
+      const resolver = await fns.getResolver(name);
       const resolverInstanceWithoutSigner = await getResolverContract({
         address: resolver,
         provider
@@ -753,7 +753,7 @@ const resolvers = {
       return await handleMultipleTransactions(name, records, resolverInstance);
     },
     migrateResolver: async (_, { name }, { cache }) => {
-      const ens = getENS();
+      const fns = getFNS();
       const provider = await getProvider();
 
       function setupTransactions({ name, records, resolverInstance }) {
@@ -839,35 +839,35 @@ const resolvers = {
       }
 
       async function getAllTextRecords(name) {
-        const promises = TEXT_RECORD_KEYS.map(key => ens.getText(name, key));
+        const promises = TEXT_RECORD_KEYS.map(key => fns.getText(name, key));
         const records = await Promise.all(promises);
         return buildKeyValueObjects(TEXT_RECORD_KEYS, records);
       }
 
       async function getAllTextRecordsWithResolver(name, resolver) {
         const promises = TEXT_RECORD_KEYS.map(key =>
-          ens.getTextWithResolver(name, key, resolver)
+          fns.getTextWithResolver(name, key, resolver)
         );
         const records = await Promise.all(promises);
         return buildKeyValueObjects(TEXT_RECORD_KEYS, records);
       }
 
       async function getAllAddresses(name) {
-        const promises = COIN_LIST_KEYS.map(key => ens.getAddr(name, key));
+        const promises = COIN_LIST_KEYS.map(key => fns.getAddr(name, key));
         const records = await Promise.all(promises);
         return buildKeyValueObjects(COIN_LIST_KEYS, records);
       }
 
       async function getAllAddressesWithResolver(name, resolver) {
         const promises = COIN_LIST_KEYS.map(key =>
-          ens.getAddrWithResolver(name, key, resolver)
+          fns.getAddrWithResolver(name, key, resolver)
         );
         const records = await Promise.all(promises);
         return buildKeyValueObjects(COIN_LIST_KEYS, records);
       }
 
       async function getOldContent(name) {
-        const resolver = await ens.getResolver(name);
+        const resolver = await fns.getResolver(name);
         const namehash = getNamehash(name);
         const resolverInstanceWithoutSigner = await getOldResolverContract({
           address: resolver,
@@ -879,7 +879,7 @@ const resolvers = {
       }
 
       async function getContenthash(name) {
-        const resolver = await ens.getResolver(name);
+        const resolver = await fns.getResolver(name);
         return getContenthashWithResolver(name, resolver);
       }
 
@@ -897,7 +897,7 @@ const resolvers = {
 
       async function getAllRecords(name, isOldContentResolver) {
         const promises = [
-          ens.getAddress(name),
+          fns.getAddress(name),
           isOldContentResolver ? getOldContent(name) : getContenthash(name),
           getAllTextRecords(name),
           getAllAddresses(name)
@@ -907,7 +907,7 @@ const resolvers = {
 
       async function getAllRecordsNew(name, publicResolver) {
         const promises = [
-          ens.getEthAddressWithResolver(name, publicResolver),
+          fns.getEthAddressWithResolver(name, publicResolver),
           getContenthashWithResolver(name, publicResolver),
           getAllTextRecordsWithResolver(name, publicResolver),
           getAllAddressesWithResolver(name, publicResolver)
@@ -921,8 +921,8 @@ const resolvers = {
 
       // get public resolver
       try {
-        const publicResolver = await ens.getAddress('resolver.ftm');
-        const resolver = await ens.getResolver(name);
+        const publicResolver = await fns.getAddress('resolver.ftm');
+        const resolver = await fns.getResolver(name);
         const isOldContentResolver = calculateIsOldContentResolver(resolver);
 
         // get old and new records in parallel
@@ -950,11 +950,11 @@ const resolvers = {
           //add them all together into one transaction
           const tx1 = await resolverInstance.multicall(transactionArray);
           //once the record has been migrated, migrate the resolver using setResolver to the new public resolver
-          const tx2 = await ens.setResolver(name, publicResolver);
+          const tx2 = await fns.setResolver(name, publicResolver);
           //await migrate records into new resolver
           return sendHelperArray([tx1, tx2]);
         } else {
-          const tx = await ens.setResolver(name, publicResolver);
+          const tx = await fns.setResolver(name, publicResolver);
           const value = await sendHelper(tx);
           return [value];
         }
@@ -965,9 +965,9 @@ const resolvers = {
     },
     migrateRegistry: async (_, { name, address }, { cache }) => {
       try {
-        const ens = getENS();
-        const resolver = await ens.getResolver(name);
-        const tx = await ens.setSubnodeRecord(name, address, resolver);
+        const fns = getFNS();
+        const resolver = await fns.getResolver(name);
+        const tx = await fns.setSubnodeRecord(name, address, resolver);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -975,8 +975,8 @@ const resolvers = {
     },
     createSubdomain: async (_, { name }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.createSubdomain(name);
+        const fns = getFNS();
+        const tx = await fns.createSubdomain(name);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -984,8 +984,8 @@ const resolvers = {
     },
     deleteSubdomain: async (_, { name }, { cache }) => {
       try {
-        const ens = getENS();
-        const tx = await ens.deleteSubdomain(name);
+        const fns = getFNS();
+        const tx = await fns.deleteSubdomain(name);
         return sendHelper(tx);
       } catch (e) {
         console.log(e);
@@ -1004,7 +1004,7 @@ const resolvers = {
       };
       cache.writeData({ data });
       window.localStorage.setItem(
-        'ensFavourites',
+        'fnsFavourites',
         JSON.stringify(data.favourites)
       );
       return data;
@@ -1020,7 +1020,7 @@ const resolvers = {
 
       cache.writeData({ data });
       window.localStorage.setItem(
-        'ensFavourites',
+        'fnsFavourites',
         JSON.stringify(data.favourites)
       );
       return data;
@@ -1038,7 +1038,7 @@ const resolvers = {
       };
       cache.writeData({ data });
       window.localStorage.setItem(
-        'ensSubDomainFavourites',
+        'fnsSubDomainFavourites',
         JSON.stringify(data.subDomainFavourites)
       );
       return data;
@@ -1054,7 +1054,7 @@ const resolvers = {
 
       cache.writeData({ data });
       window.localStorage.setItem(
-        'ensSubDomainFavourites',
+        'fnsSubDomainFavourites',
         JSON.stringify(data.subDomainFavourites)
       );
       return data;
