@@ -1,7 +1,7 @@
 import { setupFNS } from '@ensdomains/ui';
 
 const INFURA_ID =
-  window.location.host === 'app.ens.domains'
+  window.location.host === 'app.fns.fantom.network'
     ? '90f210707d3c450f847659dc9a3436ea'
     : '58a380d3ecd545b2b5b3dad5d2b18bf0';
 

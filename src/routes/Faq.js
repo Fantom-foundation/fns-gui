@@ -183,8 +183,12 @@ function Faq() {
 
       <Section question="Can I register names other than .ftm?" last={true}>
         Yes, if you own DNS domains listed
-        <a href="https://app.ens.domains/name/[root]/subdomains"> here </a>, you
-        can use the DNS record as the proof to claim the equivalent FNS names.
+        <a href="https://app.fns.fantom.network/name/[root]/subdomains">
+          {' '}
+          here{' '}
+        </a>
+        , you can use the DNS record as the proof to claim the equivalent FNS
+        names.
         <br />
         Please refer to our{' '}
         <a href="https://docs.ens.domains/dns-registrar-guide">guide</a> for

@@ -1,4 +1,4 @@
-import temporallogo from '../../assets/temporal.png'
+import temporallogo from '../../assets/temporal.png';
 
 const TEMPORAL = {
   name: 'Temporal', // Name of the IPFS service
@@ -14,21 +14,21 @@ const TEMPORAL = {
   loginDev: 'https://dev.api.temporal.cloud/v2/auth/login', // same as login but used if user is not on mainnet
   signup: 'https://api.temporal.cloud/v2/auth/register',
   signupDev: 'https://dev.api.temporal.cloud/v2/auth/register'
-}
+};
 
 export function getConfig(service) {
   switch (service) {
     case 'TEMPORAL':
-      return TEMPORAL
+      return TEMPORAL;
     default:
-      return TEMPORAL
+      return TEMPORAL;
   }
 }
 
 export function getDev() {
-  if (window.location.href.includes('https://app.ens.domains')) {
-    return false
+  if (window.location.href.includes('https://app.fns.fantom.network')) {
+    return false;
   } else {
-    return true
+    return true;
   }
 }
