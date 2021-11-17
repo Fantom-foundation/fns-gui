@@ -190,7 +190,11 @@ export function isShortName(term) {
 export const aboutPageURL = () => {
   const lang = window.localStorage.getItem('language') || '';
 
-  return `https://fns.fantom.network/${lang === 'en' ? '' : lang}`;
+  return `https://${
+    process.env.REACT_APP_STAGE === 'production'
+      ? 'fns.fantom.network'
+      : 'fns-test.fantom.network'
+  }/${lang === 'en' ? '' : lang}`;
 };
 
 export function isRecordEmpty(value) {
