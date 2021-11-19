@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import styled from '@emotion/styled/macro';
 
-import warningImage from '../../assets/warning.svg'
+import warningImage from '../../assets/warning.svg';
 
 const ErrorContainer = styled('div')`
   color: black;
@@ -13,11 +13,11 @@ const ErrorContainer = styled('div')`
   flex-direction: column;
   max-width: 400px;
   margin: 0 auto 0;
-`
+`;
 
 const Warning = styled('img')`
   width: 40px;
-`
+`;
 
 const H2 = styled('h2')`
   font-family: Overpass;
@@ -25,9 +25,9 @@ const H2 = styled('h2')`
   font-size: 28px;
   color: #2b2b2b;
   text-align: center;
-`
+`;
 
-const Message = styled('div')``
+const Message = styled('div')``;
 
 export const NetworkError = ({ message }) => (
   <ErrorContainer>
@@ -35,10 +35,10 @@ export const NetworkError = ({ message }) => (
       <Warning src={warningImage} />
       <H2>{message}</H2>
       <br />
-      Please change your dapp browser to Mainnet, Ropsten, Rinkeby or Goerli
+      Please change your dapp browser to Fantom Opera Mainnet or Testnet
     </Message>
   </ErrorContainer>
-)
+);
 
 export const Error404 = () => (
   <ErrorContainer>
@@ -48,4 +48,4 @@ export const Error404 = () => (
       We couldn't find what you were looking for!
     </Message>
   </ErrorContainer>
-)
+);
