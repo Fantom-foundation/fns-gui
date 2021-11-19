@@ -194,7 +194,7 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
         <li>
           <NavLink
             onClick={toggleMenu}
-            active={url === '/dashboard'}
+            active={url === '/dashboard' ? 1 : 0}
             to="/dashboard"
           >
             <Window active={url === '/dashboard'} />
@@ -205,7 +205,7 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
           <li>
             <NavLink
               onClick={toggleMenu}
-              active={url === '/address/' + accounts[0]}
+              active={url === '/address/' + accounts[0] ? 1 : 0}
               to={'/address/' + accounts[0]}
             >
               <User active={url === '/address/' + accounts[0]} />
@@ -216,7 +216,7 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
         <li>
           <NavLink
             onClick={toggleMenu}
-            active={url === '/favourites'}
+            active={url === '/favourites' ? 1 : 0}
             to="/favourites"
           >
             <Heart active={url === '/favourites'} />
@@ -230,7 +230,11 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
           </ThirdPartyLink>
         </li>
         <li>
-          <NavLink onClick={toggleMenu} active={url === '/faq'} to="/faq">
+          <NavLink
+            onClick={toggleMenu}
+            active={url === '/faq' ? 1 : 0}
+            to="/faq"
+          >
             <Question active={url === '/faq'} />
             <span>{t('c.faq')}</span>
           </NavLink>

@@ -1,11 +1,11 @@
-import React, { forwardRef } from 'react'
-import AddToCalendarHOC from 'react-add-to-calendar-hoc'
-import Dropdown from './Dropdown'
-import DefaultButton from '../Forms/Button'
-import styled from '@emotion/styled/macro'
-import { css } from 'emotion'
-import { useTranslation } from 'react-i18next'
-import calendar from '../../assets/calendar.svg'
+import React, { forwardRef } from 'react';
+import AddToCalendarHOC from 'react-add-to-calendar-hoc';
+import Dropdown from './Dropdown';
+import DefaultButton from '../Forms/Button';
+import styled from '@emotion/styled/macro';
+import { css } from 'emotion';
+import { useTranslation } from 'react-i18next';
+import calendar from '../../assets/calendar.svg';
 
 const AddToCalendarContainer = styled('div')`
   ${p =>
@@ -14,7 +14,7 @@ const AddToCalendarContainer = styled('div')`
     opacity: 0.3;
     pointer-events: none ;  
   `};
-`
+`;
 
 const Button = styled(DefaultButton)`
   border: none;
@@ -25,18 +25,18 @@ const Button = styled(DefaultButton)`
   &:hover {
     border: none;
   }
-`
+`;
 
-const CalendarButton = forwardRef((props, ref) => (
-  <Button type="hollow-primary" ref={ref} {...props}>
+const CalendarButton = React.forwardRef((props, ref) => (
+  <Button type="hollow-primary" {...props}>
     <img src={calendar} alt="calendar icon" />
     &nbsp;
     {props.children}
   </Button>
-))
+));
 
 function CalendarInvite({ noMargin, dropDownLinks = [], event, invalid }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const styles = css`
     position: relative;
@@ -46,9 +46,9 @@ function CalendarInvite({ noMargin, dropDownLinks = [], event, invalid }) {
       margin: 0;
     `
       : ''}
-  `
+  `;
 
-  const AddToCalendar = AddToCalendarHOC(CalendarButton, Dropdown)
+  const AddToCalendar = AddToCalendarHOC(CalendarButton, Dropdown);
   return (
     <AddToCalendarContainer invalid={invalid}>
       <AddToCalendar
@@ -61,9 +61,9 @@ function CalendarInvite({ noMargin, dropDownLinks = [], event, invalid }) {
         }}
       />
     </AddToCalendarContainer>
-  )
+  );
 }
 
-export default CalendarInvite
+export default CalendarInvite;
 
-export { CalendarButton }
+export { CalendarButton };

@@ -1,21 +1,21 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { DELETE_SUBDOMAIN } from 'graphql/mutations'
-import { SingleNameBlockies } from '../Blockies'
-import Checkbox from '../Forms/Checkbox'
-import mq, { useMediaMin } from 'mediaQuery'
-import Tooltip from '../Tooltip/Tooltip'
-import QuestionMark from '../Icons/QuestionMark'
-import { checkIsDecrypted, truncateUndecryptedName } from '../../api/labels'
-import ExpiryDate from './ExpiryDate'
-import { Mutation } from 'react-apollo'
-import Bin from '../Forms/Bin'
-import { useEditable } from '../hooks'
-import PendingTx from '../PendingTx'
-import { useAccount } from '../QueryAccount'
-import AddFavourite from '../AddFavourite/AddFavourite'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { DELETE_SUBDOMAIN } from 'graphql/mutations';
+import { SingleNameBlockies } from '../Blockies';
+import Checkbox from '../Forms/Checkbox';
+import mq, { useMediaMin } from 'mediaQuery';
+import Tooltip from '../Tooltip/Tooltip';
+import QuestionMark from '../Icons/QuestionMark';
+import { checkIsDecrypted, truncateUndecryptedName } from '../../api/labels';
+import ExpiryDate from './ExpiryDate';
+import { Mutation } from 'react-apollo';
+import Bin from '../Forms/Bin';
+import { useEditable } from '../hooks';
+import PendingTx from '../PendingTx';
+import { useAccount } from '../QueryAccount';
+import AddFavourite from '../AddFavourite/AddFavourite';
 
 const DomainLink = styled(Link)`
   display: grid;
@@ -30,7 +30,7 @@ const DomainLink = styled(Link)`
   border-bottom: 1px dashed #d3d3d3;
 
   ${p =>
-    !p.showBlockies &&
+    !p.showblockies &&
     mq.small`
         grid-template-columns: 1fr minmax(150px, 350px) 35px 23px;
         grid-template-rows: 50px
@@ -61,7 +61,7 @@ const DomainLink = styled(Link)`
       grid-row-start: auto;
     `}
   }
-`
+`;
 
 export default function ChildDomainItem({
   name,
@@ -75,21 +75,21 @@ export default function ChildDomainItem({
   showBlockies = true,
   canDeleteSubdomain
 }) {
-  const { state, actions } = useEditable()
-  const { txHash, pending, confirmed } = state
-  const { startPending, setConfirmed } = actions
+  const { state, actions } = useEditable();
+  const { txHash, pending, confirmed } = state;
+  const { startPending, setConfirmed } = actions;
 
-  let { t } = useTranslation()
-  const smallBP = useMediaMin('small')
-  const isDecrypted = checkIsDecrypted(name)
-  let label = isDecrypted ? `${name}` : truncateUndecryptedName(name)
+  let { t } = useTranslation();
+  const smallBP = useMediaMin('small');
+  const isDecrypted = checkIsDecrypted(name);
+  let label = isDecrypted ? `${name}` : truncateUndecryptedName(name);
   if (isMigrated === false)
-    label = label + ` (${t('childDomainItem.notmigrated')})`
+    label = label + ` (${t('childDomainItem.notmigrated')})`;
   return (
     <DomainLink
-      showBlockies={showBlockies}
+      showblockies={showBlockies ? 1 : 0}
       data-testid={`${name}`}
-      warning={isMigrated === false ? true : false}
+      warning={isMigrated === false ? 1 : 0}
       key={name}
       to={`/name/${name}`}
     >
@@ -102,7 +102,7 @@ export default function ChildDomainItem({
           <PendingTx
             txHash={txHash}
             onConfirmed={() => {
-              setConfirmed()
+              setConfirmed();
             }}
           />
         ) : (
@@ -112,15 +112,15 @@ export default function ChildDomainItem({
               name: name
             }}
             onCompleted={data => {
-              startPending(Object.values(data)[0])
+              startPending(Object.values(data)[0]);
             }}
           >
             {mutate => (
               <Bin
                 data-testid={'delete-name'}
                 onClick={e => {
-                  e.preventDefault()
-                  mutate()
+                  e.preventDefault();
+                  mutate();
                 }}
               />
             )}
@@ -149,16 +149,16 @@ export default function ChildDomainItem({
               <div style={{ position: 'relative' }}>
                 <QuestionMark
                   onMouseOver={() => {
-                    showTooltip()
+                    showTooltip();
                   }}
                   onMouseLeave={() => {
-                    hideTooltip()
+                    hideTooltip();
                   }}
                 />
                 &nbsp;
                 {tooltipElement}
               </div>
-            )
+            );
           }}
         </Tooltip>
       )}
@@ -167,16 +167,16 @@ export default function ChildDomainItem({
           testid={`checkbox-${name}`}
           checked={checkedBoxes[name]}
           onClick={e => {
-            e.preventDefault()
+            e.preventDefault();
             setCheckedBoxes(prevState => {
-              return { ...prevState, [name]: !prevState[name] }
-            })
+              return { ...prevState, [name]: !prevState[name] };
+            });
             if (checkedBoxes[name]) {
-              setSelectAll(false)
+              setSelectAll(false);
             }
           }}
         />
       )}
     </DomainLink>
-  )
+  );
 }
