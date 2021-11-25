@@ -88,7 +88,7 @@ const Nav = styled('div')`
     line-height: 17px;
     letter-spacing: -0.5px;
 
-    color: #161b24;
+    color: #eff3fb;
   }
 `;
 
@@ -182,7 +182,7 @@ const Search = styled(SearchDefault)`
   input {
     width: 100%;
     font-size: 16px;
-    background: #ffffff;
+    background: transparent;
     border-radius: 16px;
   }
 `;
@@ -296,12 +296,12 @@ const HomeBanner = styled('h1')`
   font-family: SF Pro Display;
   font-style: normal;
   font-weight: bold;
-  font-size: 64px;
+  font-size: 48px;
   line-height: 76px;
   text-align: center;
   letter-spacing: -0.7px;
 
-  color: #161b24;
+  color: #eff3fb;
 `;
 
 const BannerEmphasis = styled('span')`
@@ -418,8 +418,8 @@ export default ({ match }) => {
                   {!isSafeApp && (
                     <NoAccounts
                       onClick={isReadOnly ? handleConnect : handleDisconnect}
-                      colour="#FFF"
-                      textColour="#1969FF"
+                      colour="#1969FF"
+                      textColour="#eff3fb"
                       buttonText={
                         isReadOnly ? t('c.connect') : t('c.disconnect')
                       }

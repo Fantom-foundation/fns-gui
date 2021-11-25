@@ -12,8 +12,7 @@ import LanguageSwitcher from '../LanguageSwitcher';
 const SearchForm = styled('form')`
   display: flex;
   position: relative;
-  background: #ffffff;
-  box-shadow: 0px 22.9412px 25px #f2f1fa;
+  background: #202f49;
   border-radius: 16px;
 
   &:before {
@@ -30,6 +29,8 @@ const SearchForm = styled('form')`
   }
 
   input {
+    color: #eff3fb;
+    background: transparent;
     padding: 10px 0 10px 55px;
     width: 100%;
     border: none;
@@ -50,14 +51,15 @@ const SearchForm = styled('form')`
       outline: 0;
     }
 
-    &::-webkit-input-placeholder {
+    &::-webkit-input-placeholder,
+    &::placeholder {
       /* Chrome/Opera/Safari */
-      color: #ccd4da;
+      color: #707b8f;
     }
   }
 
   button {
-    ${p => (p && p.hasSearch ? 'background: #1969FF;' : 'background: #c7d3e3;')}
+    ${p => (p && p.hasSearch ? 'opacity: 1;' : 'opacity: 0.6;')}
     font-family: Overpass;
     font-style: normal;
     font-weight: 800;
@@ -65,8 +67,9 @@ const SearchForm = styled('form')`
     line-height: 25px;
     text-align: center;
     letter-spacing: -0.5px;
+    background: #1969ff;
 
-    color: #ffffff;
+    color: #eff3fb;
     height: 56px;
     width: 156px;
     border-radius: 15.2941px;

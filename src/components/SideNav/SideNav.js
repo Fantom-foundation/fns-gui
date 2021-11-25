@@ -26,7 +26,7 @@ const SideNavContainer = styled('nav')`
 
   left: 0;
   height: auto;
-  background: #121d46;
+  background: #0e1e3e;
   width: 100%;
   margin-top: -10px;
   ${mq.medium`
@@ -38,7 +38,7 @@ const SideNavContainer = styled('nav')`
     width: 185px;
     padding: 18px;
     display: block;
-    background: #F9FAFB;
+    background: #0e1e3e;
     border-radius: 24px;
   `}
 
@@ -69,7 +69,7 @@ const NavLink = styled(Link)`
   justify-content: center;
   font-weight: 200;
   font-size: 22px;
-  color: ${p => (p.active ? '#161B24' : '#B1BBCE')};
+  color: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
   padding: 20px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -79,7 +79,12 @@ const NavLink = styled(Link)`
   `}
 
   &:visited {
-    color: #161b24;
+    color: #1969ff;
+  }
+
+  svg,
+  svg path {
+    fill: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
   }
 
   span {
@@ -89,21 +94,22 @@ const NavLink = styled(Link)`
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
-    line-height: 25px;
+    line-height: 1;
+    padding-top: 2px;
     letter-spacing: -0.5px;
 
-    color: ${p => (p.active ? '#161B24' : '#B1BBCE')};
+    color: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
   }
 
   &:hover {
     span {
-      color: #161b24;
+      color: #1969ff;
     }
     path {
-      fill: #161b24;
+      fill: #1969ff;
     }
     g {
-      fill: #161b24;
+      fill: #1969ff;
     }
   }
 `;
@@ -114,7 +120,7 @@ const ThirdPartyLink = styled('a')`
   justify-content: center;
   font-weight: 200;
   font-size: 22px;
-  color: ${p => (p.active ? '#161B24' : '#B1BBCE')};
+  color: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
   padding: 20px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -124,7 +130,7 @@ const ThirdPartyLink = styled('a')`
   `}
 
   &:visited {
-    color: #161b24;
+    color: #1969ff;
   }
 
   span {
@@ -134,20 +140,21 @@ const ThirdPartyLink = styled('a')`
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
-    line-height: 25px;
+    line-height: 1;
+    padding-top: 2px;
     letter-spacing: -0.5px;
     color: ${p => (p.active ? '#161B24' : '#B1BBCE')};
   }
 
   &:hover {
     span {
-      color: #161b24;
+      color: #1969ff;
     }
     path {
-      fill: #161b24;
+      fill: #1969ff;
     }
     g {
-      fill: #161b24;
+      fill: #1969ff;
     }
   }
 `;

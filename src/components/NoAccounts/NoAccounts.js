@@ -13,6 +13,7 @@ const NoAccountsContainer = styled('div')`
   position: relative;
   width: ${({ active }) => (active ? '150px' : '150px')};
   transition: 0.2s;
+  background: ${({ colour }) => colour};
 
   span {
     color: ${({ textColour }) => textColour};

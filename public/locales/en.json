@@ -1,6 +1,6 @@
 {
   "address": {
-    "etherscanButton": "View on Ftmscan",
+    "ftmscanButton": "View on Ftmscan",
     "filter": {
       "controller": "Controller",
       "registrant": "Registrant"

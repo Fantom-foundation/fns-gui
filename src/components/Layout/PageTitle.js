@@ -8,7 +8,7 @@ const PageTitle = styled.h1`
   line-height: 55px;
   letter-spacing: -1px;
 
-  color: #161b24;
+  color: #eff3fb;
   margin: 24px 28px;
 `;
 

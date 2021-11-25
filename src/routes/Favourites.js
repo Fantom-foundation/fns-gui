@@ -33,14 +33,14 @@ const SelectAll = styled('div')`
 `;
 
 const NoDomainsContainer = styled('div')`
+  margin-top: 40px;
   display: flex;
   padding: 40px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: white;
-  box-shadow: 3px 4px 6px 0 rgba(229, 236, 241, 0.3);
-  border-radius: 6px;
+  background: #202f49;
+  border-radius: 16px;
   margin-bottom: 40px;
 
   h2 {
@@ -54,7 +54,7 @@ const NoDomainsContainer = styled('div')`
   }
 
   p {
-    color: #2b2b2b;
+    color: #707b8f;
     font-size: 18px;
     font-weight: 300;
     margin-top: 20px;
@@ -83,7 +83,7 @@ const Search = styled(SearchDefault)`
   input {
     width: 100%;
     font-size: 16px;
-    background: #ffffff;
+    background: transparent;
     border-radius: 16px;
   }
 `;
@@ -284,7 +284,7 @@ function Favourites() {
 }
 
 const FavouritesContainer = styled('div')`
-  padding-bottom: 60px;
+  padding-bottom: 20px;
 `;
 
 export default Favourites;

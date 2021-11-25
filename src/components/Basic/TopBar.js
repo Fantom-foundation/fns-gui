@@ -6,7 +6,7 @@ const TopBar = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
+  background: transparent;
   border-radius: 16px;
 `;
 

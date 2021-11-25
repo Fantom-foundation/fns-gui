@@ -113,7 +113,6 @@ const Search = styled(SearchDefault)`
   input {
     width: 100%;
     font-size: 16px;
-    background: #ffffff;
     border-radius: 16px;
   }
 `;
@@ -304,7 +303,7 @@ export default function Address({
           <Title>{address}</Title>
           {etherScanAddr && (
             <FtmScanLink address={address}>
-              {t('address.etherscanButton')}
+              {t('address.ftmscanButton')}
             </FtmScanLink>
           )}
         </TopBar>

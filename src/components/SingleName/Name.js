@@ -39,7 +39,7 @@ const Search = styled(SearchDefault)`
   input {
     width: 100%;
     font-size: 16px;
-    background: #ffffff;
+    background: transparent;
     border-radius: 16px;
   }
 `;

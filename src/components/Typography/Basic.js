@@ -20,7 +20,7 @@ export const Title = styled('h2')`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #161b24;
+  color: #eff3fb;
   padding: 0;
   margin: 0;
 `;
