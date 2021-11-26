@@ -72,7 +72,9 @@ const H2 = styled(DefaultH2)`
   `}
 `;
 
-const Search = styled(SearchDefault)``;
+const Search = styled(SearchDefault)`
+  margin-bottom: 15px;
+`;
 
 const NoDomains = () => {
   const { t } = useTranslation();

@@ -101,7 +101,7 @@ const Explanation = styled('div')`
   /* or 27px */
   letter-spacing: -0.5px;
 
-  color: #161b24;
+  color: #eff3fb;
 
   line-height: 25px;
   margin-bottom: 10px;
