@@ -9,8 +9,7 @@ const NoDomainsContainer = styled('div')`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: white;
-  box-shadow: 3px 4px 6px 0 rgba(229, 236, 241, 0.3);
+  background: #202f49;
   border-radius: 6px;
   margin-bottom: 40px;
 
@@ -36,6 +35,8 @@ const NoDomainsContainer = styled('div')`
 `;
 
 const DomainsContainer = styled('div')`
+  background: #202f49;
+  border-radius: 16px;
   margin-top: 20px;
   padding-bottom: 30px;
   padding-left: 40px;

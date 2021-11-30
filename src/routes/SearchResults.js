@@ -1,14 +1,14 @@
-import React from 'react'
-import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import { Trans } from 'react-i18next'
+import React from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import { Trans } from 'react-i18next';
 
-import { H2 } from '../components/Typography/Basic'
-import DomainInfo from '../components/SearchName/DomainInfo'
-import { SubDomainStateFields } from '../graphql/fragments'
-import { validateName, parseSearchTerm } from '../utils/utils'
-import SearchErrors from '../components/SearchErrors/SearchErrors'
-import { useHistory } from 'react-router-dom'
+import { H2 } from '../components/Typography/Basic';
+import DomainInfo from '../components/SearchName/DomainInfo';
+import { SubDomainStateFields } from '../graphql/fragments';
+import { validateName, parseSearchTerm } from '../utils/utils';
+import SearchErrors from '../components/SearchErrors/SearchErrors';
+import { useHistory } from 'react-router-dom';
 
 const GET_SUBDOMAIN_AVAILABILITY = gql`
   mutation getSubDomainAvailability($name: String) {
@@ -18,61 +18,61 @@ const GET_SUBDOMAIN_AVAILABILITY = gql`
   }
 
   ${SubDomainStateFields}
-`
+`;
 
 class Results extends React.Component {
   state = {
     errors: [],
     errorType: '',
     parsed: null
-  }
+  };
   checkValidity = async () => {
-    const { searchTerm: _searchTerm } = this.props
-    let parsed, searchTerm
+    const { searchTerm: _searchTerm } = this.props;
+    let parsed, searchTerm;
     this.setState({
       errors: []
-    })
+    });
     if (_searchTerm.split('.').length === 1) {
-      searchTerm = _searchTerm + '.ftm'
+      searchTerm = _searchTerm + '.ftm';
     } else {
-      searchTerm = _searchTerm
+      searchTerm = _searchTerm;
     }
-    const type = await parseSearchTerm(searchTerm)
+    const type = await parseSearchTerm(searchTerm);
     if (!['unsupported', 'invalid', 'short'].includes(type)) {
-      parsed = validateName(searchTerm)
+      parsed = validateName(searchTerm);
       this.setState({
         parsed
-      })
+      });
     }
     document.title = `ENS Search: ${searchTerm}`
 
     if (type === 'unsupported') {
       this.setState({
         errors: ['unsupported']
-      })
+      });
     } else if (type === 'short') {
       this.setState({
         errors: ['tooShort']
-      })
+      });
     } else if (type === 'invalid') {
       this.setState({
         errors: ['domainMalformed']
-      })
+      });
     } else {
       //getSubDomainAvailability({ variables: { name: searchTerm } })
     }
-  }
+  };
   async componentDidMount() {
-    await this.checkValidity()
+    await this.checkValidity();
   }
 
   async componentDidUpdate(prevProps) {
     if (prevProps.searchTerm !== this.props.searchTerm) {
-      await this.checkValidity()
+      await this.checkValidity();
     }
   }
   render() {
-    const { searchTerm } = this.props
+    const { searchTerm } = this.props;
     if (this.state.errors[0] === 'tooShort') {
       return (
         <>
@@ -83,14 +83,14 @@ class Results extends React.Component {
           {console.log('IN RESULTS', searchTerm)}
           {/* <SubDomainResults searchTerm={searchTerm} /> */}
         </>
-      )
+      );
     } else if (this.state.errors.length > 0) {
       return (
         <SearchErrors
           errors={this.state.errors}
           searchTerm={this.props.searchTerm}
         />
-      )
+      );
     }
     if (this.state.parsed) {
       return (
@@ -101,19 +101,19 @@ class Results extends React.Component {
           <DomainInfo searchTerm={this.state.parsed} />
           {/* <SubDomainResults searchTerm={searchTerm} /> */}
         </>
-      )
+      );
     } else {
-      return ''
+      return '';
     }
   }
 }
 
 const ResultsContainer = ({ searchDomain, match }) => {
-  const searchTerm = match.params.searchTerm
-  const history = useHistory()
-  const lowered = searchTerm.toLowerCase()
+  const searchTerm = match.params.searchTerm;
+  const history = useHistory();
+  const lowered = searchTerm.toLowerCase();
   if (history && lowered !== searchTerm) {
-    history.push(`/search/${lowered}`)
+    history.push(`/search/${lowered}`);
   }
 
   return (
@@ -129,7 +129,7 @@ const ResultsContainer = ({ searchDomain, match }) => {
         />
       )}
     </Mutation>
-  )
-}
+  );
+};
 
-export default ResultsContainer
+export default ResultsContainer;

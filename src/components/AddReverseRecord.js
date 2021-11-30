@@ -251,6 +251,19 @@ function AddReverseRecord({ account, currentAddress }) {
                 value={newName}
                 onChange={handleSelect}
                 options={options}
+                theme={theme => ({
+                  ...theme,
+                  borderRadius: 8,
+                  colors: {
+                    ...theme.colors,
+                    text: '#eff3fb',
+                    primary25: '#eff3fb',
+                    primary: '#eff3fb',
+                    neutral0: 'transparent',
+                    neutral80: '#adbbcd',
+                    primary50: 'transparent'
+                  }
+                })}
               />
             ) : (
               <Warning>

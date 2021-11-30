@@ -66,7 +66,9 @@ const Close = styled('img')`
 `;
 
 const Controls = styled('div')`
-  padding-left: 8px;
+  background: #202f49;
+  padding: 30px;
+  border-radius: 16px;
   display: grid;
   align-content: center;
   grid-template-columns: 1fr;
@@ -357,7 +359,6 @@ export default function Address({
           </>
         )}
       </Controls>
-
       <DomainList
         setSelectAll={setSelectAll}
         address={address}

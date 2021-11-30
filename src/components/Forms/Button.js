@@ -13,18 +13,15 @@ function getButtonStyles({ type }) {
           cursor: pointer;
           border: 2px solid #2c46a6;
           background: #2c46a6;
-          box-shadow: 0 10px 21px 0 rgba(161, 175, 184, 0.89);
         }
       `;
     case 'hollow':
       return `
         color: #DFDFDF;
-        border: 2px solid #DFDFDF;
         &:hover {
           cursor: pointer;
           border: 2px solid transparent;
           background: #2c46a6;
-          box-shadow: 0 10px 21px 0 rgba(161, 175, 184, 0.89);
         }
       `;
     case 'hollow-white':
@@ -40,7 +37,6 @@ function getButtonStyles({ type }) {
           cursor: pointer;
           border: 2px solid transparent;
           background: #2c46a6;
-          box-shadow: 0 10px 21px 0 rgba(161, 175, 184, 0.89);
         }
       `;
     case 'hollow-primary':
@@ -59,21 +55,21 @@ function getButtonStyles({ type }) {
       `;
     case 'hollow-primary-disabled':
       return `
-        color: #dfdfdf;
-        background: transparent;
-        border: 2px solid #dfdfdf;
+        color: #eff3fb;
+        background: #1969ff;
+        opacity: 0.6;
         &:visited {
-          color: #dfdfdf;
+          color: #eff3fb;
         }
         &:hover {
-          color: #dfdfdf;
+          color: #eff3fb;
           cursor: default
         }
       `;
     case 'disabled':
       return `
-        border: 2px solid #dfdfdf;
-        background: #dfdfdf;
+        background: #1969ff;
+        opacity: 0.6;
         &:hover {
           cursor: default
         }
