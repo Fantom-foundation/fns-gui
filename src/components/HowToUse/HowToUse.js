@@ -1,13 +1,13 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import styled from '@emotion/styled/macro';
 
-import favourite from '../HomePage/images/favourite.svg'
-import manage from '../HomePage/images/manage.svg'
-import search from '../HomePage/images/search.svg'
-import register from '../HomePage/images/register.svg'
+import favourite from '../HomePage/images/favourite.svg';
+import manage from '../HomePage/images/manage.svg';
+import search from '../HomePage/images/search.svg';
+import register from '../HomePage/images/register.svg';
 
-import mq from 'mediaQuery'
+import mq from 'mediaQuery';
 
 const HowToUseContainer = styled('section')`
   display: flex;
@@ -16,7 +16,7 @@ const HowToUseContainer = styled('section')`
   background: #fff;
   padding: 70px;
   padding-top: 0;
-`
+`;
 
 const Icons = styled('div')`
   display: grid;
@@ -29,7 +29,7 @@ const Icons = styled('div')`
     grid-template-rows: 1fr 1fr;
     grid-gap: 50px;
   `};
-`
+`;
 
 const IconContainer = styled('div')`
   display: flex;
@@ -58,32 +58,32 @@ const IconContainer = styled('div')`
     font-weight: 300;
     text-align: center;
   }
-`
+`;
 
 const ImgContainer = styled('div')`
   height: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const H3 = styled('h3')`
   font-size: 20px;
   font-weight: 400;
-`
+`;
 
 const Icon = ({ src, title, text }) => (
   <IconContainer>
     <ImgContainer>
-      <img src={src} alt="ENS Logo" />
+      <img src={src} alt="FNS Logo" />
     </ImgContainer>
     <H3>{title}</H3>
     {text.length > 0 && <p>{text}</p>}
   </IconContainer>
-)
+);
 
 const HowToUse = ({ text = false, className }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <HowToUseContainer className={className}>
       <Icons className="icons">
@@ -109,7 +109,7 @@ const HowToUse = ({ text = false, className }) => {
         />
       </Icons>
     </HowToUseContainer>
-  )
-}
+  );
+};
 
-export default HowToUse
+export default HowToUse;
