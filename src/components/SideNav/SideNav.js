@@ -175,18 +175,25 @@ const NavbarBottom = styled('div')`
   flex-direction: row;
   align-items: center;
   margin-top: 300px;
+  justify-content: space-around;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 30px;
 `;
 
 const NavbarBottomLabel = styled('label')`
   font-family: Overpass;
   font-style: normal;
   font-weight: normal;
-  font-size: 11.4px;
-  line-height: 17px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: -0.5px;
 
   color: #1969ff;
   margin-right: 5px;
+  padding-top: 2px;
+  flex: 1;
 `;
 
 function SideNav({ match, isMenuOpen, toggleMenu }) {

@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-const SVG = styled('svg')``;
+const SVG = styled('svg')`
+  flex: 1;
+`;
 
 const FantomLogo = () => (
   <SVG
-    width="49"
-    height="13"
+    preserveAspectRatio="none"
     viewBox="0 0 49 13"
     xmlns="http://www.w3.org/2000/svg"
   >
