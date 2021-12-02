@@ -33,6 +33,7 @@ const TabContainer = styled('div')`
   margin-left: 20px;
   margin-top: 20px;
   border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.05);
 
   ${mq.small`
     margin-right: 0;

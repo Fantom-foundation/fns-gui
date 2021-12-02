@@ -103,9 +103,9 @@ function Name({ details: domain, name, pathname, type, refetch }) {
   }
   return (
     <>
+      <PageTitle>{t('dashboard.dashboardTitle')}</PageTitle>
+      <Search />
       <NameContainer state={containerState}>
-        <PageTitle>{t('dashboard.dashboardTitle')}</PageTitle>
-        <Search />
         <TopBar percentDone={percentDone}>
           <Title>
             {domain.decrypted

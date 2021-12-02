@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
-import mq from '../../mediaQuery'
-import { ReactComponent as BookPen } from '../Icons/BookPen.svg'
-import DefaultRotatingSmallCaret from '../Icons/RotatingSmallCaret'
+import React, { useState } from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
+import mq from '../../mediaQuery';
+import { ReactComponent as BookPen } from '../Icons/BookPen.svg';
+import DefaultRotatingSmallCaret from '../Icons/RotatingSmallCaret';
 
 const SetupNameContainer = styled('div')`
-  background: #f0f6fa;
+  background: rgba(255, 255, 255, 0.05);
   padding: 20px 40px;
   margin-bottom: 40px;
-`
+  color: #eff3fb;
+`;
 
 const Header = styled('header')`
   display: flex;
@@ -18,7 +19,7 @@ const Header = styled('header')`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 
 const RotatingSmallCaret = styled(DefaultRotatingSmallCaret)`
   position: absolute;
@@ -26,14 +27,14 @@ const RotatingSmallCaret = styled(DefaultRotatingSmallCaret)`
   top: 50%;
   transform: translateY(-50%)
     ${p => (p.rotated ? 'rotate(0)' : 'rotate(-90deg)')};
-`
+`;
 
 const H2 = styled('h2')`
   margin: 0;
   margin-left: 10px;
   font-size: 20px;
   font-weight: 300;
-`
+`;
 
 const Content = styled('div')`
   display: ${p => (p.open ? 'flex' : 'none')};
@@ -41,7 +42,7 @@ const Content = styled('div')`
   ${mq.large`
     flex-direction: row;
   `}
-`
+`;
 
 const Block = styled('section')`
   margin-right: 40px;
@@ -57,19 +58,19 @@ const Block = styled('section')`
     font-size: 14px;
     font-weight: 300;
   }
-`
+`;
 
 function SetupName({ initialState = false }) {
-  const { t } = useTranslation()
-  const [open, setOpen] = useState(initialState)
-  const [initial, setInitial] = useState(initialState)
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(initialState);
+  const [initial, setInitial] = useState(initialState);
   // Change the open state when resolver is set/unset
   if (initial !== initialState) {
-    setInitial(initialState)
-    setOpen(initialState)
+    setInitial(initialState);
+    setOpen(initialState);
   }
 
-  const toggleOpen = () => setOpen(!open)
+  const toggleOpen = () => setOpen(!open);
   return (
     <SetupNameContainer>
       <Header onClick={toggleOpen}>
@@ -92,7 +93,7 @@ function SetupName({ initialState = false }) {
         </Block>
       </Content>{' '}
     </SetupNameContainer>
-  )
+  );
 }
 
-export default SetupName
+export default SetupName;

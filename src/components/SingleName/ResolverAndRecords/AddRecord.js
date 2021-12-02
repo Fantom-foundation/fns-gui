@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import styled from '@emotion/styled/macro'
-import mq from 'mediaQuery'
-import { useTranslation } from 'react-i18next'
+import React, { useState } from 'react';
+import styled from '@emotion/styled/macro';
+import mq from 'mediaQuery';
+import { useTranslation } from 'react-i18next';
 
-import { validateRecord, getPlaceholder } from '../../../utils/records'
-import { useEditable } from '../../hooks'
-import TEXT_RECORD_KEYS from 'constants/textRecords'
-import COIN_LIST from 'constants/coinList'
+import { validateRecord, getPlaceholder } from '../../../utils/records';
+import { useEditable } from '../../hooks';
+import TEXT_RECORD_KEYS from 'constants/textRecords';
+import COIN_LIST from 'constants/coinList';
 
-import Button from '../../Forms/Button'
-import { DetailsKey } from '../DetailsItem'
-import DetailsItemInput from '../DetailsItemInput'
-import DefaultSelect from '../../Forms/Select'
-import DefaultAddressInput from '@ensdomains/react-ens-address'
+import Button from '../../Forms/Button';
+import { DetailsKey } from '../DetailsItem';
+import DetailsItemInput from '../DetailsItemInput';
+import DefaultSelect from '../../Forms/Select';
+import DefaultAddressInput from '@ensdomains/react-ens-address';
 
 const AddressInput = styled(DefaultAddressInput)`
   margin-bottom: 10px;
-`
+`;
 
 const ToggleAddRecord = styled('span')`
   font-family: Overpass;
@@ -40,7 +40,7 @@ const ToggleAddRecord = styled('span')`
       cursor: initial;
     }
   `}
-`
+`;
 
 const Select = styled(DefaultSelect)`
   margin-right: 20px;
@@ -51,7 +51,7 @@ const Select = styled(DefaultSelect)`
     margin-bottom: 0px;
     max-width: 150px;
   `}
-`
+`;
 
 const RecordsTitle = styled('h3')`
   /* Pointers: */
@@ -66,15 +66,15 @@ const RecordsTitle = styled('h3')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const AddRecordContainer = styled('div')`
-  background: #f0f6fa;
-`
+  background: rgba(255, 255, 255, 0.05);
+`;
 
 const AddRecordForm = styled('form')`
   padding: 20px;
-`
+`;
 
 const Row = styled('div')`
   display: flex;
@@ -84,7 +84,7 @@ const Row = styled('div')`
   ${mq.small`
     flex-direction: row;
   `}
-`
+`;
 
 const NewRecordsContainer = styled('div')`
   display: flex;
@@ -101,7 +101,7 @@ const NewRecordsContainer = styled('div')`
     justify-content: center;
     align-items: center;
   `}
-`
+`;
 
 export const RecordsKey = styled(DetailsKey)`
   font-size: 12px;
@@ -112,7 +112,7 @@ export const RecordsKey = styled(DetailsKey)`
     width: 200px;
     margin-right: 0px;
   `}
-`
+`;
 const UploadBtn = styled(Button)`
   flex-direction: row;
   margin-bottom: 5px;
@@ -123,41 +123,41 @@ const UploadBtn = styled(Button)`
     margin-bottom: 20px;
     max-width: 150px;
   `}
-`
+`;
 
 const AddRecordButton = styled('div')`
   display: flex;
   justify-content: flex-end;
-`
+`;
 
 const textRecordOptions = TEXT_RECORD_KEYS.slice()
   .sort()
   .map(key => ({
     label: key,
     value: key
-  }))
+  }));
 const coinOptions = COIN_LIST.slice()
   .sort()
   .map(key => ({
     label: key,
     value: key
-  }))
+  }));
 
 const clearInput = (setSelectedRecord, setSelectedKey, updateValue) => {
-  setSelectedRecord(null)
-  setSelectedKey(null)
-  updateValue(null)
-}
+  setSelectedRecord(null);
+  setSelectedKey(null);
+  updateValue(null);
+};
 
 const validate = (selectedKey, newValue, selectedRecord) => {
-  if (!selectedKey) return false
+  if (!selectedKey) return false;
 
   return validateRecord({
     key: selectedKey?.value,
     value: newValue,
     contractFn: selectedRecord?.contractFn
-  })
-}
+  });
+};
 
 function Editable({
   domain,
@@ -168,35 +168,35 @@ function Editable({
   updateRecord,
   pending
 }) {
-  const { t } = useTranslation()
-  const { state, actions } = useEditable()
-  const { newValue } = state
-  const { updateValue } = actions
+  const { t } = useTranslation();
+  const { state, actions } = useEditable();
+  const { newValue } = state;
+  const { updateValue } = actions;
 
-  const [selectedRecord, setSelectedRecord] = useState(null)
-  const [selectedKey, setSelectedKey] = useState(null)
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [selectedKey, setSelectedKey] = useState(null);
 
   const handleChange = selectedRecord => {
     if (selectedRecord.contractFn === 'setContenthash') {
-      setSelectedKey('content')
+      setSelectedKey('content');
     } else {
-      setSelectedKey(null)
+      setSelectedKey(null);
     }
-    setSelectedRecord(selectedRecord)
-  }
+    setSelectedRecord(selectedRecord);
+  };
 
   const handleSubmit = e => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   const args = {
     type: selectedRecord && selectedRecord.value ? selectedRecord.value : null,
     value: newValue,
     contentType: domain.contentType,
     selectedKey: selectedKey && selectedKey.value
-  }
+  };
 
-  const isValid = validate(selectedKey, newValue, selectedRecord)
+  const isValid = validate(selectedKey, newValue, selectedRecord);
 
   return (
     <>
@@ -262,8 +262,8 @@ function Editable({
                   key: selectedKey?.value || 'CONTENT',
                   value: newValue,
                   contractFn: selectedRecord?.contractFn
-                })
-                clearInput(setSelectedRecord, setSelectedKey, updateValue)
+                });
+                clearInput(setSelectedRecord, setSelectedKey, updateValue);
               }}
             >
               Save
@@ -272,12 +272,12 @@ function Editable({
         </AddRecordForm>
       )}
     </>
-  )
+  );
 }
 
 function AddRecord(props) {
-  const { canEdit } = props
-  const { t } = useTranslation()
+  const { canEdit } = props;
+  const { t } = useTranslation();
   return canEdit ? (
     <AddRecordContainer>
       <Editable {...props} />
@@ -286,7 +286,7 @@ function AddRecord(props) {
     <AddRecordContainer>
       <RecordsTitle>{t('singleName.record.title')}</RecordsTitle>
     </AddRecordContainer>
-  )
+  );
 }
 
-export default AddRecord
+export default AddRecord;

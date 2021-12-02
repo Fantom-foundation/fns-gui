@@ -1,22 +1,21 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import tick from '../../assets/greenTick.svg'
-import warning from '../../assets/warning.svg'
-import yellowwarning from '../../assets/yellowwarning.svg'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import tick from '../../assets/greenTick.svg';
+import warning from '../../assets/warning.svg';
+import yellowwarning from '../../assets/yellowwarning.svg';
 
-import mq from 'mediaQuery'
+import mq from 'mediaQuery';
 
 const StyledInput = styled('input')`
   ${({ wide }) => wide && 'width: 100%'};
-  background: #ffffff;
-  border: 1px solid #ededed;
-  box-shadow: inset 0 0 4px 0 rgba(181, 177, 177, 0.5);
+  background: #202f49;
+  border: 1px solid #eff3fb;
   border-radius: 8px;
   height: 42px;
-  font-family: Overpass Mono;
+  font-family: Overpass;
   font-weight: 300;
   font-size: 14px;
-  color: #2b2b2b;
+  color: #eff3fb;
   letter-spacing: 0;
   padding: 10px 20px;
   &:focus {
@@ -43,7 +42,11 @@ const StyledInput = styled('input')`
     `  
     color: #F5A623
   `};
-`
+  &::placeholder {
+    /* Chrome/Opera/Safari */
+    color: #707b8f;
+  }
+`;
 
 const InputContainer = styled('div')`
   position: relative;
@@ -61,7 +64,7 @@ const InputContainer = styled('div')`
           top: 22px;
           transform: translateY(-50%);
         }
-      `
+      `;
     } else if (p.valid) {
       return `
         &:before {
@@ -74,10 +77,10 @@ const InputContainer = styled('div')`
           top: 22px;
           transform: translateY(-50%);
         }
-      `
+      `;
     }
   }};
-`
+`;
 
 const Input = ({
   className,
@@ -108,6 +111,6 @@ const Input = ({
       placeholder={placeholder}
     />
   </InputContainer>
-)
+);
 
-export default Input
+export default Input;

@@ -37,11 +37,11 @@ export const RecordsItem = styled(DetailsItem)`
   display: block;
   padding: 20px;
   flex-direction: column;
-   ${mq.small`
+  ${mq.small`
     align-items: flex-start;
   `}
 
-  background: ${({ editing }) => (editing ? 'white' : 'white')};
+  background: transparent;
   ${mq.medium`
     display: flex;
     flex-direction: column;

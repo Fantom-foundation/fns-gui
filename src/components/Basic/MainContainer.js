@@ -5,10 +5,9 @@ const MainContainer = styled('div')`
   background: #202f49;
   border-radius: 16px;
 
-  margin-bottom: 60px;
   position: relative;
   overflow: hidden;
-  padding-top: 50px;
+  padding-top: 20px;
 `;
 
 export default MainContainer;

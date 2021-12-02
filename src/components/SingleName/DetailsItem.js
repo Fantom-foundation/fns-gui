@@ -1,5 +1,5 @@
-import styled from '@emotion/styled/macro'
-import mq from 'mediaQuery'
+import styled from '@emotion/styled/macro';
+import mq from 'mediaQuery';
 
 export const DetailsItem = styled('div')`
   display: flex;
@@ -18,10 +18,10 @@ export const DetailsItem = styled('div')`
     flex-direction: row;
   `
       : mq.small`flex-direction: row;`}
-`
+`;
 
 export const DetailsKey = styled('div')`
-  color: ${({ greyed }) => (greyed ? '#CCD4DA' : '2b2b2b')};
+  color: ${({ greyed }) => (greyed ? '#eff3fb' : '#adbbcd')};
   font-size: 14px;
   letter-spacing: 0px;
   font-weight: 600;
@@ -37,7 +37,7 @@ export const DetailsKey = styled('div')`
     max-width: 220px;
     min-width: 180px;
   `}
-`
+`;
 
 export const DetailsValue = styled('div')`
   font-size: 14px;
@@ -62,7 +62,7 @@ export const DetailsValue = styled('div')`
     display: flex;
     overflow: hidden;
   }
-`
+`;
 /* Container element for key/value */
 export const DetailsContent = styled('div')`
   display: flex;
@@ -76,4 +76,4 @@ export const DetailsContent = styled('div')`
     flex-direction: row;
     align-items: center;
   `}
-`
+`;
