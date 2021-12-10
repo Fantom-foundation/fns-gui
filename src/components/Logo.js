@@ -18,7 +18,6 @@ const LogoContainer = styled(Link)`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  padding-left: 20px;
   align-items: center;
   width: auto;
 
@@ -30,7 +29,6 @@ const LogoContainer = styled(Link)`
 const Logo = ({ color, className, to = '' }) => (
   <LogoContainer className={className} to={to}>
     <IconLogo src={FNSLogo} />
-    <LogoTyped color={color} />
   </LogoContainer>
 );
 
