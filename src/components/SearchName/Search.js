@@ -12,8 +12,13 @@ import LanguageSwitcher from '../LanguageSwitcher';
 const SearchForm = styled('form')`
   display: flex;
   position: relative;
-  background: #202f49;
-  border-radius: 16px;
+  background: rgba(7, 9, 7, 0.28);
+  border: 1px solid #232a31;
+  box-sizing: border-box;
+  backdrop-filter: blur(16px);
+
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 18px;
 
   &:before {
     content: '';
