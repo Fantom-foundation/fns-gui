@@ -20,7 +20,10 @@ import TextBubbleDefault from '../components/Icons/TextBubble';
 import QuestionMarkDefault from '../components/Icons/QuestionMark';
 import HowToUseDefault from '../components/HowToUse/HowToUse';
 import Alice from '../components/HomePage/Alice';
-import ENSLogo from '../components/HomePage/images/ENSLogo.svg';
+import FNSLogo from '../components/HomePage/images/FNSLogo.svg';
+import Web3Logo from '../components/HomePage/images/web3.svg';
+import WalletsLogo from '../components/HomePage/images/wallets.svg';
+import WebsitesLogo from '../components/HomePage/images/websites.svg';
 import { aboutPageURL, hasValidReverseRecord } from '../utils/utils';
 import { connect, disconnect } from '../api/web3modal';
 import { useBlock } from '../components/hooks';
@@ -141,7 +144,6 @@ const Hero = styled('section')`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   max-width: 1440px;
   margin: auto;
   ${mq.medium`
@@ -149,13 +151,47 @@ const Hero = styled('section')`
   `}
 `;
 
+const Description = styled('section')`
+  background-size: cover;
+  padding: 60px 20px 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  margin: auto;
+  ${mq.medium`
+  padding: 0 20px 0;
+`}
+`;
+
+const DescriptionWrapper = styled('div')`
+  display: flex;
+  flex-direction: row;
+  padding: 0 70px;
+`;
+
+const DescriptionItemWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  background: #060708;
+  border: 1px solid #232a31;
+  box-sizing: border-box;
+  backdrop-filter: blur(16px);
+
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 18px;
+  margin: 8px;
+`;
+
 const SearchContainer = styled('div')`
-  margin: 0px 220px 0;
+  margin: 220px;
   display: flex;
   flex-direction: column;
   min-width: 100%;
   ${mq.medium`
-    min-width: 60%;
+    min-width: 80%;
   `}
   > h2 {
     color: white;
@@ -257,6 +293,33 @@ const LogoLarge = styled(motion.img)`
   `}
 `;
 
+const DescriptionIcon = styled('img')``;
+
+const DescriptionIconWrapper = styled('div')``;
+
+const DescriptionTitle = styled('label')`
+  margin-top: 20px;
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+
+  color: #ffffff;
+`;
+
+const DescriptionContent = styled('p')`
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.5px;
+
+  color: #5b6876;
+`;
+
 const PermanentRegistrarLogo = styled(motion.h1)`
   font-family: Overpass;
   font-weight: 800;
@@ -296,8 +359,7 @@ const HomeBanner = styled('h1')`
   font-family: SF Pro Display;
   font-style: normal;
   font-weight: bold;
-  font-size: 48px;
-  line-height: 76px;
+  font-size: 80px;
   text-align: center;
   letter-spacing: -0.7px;
 
@@ -440,6 +502,44 @@ export default ({ match }) => {
           </>
         </SearchContainer>
       </Hero>
+      <Description>
+        <DescriptionWrapper>
+          <DescriptionItemWrapper>
+            <DescriptionIconWrapper>
+              <DescriptionIcon src={Web3Logo} />
+            </DescriptionIconWrapper>
+            <DescriptionTitle>Personalized Web3 usernames</DescriptionTitle>
+            <DescriptionContent>
+              Own a personalized, portable username usable across Web3. Link an
+              avatar and add profile information that goes where you do.
+            </DescriptionContent>
+          </DescriptionItemWrapper>
+          <DescriptionItemWrapper>
+            <DescriptionIconWrapper>
+              <DescriptionIcon src={WalletsLogo} />
+            </DescriptionIconWrapper>
+            <DescriptionTitle>
+              Usernames replace wallet addresses
+            </DescriptionTitle>
+            <DescriptionContent>
+              Link crypto wallet addresses to your username and receive
+              cryptocurrency, NFTs, and more. Never worry again about
+              copy-pasting long addresses.
+            </DescriptionContent>
+          </DescriptionItemWrapper>
+          <DescriptionItemWrapper>
+            <DescriptionIconWrapper>
+              <DescriptionIcon src={WebsitesLogo} />
+            </DescriptionIconWrapper>
+            <DescriptionTitle>Decentralized Websites</DescriptionTitle>
+            <DescriptionContent>
+              Make your website decentralized and censorship-proof. Upload your
+              website to the IPFS and link your FNS username to establish your
+              web presence.{' '}
+            </DescriptionContent>
+          </DescriptionItemWrapper>
+        </DescriptionWrapper>
+      </Description>
     </>
   );
 };
