@@ -4,14 +4,13 @@ import styled from '@emotion/styled/macro';
 const NoAccountsContainer = styled('div')`
   box-shadow: ${({ active }) =>
     active ? '0px 22.9412px 91.7647px #ECECF5' : 'none'};
-  padding: 17px 40px;
+  padding: 18px 38px;
   border-radius: 16px;
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: ${({ active }) => (active ? '150px' : '150px')};
   transition: 0.2s;
   background: ${({ colour }) => colour};
 
