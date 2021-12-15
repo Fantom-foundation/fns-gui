@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useQuery, useMutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled/macro';
@@ -21,6 +21,7 @@ import QuestionMarkDefault from '../components/Icons/QuestionMark';
 import HowToUseDefault from '../components/HowToUse/HowToUse';
 import Alice from '../components/HomePage/Alice';
 import FNSLogo from '../components/HomePage/images/FNSLogo.svg';
+import SocialContainer from '../components/Social/Social';
 import Web3Logo from '../components/HomePage/images/web3.svg';
 import WalletsLogo from '../components/HomePage/images/wallets.svg';
 import WebsitesLogo from '../components/HomePage/images/websites.svg';
@@ -32,29 +33,42 @@ import { emptyAddress } from '../utils/utils';
 import DefaultLogo from '../components/Logo';
 import moment from 'moment';
 
+const HomePageContainer = styled('div')`
+  background: url(/static/media/background.a0b225a1.png);
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-size: 100%;
+`;
+
 const HeroTop = styled('div')`
   display: grid;
   padding: 20px;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   grid-template-columns: 1fr;
+  z-index: 1;
+  background: ${p => (p.active ? 'rgba(5, 6, 7, 0.95)' : 'transparent')};
   ${mq.small`
      grid-template-columns: 1fr 1fr;
   `}
 `;
 
-const NoAccounts = styled(NoAccountsDefault)``;
-
-const Network = styled('div')`
-  margin-bottom: 5px;
-`;
-const Name = styled('span')`
-  margin-left: 5px;
-  text-transform: none;
-  display: inline-block;
-  width: 100px;
+const HeroBottom = styled('div')`
+  border-top: 1px solid #232a31;
+  display: grid;
+  padding: 10px 20px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  grid-template-columns: 1fr;
+  background: #050607;
+  z-index: 1;
+  ${mq.small`
+     grid-template-columns: 1fr 1fr;
+  `}
 `;
 
 const Warning = styled('div')`
@@ -96,10 +110,19 @@ const Nav = styled('div')`
 `;
 
 const NavLink = styled(Link)`
-  margin-left: 20px;
-  &:first-child {
-    margin-left: 0;
-  }
+  padding: 18px 38px;
+  background: #ffffff;
+  box-shadow: 0px 22.9412px 91.7647px rgba(216, 221, 255, 0.28);
+  border-radius: 16px;
+  font-family: SF Pro Text;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: -0.5px;
+
+  color: #0d131d !important;
 `;
 
 const ExternalLink = styled('a')`
@@ -138,6 +161,7 @@ const HowToUse = styled(HowToUseDefault)`
 `;
 
 const Hero = styled('section')`
+  flex-direction: column;
   background-size: cover;
   padding: 60px 20px 20px;
   position: relative;
@@ -169,11 +193,13 @@ const DescriptionWrapper = styled('div')`
   display: flex;
   flex-direction: row;
   padding: 0 70px;
+  margin-bottom: 200px;
 `;
 
 const DescriptionItemWrapper = styled('div')`
   display: flex;
   flex-direction: column;
+  flex: 1;
   padding: 32px;
   background: #060708;
   border: 1px solid #232a31;
@@ -186,12 +212,12 @@ const DescriptionItemWrapper = styled('div')`
 `;
 
 const SearchContainer = styled('div')`
-  margin: 220px;
+  margin: 220px 0;
   display: flex;
   flex-direction: column;
-  min-width: 100%;
+  max-width: 80%;
   ${mq.medium`
-    min-width: 80%;
+    max-width: 90%;
   `}
   > h2 {
     color: white;
@@ -383,6 +409,9 @@ export default ({ match }) => {
     isSafeApp
   } = useNetworkInfo();
   const [graphBlock, setGraphBlock] = useState();
+
+  const [goingUp, setGoingUp] = useState(false);
+
   const address = accounts && accounts[0];
   const { data: metaBlock } = useQuery(GET_META_BLOCK_NUMBER_FROM_GRAPH);
   const graphBlockNumber = metaBlock?._meta?.block?.number;
@@ -403,6 +432,21 @@ export default ({ match }) => {
       });
     }
   }, [graphBlockNumber]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY == 0) {
+        setGoingUp(false);
+      } else {
+        setGoingUp(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [goingUp]);
 
   const {
     data: { getReverseRecord } = {},
@@ -447,7 +491,7 @@ export default ({ match }) => {
     location.reload();
   };
   return (
-    <>
+    <HomePageContainer>
       {delayInMin >= 0 && (
         <Warning>
           Warning: The data on this stie has only synced to Fantom block{' '}
@@ -455,26 +499,15 @@ export default ({ match }) => {
         </Warning>
       )}
       <Hero>
-        <HeroTop>
+        <HeroTop active={goingUp}>
           {!loading && (
             <>
               <Logo />
             </>
           )}
           <NetworkAccountInfoWrapper>
-            <Nav>
-              {accounts?.length > 0 && (
-                <NavLink
-                  active={url === '/address/' + accounts[0]}
-                  to={'/address/' + accounts[0]}
-                >
-                  {t('c.mynames')}
-                </NavLink>
-              )}
-              <NavLink to="/favourites">{t('c.favourites')}</NavLink>
-              <ExternalLink href={aboutPageURL()}>{t('c.about')}</ExternalLink>
-            </Nav>
-            {!loading && (
+            <NavLink to="/dashboard">Launch App</NavLink>
+            {/* {!loading && (
               <>
                 <NetworkStatus>
                   {!isSafeApp && (
@@ -489,7 +522,7 @@ export default ({ match }) => {
                   )}
                 </NetworkStatus>
               </>
-            )}
+            )} */}
           </NetworkAccountInfoWrapper>
         </HeroTop>
         <SearchContainer>
@@ -501,8 +534,6 @@ export default ({ match }) => {
             <Search />
           </>
         </SearchContainer>
-      </Hero>
-      <Description>
         <DescriptionWrapper>
           <DescriptionItemWrapper>
             <DescriptionIconWrapper>
@@ -539,7 +570,11 @@ export default ({ match }) => {
             </DescriptionContent>
           </DescriptionItemWrapper>
         </DescriptionWrapper>
-      </Description>
-    </>
+        <HeroBottom>
+          <Logo />
+          <SocialContainer />
+        </HeroBottom>
+      </Hero>
+    </HomePageContainer>
   );
 };

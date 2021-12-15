@@ -1,11 +1,5 @@
 #root {
   background-color: #050607;
-  min-width: 100vw;
-  min-height: 100vh;
-  background-image: url(./components/HomePage/images/background.png);
-  background-repeat: no-repeat;
-  background-position: center 0;
-  background-size: 100%;
 }
 .App {
   text-align: center;
