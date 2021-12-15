@@ -41,13 +41,13 @@ const HomePageContainer = styled('div')`
 `;
 
 const HeroTop = styled('div')`
-  display: grid;
+  display: flex;
+  justify-content: space-between;
   padding: 20px;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
-  grid-template-columns: 1fr;
   z-index: 1;
   background: ${p => (p.active ? 'rgba(5, 6, 7, 0.95)' : 'transparent')};
   ${mq.small`
@@ -57,18 +57,15 @@ const HeroTop = styled('div')`
 
 const HeroBottom = styled('div')`
   border-top: 1px solid #232a31;
-  display: grid;
+  display: flex;
+  justify-content: space-between;
   padding: 10px 20px;
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  grid-template-columns: 1fr;
   background: #050607;
   z-index: 1;
-  ${mq.small`
-     grid-template-columns: 1fr 1fr;
-  `}
 `;
 
 const Warning = styled('div')`
@@ -191,9 +188,16 @@ const Description = styled('section')`
 
 const DescriptionWrapper = styled('div')`
   display: flex;
-  flex-direction: row;
-  padding: 0 70px;
+  flex-direction: column;
+  padding: 0 50px;
   margin-bottom: 200px;
+  flex-wrap: wrap;
+  ${mq.medium`
+    flex-direction: row;
+  `}
+  ${mq.xLarge`
+    padding: 0 70px;
+  `}
 `;
 
 const DescriptionItemWrapper = styled('div')`
@@ -209,6 +213,10 @@ const DescriptionItemWrapper = styled('div')`
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 18px;
   margin: 8px;
+  max-width: 281px;
+  ${mq.medium`
+    max-width: 400px;
+  `}
 `;
 
 const SearchContainer = styled('div')`
@@ -237,9 +245,6 @@ const SearchContainer = styled('div')`
 const Search = styled(SearchDefault)`
   min-width: 90%;
   margin: 0 30px;
-  ${mq.medium`
-    min-width: 780px;
-  `}
 
   input {
     width: 100%;
@@ -375,6 +380,7 @@ const Logo = styled(DefaultLogo)`
 `;
 
 const NetworkAccountInfoWrapper = styled('div')`
+  flex: none;
   display: flex;
   justify-content: flex-end;
   align-items: center;

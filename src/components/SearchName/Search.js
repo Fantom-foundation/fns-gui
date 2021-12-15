@@ -81,7 +81,7 @@ const SearchForm = styled('form')`
     margin: 8px;
     border: none;
     display: none;
-    ${mq.medium`
+    ${mq.small`
       display: block;
     `}
 
