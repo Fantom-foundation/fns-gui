@@ -26,7 +26,7 @@ const SideNavContainer = styled('nav')`
 
   left: 0;
   height: auto;
-  background: #0e1e3e;
+  background: ${props => props.theme.colors.componentBgColor};
   width: 100%;
   margin-top: -10px;
   ${mq.medium`
@@ -34,11 +34,9 @@ const SideNavContainer = styled('nav')`
     top: 35px;
     left: 25px;
     height: 100%;
-    background: transparent;
     width: 185px;
     padding: 18px;
     display: block;
-    background: #0e1e3e;
     border-radius: 24px;
   `}
 

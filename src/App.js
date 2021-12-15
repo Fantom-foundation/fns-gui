@@ -1,4 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState, lazy } from 'react';
+import { ThemeProvider } from '@emotion/react';
 import {
   HashRouter,
   BrowserRouter,
@@ -8,6 +9,9 @@ import {
 import { Query } from 'react-apollo';
 
 import { GET_ERRORS } from './graphql/queries';
+
+import { useLocalStorage } from 'components/hooks';
+import { DARK_THEME, LIGHT_THEME } from 'utils/themes';
 
 // const TestRegistrar = lazy(() =>
 //   import(
@@ -118,6 +122,13 @@ const App = ({ initialClient, initialNetworkId }) => {
     }
   }, [currentNetwork]);
 
+  const [darkMode, setDarkMode] = useLocalStorage('darkMode', true);
+  const [theme, setTheme] = useState(DARK_THEME);
+
+  useEffect(() => {
+    setTheme(darkMode ? DARK_THEME : LIGHT_THEME);
+  }, [darkMode]);
+  console.log(theme);
   return (
     <ApolloProvider client={currentClient}>
       <Query query={GET_ERRORS}>
@@ -133,34 +144,36 @@ const App = ({ initialClient, initialNetworkId }) => {
           } else {
             return (
               <>
-                <Router>
-                  <Switch>
-                    <Route
-                      exact
-                      path="/"
-                      component={Home}
-                      layout={HomePageLayout}
-                    />
-                    <Route path="/dashboard" component={Dashboard} />
-                    <Route path="/test-registrar" component={TestRegistrar} />
-                    <Route path="/favourites" component={Favourites} />
-                    <Route path="/faq" component={Faq} />
-                    <Route path="/my-bids" component={SearchResults} />
-                    <Route path="/how-it-works" component={SearchResults} />
-                    <Route
-                      path="/search/:searchTerm"
-                      component={SearchResults}
-                    />
-                    <Route path="/name/:name" component={SingleName} />
-                    <Route
-                      path="/address/:address/:domainType"
-                      component={Address}
-                    />
-                    <Route path="/address/:address" component={Address} />
-                    <Route path="/renew" component={Renew} />
-                    <Route path="*" component={Error404} />
-                  </Switch>
-                </Router>
+                <ThemeProvider theme={theme}>
+                  <Router>
+                    <Switch>
+                      <Route
+                        exact
+                        path="/"
+                        component={Home}
+                        layout={HomePageLayout}
+                      />
+                      <Route path="/dashboard" component={Dashboard} />
+                      <Route path="/test-registrar" component={TestRegistrar} />
+                      <Route path="/favourites" component={Favourites} />
+                      <Route path="/faq" component={Faq} />
+                      <Route path="/my-bids" component={SearchResults} />
+                      <Route path="/how-it-works" component={SearchResults} />
+                      <Route
+                        path="/search/:searchTerm"
+                        component={SearchResults}
+                      />
+                      <Route path="/name/:name" component={SingleName} />
+                      <Route
+                        path="/address/:address/:domainType"
+                        component={Address}
+                      />
+                      <Route path="/address/:address" component={Address} />
+                      <Route path="/renew" component={Renew} />
+                      <Route path="*" component={Error404} />
+                    </Switch>
+                  </Router>
+                </ThemeProvider>
               </>
             );
           }
