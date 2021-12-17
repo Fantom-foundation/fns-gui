@@ -1,6 +1,11 @@
 #root {
-  background-color: #050607;
   min-height: 100vh;
+}
+#root.dark-mode {
+  background-color: #050607;
+}
+#root.light-mode {
+  background-color: #e5e5e5;
 }
 .App {
   text-align: center;

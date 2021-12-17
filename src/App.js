@@ -1,5 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState, lazy } from 'react';
-import { ThemeProvider } from '@emotion/react';
+import { ThemeProvider } from 'emotion-theming';
+import { useLocalStorage } from './components/hooks';
+
 import {
   HashRouter,
   BrowserRouter,
@@ -10,7 +12,6 @@ import { Query } from 'react-apollo';
 
 import { GET_ERRORS } from './graphql/queries';
 
-import { useLocalStorage } from 'components/hooks';
 import { DARK_THEME, LIGHT_THEME } from 'utils/themes';
 
 // const TestRegistrar = lazy(() =>
@@ -114,7 +115,7 @@ const Route = ({
 };
 
 const App = ({ initialClient, initialNetworkId }) => {
-  const { currentNetwork } = useContext(GlobalState);
+  const { currentNetwork, darkMode } = useContext(GlobalState);
   let [currentClient, setCurrentClient] = useState(initialClient);
   useEffect(() => {
     if (currentNetwork) {
@@ -122,13 +123,21 @@ const App = ({ initialClient, initialNetworkId }) => {
     }
   }, [currentNetwork]);
 
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', true);
-  const [theme, setTheme] = useState(DARK_THEME);
+  const [theme, setTheme] = useState(
+    darkMode == true ? DARK_THEME : LIGHT_THEME
+  );
+
+  document
+    .getElementById('root')
+    .classList.remove(!darkMode ? 'dark-mode' : 'light-mode');
+  document
+    .getElementById('root')
+    .classList.add(darkMode ? 'dark-mode' : 'light-mode');
 
   useEffect(() => {
-    setTheme(darkMode ? DARK_THEME : LIGHT_THEME);
+    setTheme(darkMode == true ? DARK_THEME : LIGHT_THEME);
   }, [darkMode]);
-  console.log(theme);
+
   return (
     <ApolloProvider client={currentClient}>
       <Query query={GET_ERRORS}>
