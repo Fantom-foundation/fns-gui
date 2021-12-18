@@ -156,6 +156,7 @@ function Dashboard() {
   if (!hasFavourites) {
     return (
       <FavouritesContainer data-testid="favourites-container">
+        <NetworkStatus />
         <PageTitle>{t('dashboard.dashboardTitle')}</PageTitle>
         <Search />
         <NoDomains>

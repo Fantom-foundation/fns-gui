@@ -208,7 +208,7 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
       <Logo />
       {/* <NetworkInformation /> */}
       <ul data-testid="sitenav">
-        <li>
+        <li key="dashboard">
           <NavLink
             onClick={toggleMenu}
             active={url === '/dashboard' ? 1 : 0}
@@ -219,7 +219,7 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
           </NavLink>
         </li>
         {accounts && accounts.length > 0 ? (
-          <li>
+          <li key="account">
             <NavLink
               onClick={toggleMenu}
               active={url === '/address/' + accounts[0] ? 1 : 0}
@@ -230,7 +230,7 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
             </NavLink>
           </li>
         ) : null}
-        <li>
+        <li key="favorites">
           <NavLink
             onClick={toggleMenu}
             active={url === '/favourites' ? 1 : 0}
@@ -240,13 +240,13 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
             <span>{t('c.favourites')}</span>
           </NavLink>
         </li>
-        <li>
+        <li key="about">
           <ThirdPartyLink href={aboutPageURL()}>
             <File />
             <span>{t('c.about')}</span>
           </ThirdPartyLink>
         </li>
-        <li>
+        <li key="faq">
           <NavLink
             onClick={toggleMenu}
             active={url === '/faq' ? 1 : 0}
