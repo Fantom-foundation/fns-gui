@@ -1,10 +1,10 @@
-import React, { createRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { motion, AnimatePresence } from 'framer-motion'
-import styled from '@emotion/styled/macro'
+import React, { createRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+import styled from '@emotion/styled/macro';
 
-import { useOnClickOutside } from 'components/hooks'
-import RotatingSmallCaret from '../Icons/RotatingSmallCaret'
+import { useOnClickOutside } from 'components/hooks';
+import RotatingSmallCaret from '../Icons/RotatingSmallCaret';
 
 const LANGUAGES = [
   {
@@ -51,14 +51,14 @@ const LANGUAGES = [
     value: 'vi',
     label: 'Tiếng Việt (VI)'
   }
-]
+];
 
 function getLang(lang) {
-  return LANGUAGES.find(l => l.value === lang)
+  return LANGUAGES.find(l => l.value === lang);
 }
 
 const ActiveLanguage = styled('div')`
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   text-transform: uppercase;
   display: flex;
   justify-content: center;
@@ -72,12 +72,12 @@ const ActiveLanguage = styled('div')`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 
 const LanguageSwitcherContainer = styled('div')`
   background: white;
   position: relative;
-`
+`;
 
 const Dropdown = styled(motion.div)`
   position: absolute;
@@ -90,7 +90,7 @@ const Dropdown = styled(motion.div)`
   width: 230px;
   z-index: 2;
   li {
-    color: #adbbcd;
+    color: ${p => p.theme.colors.grayColor};
     padding: 20px 30px;
     border-bottom: 1px solid #dfdfdf;
     list-style: none;
@@ -109,7 +109,7 @@ const Dropdown = styled(motion.div)`
       border-bottom: none;
     }
   }
-`
+`;
 
 const Ball = styled('div')`
   border-radius: 50%;
@@ -122,32 +122,32 @@ const Ball = styled('div')`
     `
     background: #5284ff;
   `}
-`
+`;
 
 function saveLanguageToLocalStorage(value) {
-  window.localStorage.setItem('language', value)
+  window.localStorage.setItem('language', value);
 }
 
 function getLanguageFromLocalStorage() {
-  return window.localStorage.getItem('language')
+  return window.localStorage.getItem('language');
 }
 
 export default function LanguageSwitcher() {
-  const dropdownRef = createRef()
-  const togglerRef = createRef()
+  const dropdownRef = createRef();
+  const togglerRef = createRef();
   const [languageSelected, setLanguageSelected] = useState(
     getLang(getLanguageFromLocalStorage()) ?? getLang('en')
-  )
-  const [showDropdown, setShowDropdown] = useState(false)
-  const { i18n } = useTranslation()
+  );
+  const [showDropdown, setShowDropdown] = useState(false);
+  const { i18n } = useTranslation();
 
-  useOnClickOutside([dropdownRef, togglerRef], () => setShowDropdown(false))
+  useOnClickOutside([dropdownRef, togglerRef], () => setShowDropdown(false));
 
   function changeLanguage(language) {
-    setLanguageSelected(language)
-    saveLanguageToLocalStorage(language.value)
-    i18n.changeLanguage(language.value)
-    setShowDropdown(false)
+    setLanguageSelected(language);
+    saveLanguageToLocalStorage(language.value);
+    i18n.changeLanguage(language.value);
+    setShowDropdown(false);
   }
 
   return (
@@ -180,11 +180,11 @@ export default function LanguageSwitcher() {
                   {language.label}
                   <Ball selected={languageSelected.value === language.value} />
                 </li>
-              )
+              );
             })}
           </Dropdown>
         </AnimatePresence>
       )}
     </LanguageSwitcherContainer>
-  )
+  );
 }

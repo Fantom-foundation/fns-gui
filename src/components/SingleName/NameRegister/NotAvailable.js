@@ -8,7 +8,7 @@ const NotAvailableContainer = styled('div')`
 
 const Message = styled('div')`
   background: rgba(255, 255, 255, 0.05);
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   font-size: 20px;
   padding: 20px;
   font-weight: 300;

@@ -8,14 +8,14 @@ import mq from 'mediaQuery';
 
 const StyledInput = styled('input')`
   ${({ wide }) => wide && 'width: 100%'};
-  background: #202f49;
-  border: 1px solid #eff3fb;
+  background: ${p => p.theme.colors.componentBgColor};
+  border: 1px solid ${p => p.theme.colors.textColor};
   border-radius: 8px;
   height: 42px;
   font-family: Overpass;
   font-weight: 300;
   font-size: 14px;
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
   letter-spacing: 0;
   padding: 10px 20px;
   &:focus {

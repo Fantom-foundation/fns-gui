@@ -1,15 +1,15 @@
-import React from 'react'
-import { Query } from 'react-apollo'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import { Query } from 'react-apollo';
+import styled from '@emotion/styled/macro';
 
-import Loader from '../../Loader'
+import Loader from '../../Loader';
 
 import {
   RecordsContent,
   RecordsItem,
   RecordsKey,
   RecordsValue
-} from './RecordsItem'
+} from './RecordsItem';
 
 const Records = styled('div')`
   border-radius: 6px;
@@ -18,17 +18,17 @@ const Records = styled('div')`
   padding-bottom: 10px;
   display: block;
   margin-bottom: 20px;
-`
+`;
 
 const RecordsHeader = styled('div')`
   background: #f0f6fa;
-`
+`;
 
 const RecordsTitle = styled('h3')`
   font-family: Overpass;
   font-weight: 700;
   font-size: 12px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   letter-spacing: 0.5px;
   text-transform: uppercase;
   margin: 0;
@@ -36,10 +36,10 @@ const RecordsTitle = styled('h3')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 function isArt(name) {
-  return !!name.match(/\.art$/)
+  return !!name.match(/\.art$/);
 }
 
 function getArtRecordLabel(key) {
@@ -54,23 +54,23 @@ function getArtRecordLabel(key) {
     markings: 'Inscriptions & Markings',
     features: 'Features',
     reference: 'Reference'
-  }
+  };
 
-  return recordLabels[key]
+  return recordLabels[key];
 }
 
 function isEmpty(records) {
   if (!records.length) {
-    return true
+    return true;
   }
 
-  return records.filter(record => record.value).length === 0
+  return records.filter(record => record.value).length === 0;
 }
 
 function decodeRecords(values) {
-  let parsed = {}
+  let parsed = {};
   try {
-    parsed = JSON.parse(values)
+    parsed = JSON.parse(values);
   } catch (e) {}
 
   return Object.keys(parsed).reduce(
@@ -80,11 +80,11 @@ function decodeRecords(values) {
         value: parsed[key]
       }),
     []
-  )
+  );
 }
 
 function ArtRecordItem({ value, label }) {
-  if (!value) return null
+  if (!value) return null;
 
   return (
     <RecordsItem>
@@ -95,24 +95,24 @@ function ArtRecordItem({ value, label }) {
         </RecordsValue>
       </RecordsContent>
     </RecordsItem>
-  )
+  );
 }
 
 export default function ArtRecords({ domain, query }) {
-  if (!isArt(domain.name)) return null
+  if (!isArt(domain.name)) return null;
 
   return (
     <Query query={query} variables={{ name: domain.name, key: 'artrecords' }}>
       {({ loading, data }) => {
-        if (loading) return <Loader center />
+        if (loading) return <Loader center />;
 
-        const { getText: encodedArtRecords } = data
+        const { getText: encodedArtRecords } = data;
 
-        if (!encodedArtRecords) return null
+        if (!encodedArtRecords) return null;
 
-        const records = decodeRecords(encodedArtRecords)
+        const records = decodeRecords(encodedArtRecords);
 
-        if (isEmpty(records)) return null
+        if (isEmpty(records)) return null;
 
         return (
           <Records>
@@ -124,8 +124,8 @@ export default function ArtRecords({ domain, query }) {
               <ArtRecordItem key={i} value={r.value} label={r.label} />
             ))}
           </Records>
-        )
+        );
       }}
     </Query>
-  )
+  );
 }

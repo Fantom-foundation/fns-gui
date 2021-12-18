@@ -37,7 +37,7 @@ const RecordsWrapper = styled('div')`
 const CantEdit = styled('div')`
   padding: 20px;
   font-size: 14px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   background: hsla(37, 91%, 55%, 0.1);
 `;
 

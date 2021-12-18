@@ -15,6 +15,7 @@ const Number = styled('div')`
   margin-bottom: 20px;
 
   span {
+    color: ${p => p.theme.colors.grayColor};
     font-family: Overpass;
     font-style: normal;
     font-weight: 800;
@@ -22,8 +23,6 @@ const Number = styled('div')`
     line-height: 18px;
     text-align: center;
     letter-spacing: -0.5px;
-
-    color: #ffffff;
 
     position: absolute;
     left: 50%;
@@ -33,8 +32,8 @@ const Number = styled('div')`
 `;
 
 const SVG = styled('svg')`
-  stroke: #ccc;
   position: absolute;
+  fill: ${p => p.theme.colors.textColor};
 
   circle {
     stroke-dasharray: ${offset};
@@ -59,14 +58,14 @@ const Content = styled('div')`
     line-height: 21px;
     letter-spacing: -0.5px;
 
-    color: #161b24;
+    color: ${p => p.theme.colors.textColor};
   }
 `;
 
 const StepContainer = styled('div')`
   display: flex;
   flex-direction: column;
-  background: #f9fafb;
+  background: ${p => p.theme.colors.tabBgColor};
   border-radius: 12px;
   padding: 16px;
 `;
@@ -84,7 +83,7 @@ const StepTitle = styled('div')`
     line-height: 25px;
     letter-spacing: -0.5px;
 
-    color: #161b24;
+    color: ${p => p.theme.colors.textColor};
   }
 `;
 
@@ -93,7 +92,7 @@ const Step = ({ number, text, title, progress = 100 }) => (
     <StepTitle>
       <Number progress={progress}>
         <SVG height="24" width="24" viewBox="0 0 24 24" progress={progress}>
-          <circle cx="12" cy="12" r="12" fill="#161B24" />
+          <circle cx="12" cy="12" r="12" />
         </SVG>
         <span>{number}</span>
       </Number>

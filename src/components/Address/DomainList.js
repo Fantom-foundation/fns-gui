@@ -9,12 +9,12 @@ const NoDomainsContainer = styled('div')`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #202f49;
+  background: ${p => p.theme.colors.componentBgColor};
   border-radius: 6px;
   margin-bottom: 40px;
 
   h2 {
-    color: #adbbcd;
+    color: ${p => p.theme.colors.grayColor};
     font-weight: 100;
     margin-bottom: 0;
     padding: 0;
@@ -35,7 +35,7 @@ const NoDomainsContainer = styled('div')`
 `;
 
 const DomainsContainer = styled('div')`
-  background: #202f49;
+  background: ${p => p.theme.colors.componentBgColor};
   border-radius: 16px;
   margin-top: 20px;
   padding-bottom: 30px;

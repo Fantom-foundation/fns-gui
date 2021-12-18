@@ -6,6 +6,7 @@ export const DetailsItem = styled('div')`
   justify-content: flex-start;
   flex-direction: column;
   margin-bottom: 20px;
+  color: ${p => p.theme.colors.grayColor};
 
   ${mq.small`
     align-items: center;
@@ -21,7 +22,8 @@ export const DetailsItem = styled('div')`
 `;
 
 export const DetailsKey = styled('div')`
-  color: ${({ greyed }) => (greyed ? '#eff3fb' : '#adbbcd')};
+  color: ${({ greyed, theme }) =>
+    greyed ? theme.colors.textColor : theme.colors.textColor};
   font-size: 14px;
   letter-spacing: 0px;
   font-weight: 600;

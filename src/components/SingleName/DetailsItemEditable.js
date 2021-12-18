@@ -118,7 +118,7 @@ const DetailsValue = styled(DefaultDetailsValue)`
 
 const ExpiryDate = styled('span')`
   margin-right: 10px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
 `;
 
 const EditRecord = styled(motion.div)`

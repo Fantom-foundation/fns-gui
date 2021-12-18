@@ -2,7 +2,7 @@ import styled from '@emotion/styled/macro';
 import mq from 'mediaQuery';
 
 const MainContainer = styled('div')`
-  background: #202f49;
+  background: ${p => p.theme.colors.componentBgColor};
   border-radius: 16px;
 
   position: relative;

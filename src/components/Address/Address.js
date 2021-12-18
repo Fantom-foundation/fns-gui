@@ -66,7 +66,7 @@ const Close = styled('img')`
 `;
 
 const Controls = styled('div')`
-  background: #202f49;
+  background: ${p => p.theme.colors.componentBgColor};
   padding: 30px;
   border-radius: 16px;
   display: grid;

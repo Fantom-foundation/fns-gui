@@ -5,7 +5,8 @@ import mq from 'mediaQuery';
 import { hasNonAscii } from '../../utils/utils';
 
 const MainContainer = styled('main')`
-  padding-top: 20px;
+  padding-top: 80px;
+  margin-right: 180px;
 
   ${p =>
     p.hasNonAscii

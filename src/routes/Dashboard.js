@@ -7,6 +7,7 @@ import { getNamehash } from '@ensdomains/ui';
 import { useQuery } from 'react-apollo';
 import PageTitle from '../components/Layout/PageTitle';
 import SearchDefault from '../components/SearchName/Search';
+import NetworkStatus from '../components/NetworkStatus/NetworkStatus';
 import {
   GET_FAVOURITES,
   GET_SUBDOMAIN_FAVOURITES,
@@ -39,12 +40,12 @@ const NoDomainsContainer = styled('div')`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #202f49;
+  background: ${p => p.theme.colors.componentBgColor};
   border-radius: 16px;
   margin-bottom: 40px;
 
   h2 {
-    color: #adbbcd;
+    color: ${p => p.theme.colors.grayColor};
     font-weight: 100;
     margin-bottom: 0;
     padding: 0;
@@ -73,7 +74,7 @@ const H2 = styled(DefaultH2)`
 `;
 
 const Search = styled(SearchDefault)`
-  margin-bottom: 15px;
+  margin-bottom: 40px;
 `;
 
 const NoDomains = () => {
@@ -192,6 +193,7 @@ function Dashboard() {
   const canRenew = favouritesList.filter(f => f.expiryDate).length > 0;
   return (
     <FavouritesContainer data-testid="favourites-container">
+      <NetworkStatus />
       <PageTitle>{t('dashboard.dashboardTitle')}</PageTitle>
       <Search />
       {canRenew && (

@@ -10,7 +10,7 @@ const Stepper = styled('div')`
   grid-template-columns:
     30px auto
     30px;
-  background: #f9fafb;
+  background: ${p => p.theme.colors.tabBgColor};
   box-sizing: border-box;
   border-radius: 12px;
   padding: 15px;
@@ -29,7 +29,7 @@ const Icon = styled('div')`
   ${p =>
     p.emphasize
       ? 'border-color: white;'
-      : 'color: #adbbcd;'}
+      : 'color: p.theme.colors.grayColor'}
   
   border-radius: 50%;
   border: solid 1px;
@@ -61,9 +61,10 @@ const Amount = styled('div')`
   text-align: center;
   letter-spacing: -0.5px;
 
-  color: #161b24;
+  color: ${p => p.theme.colors.textColor};
 
   input {
+    color: ${p => p.theme.colors.textColor};
     background: transparent;
     border: none;
     max-width: 45px;
@@ -82,7 +83,7 @@ const Description = styled('div')`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #b1bbce;
+  color: ${p => p.theme.colors.grayColor};
   margin-top: 10px;
   margin-bottom: 9px;
 `;

@@ -58,7 +58,7 @@ const RecordsTitle = styled('h3')`
   font-family: Overpass;
   font-weight: 700;
   font-size: 12px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   letter-spacing: 0.5px;
   text-transform: uppercase;
   margin: 0;

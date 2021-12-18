@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
 
 const SortContainer = styled('ul')`
   grid-area: sorting;
@@ -8,10 +8,10 @@ const SortContainer = styled('ul')`
   display: flex;
   margin: 0;
   padding: 0;
-`
+`;
 
 const SortButton = styled('li')`
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   font-size: 18px;
   padding: 0 10px 5px;
   border-bottom: 1px #d2d2d2 solid;
@@ -22,7 +22,7 @@ const SortButton = styled('li')`
     color: #2c46a6;
     border-bottom: 1px #2c46a6 solid;
   }
-`
+`;
 
 export default function Sorting({
   activeSort,
@@ -30,7 +30,7 @@ export default function Sorting({
   activeFilter,
   className
 }) {
-  let { t } = useTranslation()
+  let { t } = useTranslation();
 
   return (
     <SortContainer className={className}>
@@ -62,24 +62,24 @@ export default function Sorting({
                 setActiveSort({
                   type: 'expiryDate',
                   direction: 'desc'
-                })
+                });
               } else if (activeSort.direction === 'desc') {
                 setActiveSort({
                   type: 'expiryDate',
                   direction: 'asc'
-                })
+                });
               }
-              return
+              return;
             }
             setActiveSort({
               type: 'expiryDate',
               direction: 'asc'
-            })
+            });
           }}
         >
           {t('address.sort.expiry')}
         </SortButton>
       )}
     </SortContainer>
-  )
+  );
 }

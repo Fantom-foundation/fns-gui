@@ -1,18 +1,18 @@
-import React, { useState, useContext } from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
+import React, { useState, useContext } from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
 
-import mq from 'mediaQuery'
-import GlobalState from '../../globalState'
-import UnstyledBlockies from '../Blockies'
-import NoAccountsModal from '../NoAccounts/NoAccountsModal'
-import Loader from 'components/Loader'
-import useNetworkInfo from './useNetworkInfo'
-import { useQuery, useMutation } from 'react-apollo'
-import { GET_REVERSE_RECORD } from '../../graphql/queries'
-import { SET_ERROR } from '../../graphql/mutations'
-import { connect, disconnect } from '../../api/web3modal'
-import { hasValidReverseRecord, imageUrl } from '../../utils/utils'
+import mq from 'mediaQuery';
+import GlobalState from '../../globalState';
+import UnstyledBlockies from '../Blockies';
+import NoAccountsModal from '../NoAccounts/NoAccountsModal';
+import Loader from 'components/Loader';
+import useNetworkInfo from './useNetworkInfo';
+import { useQuery, useMutation } from 'react-apollo';
+import { GET_REVERSE_RECORD } from '../../graphql/queries';
+import { SET_ERROR } from '../../graphql/mutations';
+import { connect, disconnect } from '../../api/web3modal';
+import { hasValidReverseRecord, imageUrl } from '../../utils/utils';
 
 const NetworkInformationContainer = styled('div')`
   position: relative;
@@ -25,7 +25,7 @@ const NetworkInformationContainer = styled('div')`
     display: block;
     border: none;
   `}
-`
+`;
 
 const Blockies = styled(UnstyledBlockies)`
   border-radius: 50%;
@@ -35,7 +35,7 @@ const Blockies = styled(UnstyledBlockies)`
   ${mq.medium`
     box-shadow: 3px 5px 24px 0 #d5e2ec;
   `}
-`
+`;
 
 const Avatar = styled('img')`
   width: 48px;
@@ -45,7 +45,7 @@ const Avatar = styled('img')`
   ${mq.medium`
     box-shadow: 3px 5px 24px 0 #d5e2ec;
   `}
-`
+`;
 
 const NetworkStatus = styled('div')`
   color: #cacaca;
@@ -66,10 +66,10 @@ const NetworkStatus = styled('div')`
     background: #5284ff;
     margin-right: 5px;
   }
-`
+`;
 
 const Account = styled('div')`
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   font-size: 16px;
   font-weight: 200;
   font-family: Overpass Mono;
@@ -77,7 +77,7 @@ const Account = styled('div')`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`
+`;
 
 const AccountContainer = styled('div')`
   padding: 10px 10px 10px 65px;
@@ -97,7 +97,7 @@ const AccountContainer = styled('div')`
       }
     }
   `}
-`
+`;
 
 const Waiting = styled('div')`
   color: #ccc;
@@ -105,14 +105,14 @@ const Waiting = styled('div')`
   font-size: 11px;
   text-transform: uppercase;
   font-weight: 700;
-`
+`;
 
 const WaitingText = styled('span')`
   margin-right: 5px;
-`
+`;
 
 function NetworkInformation() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const {
     accounts,
     network,
@@ -121,8 +121,8 @@ function NetworkInformation() {
     refetch,
     isReadOnly,
     isSafeApp
-  } = useNetworkInfo()
-  const address = accounts && accounts[0]
+  } = useNetworkInfo();
+  const address = accounts && accounts[0];
   const {
     data: { getReverseRecord } = {},
     loading: reverseRecordLoading
@@ -130,39 +130,39 @@ function NetworkInformation() {
     variables: {
       address
     }
-  })
-  const { switchNetwork, currentNetwork } = useContext(GlobalState)
+  });
+  const { switchNetwork, currentNetwork } = useContext(GlobalState);
 
   const displayName = hasValidReverseRecord(getReverseRecord)
     ? getReverseRecord.name
-    : address
+    : address;
 
-  const [setError] = useMutation(SET_ERROR)
+  const [setError] = useMutation(SET_ERROR);
   const handleConnect = async () => {
-    let network
+    let network;
     try {
-      network = await connect()
+      network = await connect();
     } catch (e) {
-      setError({ variables: { message: e.message } })
+      setError({ variables: { message: e.message } });
     }
     if (network) {
-      switchNetwork(network.chainId)
-      location.reload()
+      switchNetwork(network.chainId);
+      location.reload();
     }
-  }
+  };
 
   const handleDisconnect = async () => {
-    await disconnect()
-    switchNetwork(1)
-    location.reload()
-  }
+    await disconnect();
+    switchNetwork(1);
+    location.reload();
+  };
 
   if (loading) {
     return (
       <Waiting>
         <WaitingText>Waiting for accounts</WaitingText> <Loader />
       </Waiting>
-    )
+    );
   }
 
   if (error) {
@@ -170,7 +170,7 @@ function NetworkInformation() {
       <Waiting>
         <WaitingText>Error getting accounts</WaitingText>
       </Waiting>
-    )
+    );
   }
   return (
     <NetworkInformationContainer hasAccount={accounts && accounts.length > 0}>
@@ -215,6 +215,6 @@ function NetworkInformation() {
         </AccountContainer>
       )}
     </NetworkInformationContainer>
-  )
+  );
 }
-export default NetworkInformation
+export default NetworkInformation;

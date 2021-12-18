@@ -36,7 +36,7 @@ const MigrationInstruction = styled('h3')`
 const MigrationExplanation = styled('p')`
   font-weight: 300;
   font-size: 14px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   letter-spacing: 0;
   margin-bottom: 0;
   margin-right: 2em;

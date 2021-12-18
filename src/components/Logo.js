@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled/macro';
 import { Link } from 'react-router-dom';
 import mq from 'mediaQuery';
 
 import FNSLogo from '../assets/fnsIconLogo.svg';
+import FNSLogoLight from '../assets/fnsIconLogoLight.svg';
 import LogoTyped from '../assets/TypeLogo';
+import GlobalState from '../globalState';
 
 const IconLogo = styled('img')`
   width: 30px;
@@ -26,10 +28,14 @@ const LogoContainer = styled(Link)`
   `}
 `;
 
-const Logo = ({ color, className, to = '' }) => (
-  <LogoContainer className={className} to={to}>
-    <IconLogo src={FNSLogo} />
-  </LogoContainer>
-);
+const Logo = ({ color, className, to = '' }) => {
+  const { darkMode } = useContext(GlobalState);
+  console.log(darkMode);
+  return (
+    <LogoContainer className={className} to={to}>
+      <IconLogo src={darkMode ? FNSLogo : FNSLogoLight} />
+    </LogoContainer>
+  );
+};
 
 export default Logo;

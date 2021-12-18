@@ -29,7 +29,7 @@ const UnlinkedValue = styled('div')`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
 `;
 
 const NotSet = styled('div')`

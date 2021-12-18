@@ -9,7 +9,7 @@ const SetupNameContainer = styled('div')`
   background: rgba(255, 255, 255, 0.05);
   padding: 20px 40px;
   margin-bottom: 40px;
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
 `;
 
 const Header = styled('header')`

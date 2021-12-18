@@ -30,7 +30,7 @@ const TotalValue = styled(Value)`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #161b24;
+  color: ${p => p.theme.colors.textColor};
 `;
 
 const Description = styled('div')`
@@ -41,7 +41,7 @@ const Description = styled('div')`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #b1bbce;
+  color: ${p => p.theme.colors.grayColor};
   margin-top: 10px;
 `;
 
@@ -50,7 +50,7 @@ const FTMValue = styled('span')`
 `;
 
 const USD = styled('span')`
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   margin-left: 20px;
 `;
 

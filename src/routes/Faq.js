@@ -33,7 +33,7 @@ const Question = styled('h3')`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   margin-right: 0.5em;
   display: inline;
 `;
@@ -46,7 +46,7 @@ const Answer = styled('p')`
   line-height: 21px;
   letter-spacing: -0.5px;
 
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
   padding-left: 12px;
   border-left: 3px solid #1969ff;
 `;
@@ -336,7 +336,7 @@ function Faq() {
 
 const FaqContainer = styled('div')`
   margin: 0;
-  background: #202f49;
+  background: ${p => p.theme.colors.componentBgColor};
   padding: 30px;
   border-radius: 16px;
 `;

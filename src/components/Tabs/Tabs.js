@@ -19,7 +19,7 @@ export const Tab = styled('div')`
 export const TabsContainer = styled('div')`
   display: inline-flex;
   justify-content: flex-start;
-  background: rgba(255, 255, 255, 0.05);
+  background: ${p => p.theme.colors.tabBgColor};
   border-radius: 16px;
 `;
 

@@ -10,9 +10,7 @@ import {
 } from 'graphql/queries';
 import { SET_ERROR } from 'graphql/mutations';
 import mq from 'mediaQuery';
-import GlobalState from '../globalState';
 import SearchDefault from '../components/SearchName/Search';
-import NoAccountsDefault from '../components/NoAccounts/NoAccountsModal';
 import bg from '../assets/heroBG.jpg';
 import useNetworkInfo from '../components/NetworkInformation/useNetworkInfo';
 import { ExternalButtonLink } from '../components/Forms/Button';
@@ -26,15 +24,15 @@ import Web3Logo from '../components/HomePage/images/web3.svg';
 import WalletsLogo from '../components/HomePage/images/wallets.svg';
 import WebsitesLogo from '../components/HomePage/images/websites.svg';
 import { aboutPageURL, hasValidReverseRecord } from '../utils/utils';
-import { connect, disconnect } from '../api/web3modal';
 import { useBlock } from '../components/hooks';
 import { getBlock } from '@ensdomains/ui';
 import { emptyAddress } from '../utils/utils';
 import DefaultLogo from '../components/Logo';
 import moment from 'moment';
+import background from '../components/HomePage/images/background.png';
 
 const HomePageContainer = styled('div')`
-  background: url(/static/media/background.a0b225a1.png);
+  background: url(${background});
   background-repeat: no-repeat;
   background-position: center 0;
   background-size: 100%;
@@ -76,17 +74,6 @@ const Warning = styled('div')`
   padding: 1em;
 `;
 
-const NetworkStatus = styled('div')`
-  color: white;
-  font-weight: 200;
-  text-transform: capitalize;
-  margin-left: ${mq.small`
-    display: block;
-  `} ${mq.medium`
-    left: 40px;
-  `};
-`;
-
 const Nav = styled('div')`
   display: flex;
   justify-content: center;
@@ -102,7 +89,7 @@ const Nav = styled('div')`
     line-height: 17px;
     letter-spacing: -0.5px;
 
-    color: #eff3fb;
+    color: ${p => p.theme.colors.textColor};
   }
 `;
 
@@ -395,7 +382,7 @@ const HomeBanner = styled('h1')`
   text-align: center;
   letter-spacing: -0.7px;
 
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
 `;
 
 const BannerEmphasis = styled('span')`
@@ -403,9 +390,6 @@ const BannerEmphasis = styled('span')`
 `;
 
 export default ({ match }) => {
-  const { url } = match;
-  const { t } = useTranslation();
-  const { switchNetwork, currentNetwork } = useContext(GlobalState);
   const {
     accounts,
     network,
@@ -478,24 +462,7 @@ export default ({ match }) => {
   };
 
   const [setError] = useMutation(SET_ERROR);
-  const handleConnect = async () => {
-    let network;
-    try {
-      network = await connect();
-    } catch (e) {
-      setError({ variables: { message: e?.message } });
-    }
-    if (network) {
-      switchNetwork(network.chainId);
-    }
-    location.reload();
-  };
 
-  const handleDisconnect = async () => {
-    await disconnect();
-    switchNetwork(1);
-    location.reload();
-  };
   return (
     <HomePageContainer>
       {delayInMin >= 0 && (
@@ -513,22 +480,6 @@ export default ({ match }) => {
           )}
           <NetworkAccountInfoWrapper>
             <NavLink to="/dashboard">Launch App</NavLink>
-            {/* {!loading && (
-              <>
-                <NetworkStatus>
-                  {!isSafeApp && (
-                    <NoAccounts
-                      onClick={isReadOnly ? handleConnect : handleDisconnect}
-                      colour="#1969FF"
-                      textColour="#eff3fb"
-                      buttonText={
-                        isReadOnly ? t('c.connect') : t('c.disconnect')
-                      }
-                    />
-                  )}
-                </NetworkStatus>
-              </>
-            )} */}
           </NetworkAccountInfoWrapper>
         </HeroTop>
         <SearchContainer>

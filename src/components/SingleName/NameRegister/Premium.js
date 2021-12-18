@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { css } from 'emotion'
-import { useTranslation } from 'react-i18next'
-import { formatDate } from 'utils/dates'
-import mq from 'mediaQuery'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { css } from 'emotion';
+import { useTranslation } from 'react-i18next';
+import { formatDate } from 'utils/dates';
+import mq from 'mediaQuery';
 
-import { ReactComponent as ChainDefault } from '../../Icons/chain.svg'
+import { ReactComponent as ChainDefault } from '../../Icons/chain.svg';
 
-import DefaultInput from '../../Forms/Input'
-import AddToCalendar from '../../Calendar/ReleaseCalendar'
+import DefaultInput from '../../Forms/Input';
+import AddToCalendar from '../../Calendar/ReleaseCalendar';
 
 const PremiumContainer = styled('div')`
   display: grid;
@@ -20,7 +20,7 @@ const PremiumContainer = styled('div')`
       minmax(min-content, 200px) minmax(min-content, min-content)
       minmax(200px, 1fr) minmax(200px, min-content);
   `}
-`
+`;
 const Chain = styled(ChainDefault)`
   display: none;
 
@@ -30,20 +30,20 @@ const Chain = styled(ChainDefault)`
     margin-left: 20px;
     margin-right: 20px;
   `}
-`
+`;
 
 const AmountContainer = styled('div')`
   ${mq.medium`
     max-width: 220px;
   `}
-`
+`;
 
 const DateContainer = styled('div')`
   width: 100%;
   ${mq.medium`
     width: auto
   `}
-`
+`;
 
 const CalendarContainer = styled('div')`
   margin-top: 1em;
@@ -51,7 +51,7 @@ const CalendarContainer = styled('div')`
     margin: auto;
     max-width: 220px;
   `}
-`
+`;
 
 const Value = styled('div')`
   font-family: Overpass;
@@ -62,21 +62,21 @@ const Value = styled('div')`
   ${mq.small`
     font-size: 28px;
   `}
-`
+`;
 
 const Description = styled('div')`
   font-family: Overpass;
   font-weight: 300;
   font-size: 14px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   margin-top: 10px;
-`
+`;
 
 const Input = styled(DefaultInput)`
   display: inline-block;
   width: 8em;
   margin-bottom: 0em;
-`
+`;
 
 function Premium({
   name,
@@ -87,7 +87,7 @@ function Premium({
   targetPremium,
   targetDate
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <PremiumContainer className={className} ref={reference}>
       <AmountContainer>
@@ -97,7 +97,7 @@ function Premium({
           placeholder={'$0'}
           value={targetPremium}
           onChange={evt => {
-            handlePremium(evt.target)
+            handlePremium(evt.target);
           }}
         />
         <Description>{t('register.premium.title')}</Description>
@@ -122,7 +122,7 @@ function Premium({
         />
       </CalendarContainer>
     </PremiumContainer>
-  )
+  );
 }
 
-export default Premium
+export default Premium;

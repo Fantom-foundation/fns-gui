@@ -47,12 +47,12 @@ const DomainContainer = styled(Link)`
   padding: 20px;
   overflow: hidden;
   position: relative;
-  background-color: #202f49;
-  background: ${({ percentDone }) =>
+  background-color: ${p => p.theme.colors.componentBgColor};
+  background: ${({ percentDone, theme }) =>
     percentDone
       ? `
   linear-gradient(to right, rgba(128, 255, 128, 0.1) 0%, rgba(82,229,255, 0.1) ${percentDone}%,#ffffff ${percentDone}%)`
-      : '#202f49'};
+      : theme.colors.componentBgColor};
   border-radius: 6px;
   height: 65px;
   display: grid;
@@ -92,7 +92,7 @@ const DomainName = styled('h2')`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
 `;
 
 const LabelContainer = styled('div')`

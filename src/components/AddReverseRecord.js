@@ -27,7 +27,7 @@ import Bin from '../components/Forms/Bin';
 import Gap from '../components/Utils/Gap';
 
 const Loading = styled('span')`
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
 `;
 
 const Warning = styled(`div`)`
@@ -66,7 +66,7 @@ const Message = styled('div')`
   font-family: Overpass Mono;
   font-weight: 700;
   font-size: 14px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   letter-spacing: 0;
   display: flex;
   align-items: center;
@@ -101,7 +101,7 @@ const Explanation = styled('div')`
   /* or 27px */
   letter-spacing: -0.5px;
 
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
 
   line-height: 25px;
   margin-bottom: 10px;
@@ -117,7 +117,7 @@ const EditableNotSet = styled('div')`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #161b24;
+  color: ${p => p.theme.colors.grayColor};
 `;
 
 const ButtonsContainer = styled('div')`
@@ -256,12 +256,12 @@ function AddReverseRecord({ account, currentAddress }) {
                   borderRadius: 8,
                   colors: {
                     ...theme.colors,
-                    text: '#eff3fb',
-                    primary25: '#eff3fb',
-                    primary: '#eff3fb',
-                    neutral0: 'transparent',
-                    neutral80: '#adbbcd',
-                    primary50: 'transparent'
+                    text: theme.colors.textColor,
+                    primary25: theme.colors.textColor,
+                    primary: theme.colors.textColor,
+                    neutral0: '#FFF',
+                    neutral80: theme.colors.grayColor,
+                    primary50: '#FFF'
                   }
                 })}
               />

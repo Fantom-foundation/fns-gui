@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 
 import NetworkInformation from '../NetworkInformation/NetworkInformation';
@@ -26,7 +26,7 @@ const SideNavContainer = styled('nav')`
 
   left: 0;
   height: auto;
-  background: ${props => props.theme.colors.componentBgColor};
+  background: ${p => p.theme.colors.sideBarBgColor};
   width: 100%;
   margin-top: -10px;
   ${mq.medium`
@@ -67,7 +67,8 @@ const NavLink = styled(Link)`
   justify-content: center;
   font-weight: 200;
   font-size: 22px;
-  color: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
+  color: ${p =>
+    p.active ? p.theme.colors.textColor : p.theme.colors.grayColor};
   padding: 20px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -77,12 +78,13 @@ const NavLink = styled(Link)`
   `}
 
   &:visited {
-    color: #1969ff;
+    color: ${p => p.theme.colors.textColor};
   }
 
   svg,
   svg path {
-    fill: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
+    fill: ${p =>
+      p.active ? p.theme.colors.textColor : p.theme.colors.grayColor};
   }
 
   span {
@@ -96,18 +98,19 @@ const NavLink = styled(Link)`
     padding-top: 2px;
     letter-spacing: -0.5px;
 
-    color: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
+    color: ${p =>
+      p.active ? p.theme.colors.textColor : p.theme.colors.grayColor};
   }
 
   &:hover {
     span {
-      color: #1969ff;
+      color: ${p => p.theme.colors.textColor};
     }
     path {
-      fill: #1969ff;
+      fill: ${p => p.theme.colors.textColor};
     }
     g {
-      fill: #1969ff;
+      fill: ${p => p.theme.colors.textColor};
     }
   }
 `;
@@ -118,7 +121,8 @@ const ThirdPartyLink = styled('a')`
   justify-content: center;
   font-weight: 200;
   font-size: 22px;
-  color: ${p => (p.active ? '#1969ff' : '#B1BBCE')};
+  color: ${p =>
+    p.active ? p.theme.colors.textColor : p.theme.colors.grayColor};
   padding: 20px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -128,7 +132,7 @@ const ThirdPartyLink = styled('a')`
   `}
 
   &:visited {
-    color: #1969ff;
+    color: ${p => p.theme.colors.textColor};
   }
 
   span {
@@ -141,18 +145,19 @@ const ThirdPartyLink = styled('a')`
     line-height: 1;
     padding-top: 2px;
     letter-spacing: -0.5px;
-    color: ${p => (p.active ? '#161B24' : '#B1BBCE')};
+    color: ${p =>
+      p.active ? p.theme.colors.textColor : p.theme.colors.grayColor};
   }
 
   &:hover {
     span {
-      color: #1969ff;
+      color: ${p => p.theme.colors.textColor};
     }
     path {
-      fill: #1969ff;
+      fill: ${p => p.theme.colors.textColor};
     }
     g {
-      fill: #1969ff;
+      fill: ${p => p.theme.colors.textColor};
     }
   }
 `;

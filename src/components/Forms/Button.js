@@ -55,14 +55,14 @@ function getButtonStyles({ type }) {
       `;
     case 'hollow-primary-disabled':
       return `
-        color: #eff3fb;
+      color: ${p => p.theme.colors.textColor};
         background: #1969ff;
         opacity: 0.6;
         &:visited {
-          color: #eff3fb;
+          color: ${p => p.theme.colors.textColor};
         }
         &:hover {
-          color: #eff3fb;
+          color: ${p => p.theme.colors.textColor};
           cursor: default
         }
       `;

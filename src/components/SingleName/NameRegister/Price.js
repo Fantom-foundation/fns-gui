@@ -13,7 +13,7 @@ const PriceContainer = styled('div')`
 `;
 
 const Value = styled('div')`
-  background: #f9fafb;
+  background: ${p => p.theme.colors.tabBgColor};
   border-radius: 12px;
 
   font-family: Overpass;
@@ -24,6 +24,7 @@ const Value = styled('div')`
   letter-spacing: -0.5px;
 
   padding: 15px;
+  color: ${p => p.theme.colors.textColor};
 `;
 
 const Description = styled('div')`
@@ -34,14 +35,14 @@ const Description = styled('div')`
   line-height: 25px;
   letter-spacing: -0.5px;
 
-  color: #b1bbce;
+  color: ${p => p.theme.colors.grayColor};
   margin-top: 10px;
   margin-bottom: 9px;
 `;
 
 const USD = styled('span')`
   margin-left: 20px;
-  color: #b1bbce;
+  color: ${p => p.theme.colors.grayColor};
 `;
 
 const Price = ({

@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
 
-import { emptyAddress } from 'utils/utils'
-import mq from 'mediaQuery'
+import { emptyAddress } from 'utils/utils';
+import mq from 'mediaQuery';
 
-import { DetailsItem, DetailsKey, DetailsValue } from '../DetailsItem'
-import ContentHashLink from '../../Links/ContentHashLink'
-import DefaultBin from '../../Forms/Bin'
-import RecordInput from '../RecordInput'
-import CopyToClipBoard from '../../CopyToClipboard/'
-import RequestCertificate from './RequestCertificate'
-import useNetworkInfo from '../../NetworkInformation/useNetworkInfo'
-import { ReactComponent as ExternalLinkIcon } from '../../Icons/externalLink.svg'
+import { DetailsItem, DetailsKey, DetailsValue } from '../DetailsItem';
+import ContentHashLink from '../../Links/ContentHashLink';
+import DefaultBin from '../../Forms/Bin';
+import RecordInput from '../RecordInput';
+import CopyToClipBoard from '../../CopyToClipboard/';
+import RequestCertificate from './RequestCertificate';
+import useNetworkInfo from '../../NetworkInformation/useNetworkInfo';
+import { ReactComponent as ExternalLinkIcon } from '../../Icons/externalLink.svg';
 
 export const RecordsItem = styled(DetailsItem)`
   ${p => !p.hasRecord && 'display: none;'}
@@ -30,7 +30,7 @@ export const RecordsItem = styled(DetailsItem)`
     display: flex;
     flex-direction: column;
   `}
-`
+`;
 
 export const RecordsContent = styled('div')`
   display: grid;
@@ -42,7 +42,7 @@ export const RecordsContent = styled('div')`
     display: flex;
   `}
   ${({ editing }) => editing && 'margin-bottom: 30px'};
-`
+`;
 
 export const RecordsKey = styled(DetailsKey)`
   font-size: 12px;
@@ -59,13 +59,13 @@ export const RecordsKey = styled(DetailsKey)`
     width: 200px;
     margin-right: 0px;
   `}
-`
+`;
 
 export const RecordsSubKey = styled('div')`
   font-family: Overpass Mono;
   font-weight: 500;
   font-size: 14px;
-  color: #adbbcd;
+  color: ${p => p.theme.colors.grayColor};
   letter-spacing: 0;
 
   ${mq.small`
@@ -73,7 +73,7 @@ export const RecordsSubKey = styled('div')`
     max-width: 220px;
     min-width: 180px;
   `}
-`
+`;
 
 export const RecordsValue = styled(DetailsValue)`
   font-size: 14px;
@@ -81,7 +81,7 @@ export const RecordsValue = styled(DetailsValue)`
   ${mq.small`
       margin-top: 0;
   `}
-`
+`;
 
 const NewRecordsContainer = styled('div')`
   display: flex;
@@ -98,36 +98,36 @@ const NewRecordsContainer = styled('div')`
     justify-content: center;
     align-items: center;
   `}
-`
+`;
 
 const EditRecord = styled('div')`
   width: 100%;
-`
+`;
 
 const Action = styled('div')`
   margin-left: 0;
   ${mq.small`
     margin-left: auto;
   `};
-`
+`;
 
 const Bin = styled(DefaultBin)`
   align-self: flex-start;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
-`
+`;
 
 const SecondaryAction = styled('div')`
   margin-right: 10px;
-`
+`;
 
 const NotSet = styled('div')`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #ccc;
-`
+`;
 
 const LinkContainer = styled('a')`
   display: inline-block;
@@ -146,11 +146,11 @@ const LinkContainer = styled('a')`
       opacity: 1;
     }
   }
-`
+`;
 
 const hasChange = (changedRecords, key) => {
-  return !!changedRecords.find(el => el.key === key)
-}
+  return !!changedRecords.find(el => el.key === key);
+};
 
 const ContentHashEditable = ({
   domain,
@@ -162,13 +162,13 @@ const ContentHashEditable = ({
   updateRecord,
   validator
 }) => {
-  const { t } = useTranslation()
-  const { contentType } = domain
+  const { t } = useTranslation();
+  const { contentType } = domain;
 
-  const record = records[0]
-  const value = record?.value
-  const isValid = validator(record)
-  const isInvalid = value !== '' && !isValid
+  const record = records[0];
+  const value = record?.value;
+  const isValid = validator(record);
+  const isInvalid = value !== '' && !isValid;
 
   return (
     <>
@@ -199,7 +199,7 @@ const ContentHashEditable = ({
                 <RecordInput
                   testId={`content-record-input${isInvalid ? '-invalid' : ''}`}
                   onChange={event => {
-                    updateRecord({ ...record, value: event.target.value })
+                    updateRecord({ ...record, value: event.target.value });
                   }}
                   hasBeenUpdated={hasChange(changedRecords, keyName)}
                   value={value}
@@ -213,8 +213,8 @@ const ContentHashEditable = ({
                 <Bin
                   data-testid={`delete-${type.toLowerCase()}`}
                   onClick={e => {
-                    e.preventDefault()
-                    updateRecord({ ...record, value: emptyAddress })
+                    e.preventDefault();
+                    updateRecord({ ...record, value: emptyAddress });
                   }}
                 />
               </Action>
@@ -225,13 +225,13 @@ const ContentHashEditable = ({
         </RecordsContent>
       </RecordsItem>
     </>
-  )
-}
+  );
+};
 
 function ContentHashLinkWithEthLink({ value, contentType, domain }) {
-  const { networkId } = useNetworkInfo()
+  const { networkId } = useNetworkInfo();
   const displayEthLink =
-    !!domain.name.match('.eth$') && networkId === 1 && value?.match(/^ip/)
+    !!domain.name.match('.eth$') && networkId === 1 && value?.match(/^ip/);
   return (
     <>
       <div>
@@ -258,14 +258,14 @@ function ContentHashLinkWithEthLink({ value, contentType, domain }) {
         <div>{displayEthLink && <>&nbsp;</>}</div>
       </div>
     </>
-  )
+  );
 }
 
 function ContentHashViewOnly({ domain, account, records }) {
-  const value = records?.length && records[0]
-  const { contentType } = domain
+  const value = records?.length && records[0];
+  const { contentType } = domain;
 
-  if (contentType === 'error') return ''
+  if (contentType === 'error') return '';
 
   return (
     <RecordsItem>
@@ -281,14 +281,14 @@ function ContentHashViewOnly({ domain, account, records }) {
         </RecordsValue>
       </RecordsContent>
     </RecordsItem>
-  )
+  );
 }
 
 function ContentHash(props) {
-  const { canEdit } = props
-  if (canEdit) return <ContentHashEditable {...props} />
+  const { canEdit } = props;
+  if (canEdit) return <ContentHashEditable {...props} />;
 
-  return <ContentHashViewOnly {...props} />
+  return <ContentHashViewOnly {...props} />;
 }
 
-export default ContentHash
+export default ContentHash;

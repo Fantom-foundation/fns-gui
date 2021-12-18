@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
+import React from 'react';
+import styled from '@emotion/styled/macro';
 
-const offset = 180
+const offset = 180;
 
 const Number = styled('div')`
   color: ${p => (p.progress === 100 ? '#42E068' : '#dfdfdf')};
@@ -17,7 +17,7 @@ const Number = styled('div')`
     top: 50%;
     transform: translate(-50%, -50%);
   }
-`
+`;
 
 const SVG = styled('svg')`
   stroke: #ccc;
@@ -31,7 +31,7 @@ const SVG = styled('svg')`
     stroke-dasharray: ${offset};
     stroke-dashoffset: ${p => (offset / 100) * (p.progress - 100)};
   }
-`
+`;
 
 const Content = styled('div')`
   margin-left: 8px;
@@ -44,14 +44,14 @@ const Content = styled('div')`
   }
   p {
     font-size: 12px;
-    color: #adbbcd;
+    color: ${p => p.theme.colors.grayColor};
     letter-spacing: 0;
   }
-`
+`;
 
 const StepContainer = styled('div')`
   display: flex;
-`
+`;
 
 const Step = ({ number, text, title, progress = 100 }) => (
   <StepContainer>
@@ -84,6 +84,6 @@ const Step = ({ number, text, title, progress = 100 }) => (
       <p>{text}</p>
     </Content>
   </StepContainer>
-)
+);
 
-export default Step
+export default Step;

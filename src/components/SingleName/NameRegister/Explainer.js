@@ -36,7 +36,7 @@ const Header = styled('div')`
     line-height: 25px;
     letter-spacing: -0.5px;
 
-    color: #161b24;
+    color: ${p => p.theme.colors.textColor};
     margin: 0;
     margin-bottom: 5px;
   }
@@ -50,7 +50,7 @@ const Header = styled('div')`
     line-height: 21px;
     letter-spacing: -0.5px;
 
-    color: #b1bbce;
+    color: ${p => p.theme.colors.grayColor};
   }
 `;
 
@@ -69,7 +69,8 @@ const NotifyButton = styled('div')`
 `;
 
 const NotifyButtonDisabled = styled('div')`
-  color: hsla(0, 0%, 82%, 1);
+  color: #1969ff;
+  opacity: 0.6;
   cursor: not-allowed;
   font-family: Overpass;
   font-style: normal;

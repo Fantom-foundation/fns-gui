@@ -9,7 +9,7 @@ const dropdownStyles = css`
   border: 1px solid #e5e5e5;
   width: 150px;
   background-color: #0a162e;
-  color: #eff3fb;
+  color: ${p => p.theme.colors.textColor};
   margin: 0 auto;
   margin-bottom: 10px;
   display: flex;
