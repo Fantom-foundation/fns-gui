@@ -27,8 +27,7 @@ export class GlobalStateProvider extends Component {
         togglePriceFilter: this.togglePriceFilter,
         updateSearchDomains: this.updateSearchDomains
       },
-      darkMode:
-        localStorage.getItem('darkMode', 'true') == 'true' ? true : false
+      darkMode: localStorage.getItem('darkMode') == 'false' ? false : true
     };
   }
 

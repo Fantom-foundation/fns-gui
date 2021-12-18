@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 import { useLocalStorage } from '../hooks';
-import GlobalState from '../../globalState';
 import sun from '../../assets/sun.svg';
 import moon from '../../assets/moon.svg';
 
@@ -17,7 +16,6 @@ const ModeToggler = styled('div')`
 `;
 
 const ThemeToggler = () => {
-  const { changeColorMode } = useContext(GlobalState);
   const [darkMode, setDarkMode] = useLocalStorage('darkMode', true);
 
   const toggleMode = () => {

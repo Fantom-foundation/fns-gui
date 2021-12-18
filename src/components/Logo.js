@@ -30,7 +30,6 @@ const LogoContainer = styled(Link)`
 
 const Logo = ({ color, className, to = '' }) => {
   const { darkMode } = useContext(GlobalState);
-  console.log(darkMode);
   return (
     <LogoContainer className={className} to={to}>
       <IconLogo src={darkMode ? FNSLogo : FNSLogoLight} />
