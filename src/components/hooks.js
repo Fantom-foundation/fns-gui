@@ -210,10 +210,10 @@ export function useGasPrice(enabled = true) {
           if (!result.ok) throw `Failed to get gas estimate: ${result.status}`;
           const data = await result.json();
           const slowPrice = new BigNumber(data.result.standardgaspricegwei)
-            .div(new BigNumber(10).pow(9))
+            .multipliedBy(new BigNumber(10).pow(9))
             .toString();
           const fastPrice = new BigNumber(data.result.rapidgaspricegwei)
-            .div(new BigNumber(10).pow(9))
+            .multipliedBy(new BigNumber(10).pow(9))
             .toString();
           let price = {
             slow: slowPrice,
