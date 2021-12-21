@@ -1,3 +1,4 @@
+import './App.css';
 import React, { Fragment, useContext, useEffect, useState, lazy } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 
@@ -86,7 +87,6 @@ import StackdriverErrorReporter from 'stackdriver-errors-js';
 import GlobalState from './globalState';
 import { ApolloProvider } from 'react-apollo';
 import { setupClient } from 'apolloClient';
-import './App.css';
 const errorHandler = new StackdriverErrorReporter();
 
 // If we are targeting an IPFS build we need to use HashRouter

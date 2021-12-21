@@ -1,3 +1,75 @@
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Regular.woff2) format('woff2'),
+    url(./assets/fonts/SFProDisplay-Regular.woff) format('woff'),
+    url(./assets/fonts/SFProDisplay-Regular.ttf) format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Semibold.woff2) format('woff2'),
+    url(./assets/fonts/SFProDisplay-Semibold.woff) format('woff'),
+    url(./assets/fonts/SFProDisplay-Semibold.ttf) format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Bold.woff2) format('woff2'),
+    url(./assets/fonts/SFProDisplay-Bold.woff) format('woff'),
+    url(./assets/fonts/SFProDisplay-Bold.ttf) format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'),
+    url(./assets/fonts/SFProDisplay-Black.woff2) format('woff2'),
+    url(./assets/fonts/SFProDisplay-Black.woff) format('woff'),
+    url(./assets/fonts/SFProDisplay-Black.ttf) format('truetype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Regular.woff2) format('woff2'),
+    url(./assets/fonts/SFProText-Regular.woff) format('woff'),
+    url(./assets/fonts/SFProText-Regular.ttf) format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Medium.woff2) format('woff2'),
+    url(./assets/fonts/SFProText-Medium.woff) format('woff'),
+    url(./assets/fonts/SFProText-Medium.ttf) format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Bold.woff2) format('woff2'),
+    url(./assets/fonts/SFProText-Bold.woff) format('woff'),
+    url(./assets/fonts/SFProText-Bold.ttf) format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'),
+    url(./assets/fonts/SFProText-Bold.woff2) format('woff2'),
+    url(./assets/fonts/SFProText-Bold.woff) format('woff'),
+    url(./assets/fonts/SFProText-Bold.ttf) format('truetype');
+  font-weight: 900;
+}
+
 #root {
   min-height: 100vh;
 }
@@ -38,60 +110,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display'),
-    url(./assets/fonts/SFProDisplay-Regular.ttf) format('truetype');
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display'),
-    url(./assets/fonts/SFProDisplay-Semibold.ttf) format('truetype');
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display'),
-    url(./assets/fonts/SFProDisplay-Bold.ttf) format('truetype');
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display'),
-    url(./assets/fonts/SFProDisplay-Black.ttf) format('truetype');
-  font-weight: 900;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: local('SF Pro Text'),
-    url(./assets/fonts/SFProText-Regular.ttf) format('truetype');
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: local('SF Pro Text'),
-    url(./assets/fonts/SFProText-Medium.ttf) format('truetype');
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: local('SF Pro Text'),
-    url(./assets/fonts/SFProText-Bold.ttf) format('truetype');
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: local('SF Pro Text'),
-    url(./assets/fonts/SFProText-Bold.ttf) format('truetype');
-  font-weight: 900;
 }
