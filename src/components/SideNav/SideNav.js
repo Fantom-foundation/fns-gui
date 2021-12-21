@@ -240,12 +240,6 @@ function SideNav({ match, isMenuOpen, toggleMenu }) {
             <span>{t('c.favourites')}</span>
           </NavLink>
         </li>
-        <li key="about">
-          <ThirdPartyLink href={aboutPageURL()}>
-            <File />
-            <span>{t('c.about')}</span>
-          </ThirdPartyLink>
-        </li>
         <li key="faq">
           <NavLink
             onClick={toggleMenu}
