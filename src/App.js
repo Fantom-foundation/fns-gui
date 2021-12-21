@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState, lazy } from 'react';
 import { ThemeProvider } from 'emotion-theming';
-import { useLocalStorage } from './components/hooks';
 
 import {
   HashRouter,
@@ -149,7 +148,11 @@ const App = ({ initialClient, initialNetworkId }) => {
           });
 
           if (data && data.error && data.error.message) {
-            return <NetworkError message={data.error.message} />;
+            return (
+              <ThemeProvider theme={theme}>
+                <NetworkError message={data.error.message} />
+              </ThemeProvider>
+            );
           } else {
             return (
               <>

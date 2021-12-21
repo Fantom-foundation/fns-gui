@@ -23,11 +23,13 @@ const H2 = styled('h2')`
   font-family: Overpass;
   font-weight: 300;
   font-size: 28px;
-  color: #2b2b2b;
+  color: ${p => p.theme.colors.grayColor};
   text-align: center;
 `;
 
-const Message = styled('div')``;
+const Message = styled('div')`
+  color: ${p => p.theme.colors.textColor};
+`;
 
 export const NetworkError = ({ message }) => (
   <ErrorContainer>
