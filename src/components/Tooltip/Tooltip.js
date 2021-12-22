@@ -1,16 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { findDOMNode } from 'react-dom'
-import uuid from 'uuid'
-import ReactTooltip from 'react-tooltip'
-import styled from '@emotion/styled/macro'
-import { useState, useEffect } from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { findDOMNode } from 'react-dom';
+import uuid from 'uuid';
+import ReactTooltip from 'react-tooltip';
+import styled from '@emotion/styled/macro';
+import { useState, useEffect } from 'react';
 
 const DefaultTooltip = styled(ReactTooltip)`
-  box-shadow: -4px 18px 70px 0 rgba(108, 143, 167, 0.32);
+  background-color: ${p => p.theme.colors.componentBgColor} !important;
+  color: ${p => p.theme.colors.textColor} !important;
   opacity: 1 !important;
   max-width: 400px;
-`
+`;
 
 const warningHtml = ({
   text
@@ -20,21 +21,21 @@ const warningHtml = ({
   fill="#DC2E2E"
   fillRule="evenodd"
 />
-</svg><p style="margin-left: 20px" >${text}</p></div>`
+</svg><p style="margin-left: 20px" >${text}</p></div>`;
 
 const TooltipContainer = props => {
-  const { text, position, children, offset, warning } = props
-  const id = uuid()
-  const [show, setShow] = useState(false)
-  const tooltipRef = React.createRef()
+  const { text, position, children, offset, warning } = props;
+  const id = uuid();
+  const [show, setShow] = useState(false);
+  const tooltipRef = React.createRef();
 
   useEffect(() => {
     if (show) {
-      ReactTooltip.show(findDOMNode(tooltipRef.current))
+      ReactTooltip.show(findDOMNode(tooltipRef.current));
     } else {
-      ReactTooltip.hide(findDOMNode(tooltipRef.current))
+      ReactTooltip.hide(findDOMNode(tooltipRef.current));
     }
-  })
+  });
 
   const tooltipElement = (
     <span
@@ -43,16 +44,16 @@ const TooltipContainer = props => {
       data-for={id}
       ref={tooltipRef}
     />
-  )
+  );
 
   return (
     <>
       {children({
         showTooltip: () => {
-          setShow(true)
+          setShow(true);
         },
         hideTooltip: () => {
-          setShow(false)
+          setShow(false);
         },
         tooltipElement: tooltipElement
       })}
@@ -62,15 +63,14 @@ const TooltipContainer = props => {
         event="dbclick"
         place={position || 'top'}
         effect="solid"
-        type="light"
         html={true}
         offset={offset}
       />
     </>
-  )
-}
+  );
+};
 
 TooltipContainer.propTypes = {
   children: PropTypes.func.isRequired
-}
-export default TooltipContainer
+};
+export default TooltipContainer;

@@ -24,7 +24,7 @@ const Icon = styled('div')`
   font-family: Overpass;
   font-size: 20px;
   font-weight: 100;
-  color: white;
+  color: ${p => p.theme.colors.textColor};
   ${p => p.emphasize && 'background-color: #1969FF;'}
   ${p =>
     p.emphasize
@@ -32,7 +32,7 @@ const Icon = styled('div')`
       : 'color: p.theme.colors.grayColor;'}
   
   border-radius: 50%;
-  border: solid 1px;
+  border: solid 1px ${p => p.theme.colors.grayColor};
   width: 24px;
   height: 24px;
   display: flex;
@@ -43,6 +43,7 @@ const Icon = styled('div')`
 
   &:hover {
     background-color: #1969ff;
+    color: white;
     cursor: pointer;
   }
 `;
