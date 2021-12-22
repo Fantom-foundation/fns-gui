@@ -29,7 +29,7 @@ const Icon = styled('div')`
   ${p =>
     p.emphasize
       ? 'border-color: white;'
-      : 'color: p.theme.colors.grayColor'}
+      : 'color: p.theme.colors.grayColor;'}
   
   border-radius: 50%;
   border: solid 1px;
@@ -42,7 +42,7 @@ const Icon = styled('div')`
   transition: 0.2s;
 
   &:hover {
-    color: #2500a6;
+    background-color: #1969ff;
     cursor: pointer;
   }
 `;
