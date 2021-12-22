@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import styled from '@emotion/styled/macro';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import mq from 'mediaQuery';
 
@@ -29,7 +30,7 @@ const LogoContainer = styled(Link)`
 `;
 
 const Logo = ({ color, className, to = '' }) => {
-  const { darkMode } = useContext(GlobalState);
+  const { darkMode } = useSelector(state => state.Theme);
   return (
     <LogoContainer className={className} to={to}>
       <IconLogo src={darkMode ? FNSLogo : FNSLogoLight} />
