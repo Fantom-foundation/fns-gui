@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
-import { useLocalStorage } from '../hooks';
+import { useDispatch, useSelector } from 'react-redux';
 import sun from '../../assets/sun.svg';
 import moon from '../../assets/moon.svg';
+import ThemeActions from '../../actions/theme.actions';
 
 const ModeToggler = styled('div')`
   background: ${p => p.theme.colors.componentBgColor};
@@ -16,12 +17,12 @@ const ModeToggler = styled('div')`
 `;
 
 const ThemeToggler = () => {
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', true);
+  const dispatch = useDispatch();
+  const { darkMode } = useSelector(state => state.Theme);
 
   const toggleMode = () => {
     var mode = !darkMode;
-    setDarkMode(mode);
-    location.reload();
+    dispatch(ThemeActions.updateTheme(mode));
   };
 
   return (

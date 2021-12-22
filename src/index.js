@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from 'App';
+import store from './stores/reduxStore';
 
 import { GlobalStateProvider } from 'globalState';
 import 'globalStyles';
@@ -12,9 +14,11 @@ window.addEventListener('load', async () => {
 
   ReactDOM.render(
     <Suspense fallback={null}>
-      <GlobalStateProvider>
-        <App initialClient={client} initialNetworkId={networkId} />
-      </GlobalStateProvider>
+      <Provider store={store}>
+        <GlobalStateProvider>
+          <App initialClient={client} initialNetworkId={networkId} />
+        </GlobalStateProvider>
+      </Provider>
     </Suspense>,
     document.getElementById('root')
   );

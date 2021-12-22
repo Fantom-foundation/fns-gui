@@ -32,7 +32,6 @@ export class GlobalStateProvider extends Component {
   }
 
   changeColorMode = newMode => {
-    console.log(newMode);
     this.setState({
       darkMode: newMode
     });

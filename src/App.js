@@ -1,6 +1,7 @@
 import './App.css';
 import React, { Fragment, useContext, useEffect, useState, lazy } from 'react';
 import { ThemeProvider } from 'emotion-theming';
+import { useSelector } from 'react-redux';
 
 import {
   HashRouter,
@@ -114,7 +115,8 @@ const Route = ({
 };
 
 const App = ({ initialClient, initialNetworkId }) => {
-  const { currentNetwork, darkMode } = useContext(GlobalState);
+  const { currentNetwork } = useContext(GlobalState);
+  const { darkMode } = useSelector(state => state.Theme);
   let [currentClient, setCurrentClient] = useState(initialClient);
   useEffect(() => {
     if (currentNetwork) {
