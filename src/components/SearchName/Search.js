@@ -63,7 +63,6 @@ const SearchForm = styled('form')`
   }
 
   button {
-    ${p => (p && p.hasSearch ? 'opacity: 1;' : 'opacity: 0.6;')}
     font-family: Overpass;
     font-style: normal;
     font-weight: 800;
@@ -84,9 +83,7 @@ const SearchForm = styled('form')`
       display: block;
     `}
 
-    &:hover {
-      ${p => (p && p.hasSearch ? 'cursor: pointer;' : 'cursor: default;')}
-    }
+    cursor: pointer;
   }
 `;
 
@@ -142,9 +139,7 @@ function Search({ history, className, style }) {
         ref={el => (input = el)}
         onChange={handleParse}
       />
-      <button disabled={!hasSearch} type="submit">
-        {t('search.button')}
-      </button>
+      <button type="submit">{t('search.button')}</button>
     </SearchForm>
   );
 }
