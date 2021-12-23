@@ -58,9 +58,6 @@ const HeroBottom = styled('div')`
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
   width: 100%;
   background: #050607;
   z-index: 1;
@@ -527,11 +524,11 @@ export default ({ match }) => {
             </DescriptionContent>
           </DescriptionItemWrapper>
         </DescriptionWrapper>
-        <HeroBottom>
-          <Logo />
-          <SocialContainer />
-        </HeroBottom>
       </Hero>
+      <HeroBottom>
+        <Logo />
+        <SocialContainer />
+      </HeroBottom>
     </HomePageContainer>
   );
 };
