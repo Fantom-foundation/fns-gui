@@ -1,4 +1,4 @@
-import { setup as setupENS } from '../api/fns';
+import { setup as setupFNS } from '../api/fns';
 import SafeAppSDK from '@gnosis.pm/safe-apps-sdk';
 import { SafeAppProvider } from '@gnosis.pm/safe-apps-provider';
 import { getNetwork } from '@ensdomains/ui';
@@ -23,7 +23,7 @@ export const safeInfo = async () => {
 
 export const setupSafeApp = async safeInfo => {
   const provider = new SafeAppProvider(safeInfo, safeAppsSdk);
-  await setupENS({
+  await setupFNS({
     customProvider: provider,
     reloadOnAccountsChange: true,
     enforceReload: true
