@@ -25,7 +25,7 @@ import WalletsLogo from '../components/HomePage/images/wallets.svg';
 import WebsitesLogo from '../components/HomePage/images/websites.svg';
 import { aboutPageURL, hasValidReverseRecord } from '../utils/utils';
 import { useBlock } from '../components/hooks';
-import { getBlock } from '@ensdomains/ui';
+import { getBlock } from 'fns-ui';
 import { emptyAddress } from '../utils/utils';
 import DefaultLogo from '../components/Logo';
 import moment from 'moment';

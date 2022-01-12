@@ -7,7 +7,7 @@ import { useQuery } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { throttle } from 'lodash';
 
-import { getNamehash, emptyAddress } from '@ensdomains/ui';
+import { getNamehash, emptyAddress } from 'fns-ui';
 import { useEditable } from '../../hooks';
 import { ADD_MULTI_RECORDS } from '../../../graphql/mutations';
 import COIN_LIST from 'constants/coinList';

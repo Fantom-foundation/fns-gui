@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled/macro';
 import { Query } from 'react-apollo';
 import DomainItem from '../components/DomainItem/DomainItem';
-import { getNamehash } from '@ensdomains/ui';
+import { getNamehash } from 'fns-ui';
 import { useQuery } from 'react-apollo';
 import PageTitle from '../components/Layout/PageTitle';
 import SearchDefault from '../components/SearchName/Search';

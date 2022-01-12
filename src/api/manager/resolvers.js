@@ -11,7 +11,7 @@ import {
   getProvider,
   labelhash,
   utils
-} from '@ensdomains/ui';
+} from 'fns-ui';
 import { formatsByName } from '@ensdomains/address-encoder';
 import isEqual from 'lodash/isEqual';
 import modeNames from '../modes';

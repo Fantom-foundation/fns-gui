@@ -1,4 +1,4 @@
-import { ethers, getNetworkId, getNetworkProviderUrl } from '@ensdomains/ui';
+import { ethers, getNetworkId, getNetworkProviderUrl } from 'fns-ui';
 import getFNS, { getRegistrar } from 'api/fns';
 
 const ChainLinkABI = [

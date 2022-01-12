@@ -18,9 +18,8 @@ import { useAccount } from '../QueryAccount';
 import AddFavourite from '../AddFavourite/AddFavourite';
 
 const DomainLink = styled(Link)`
-  display: grid;
-  grid-template-columns: 250px auto 50px;
-  grid-gap: 10px;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   padding: 30px 0;
   background-color: ${props => (props.warning ? 'hsla(37,91%,55%,0.1)' : '')};

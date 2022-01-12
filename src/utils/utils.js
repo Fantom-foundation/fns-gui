@@ -1,4 +1,4 @@
-import { getNetworkId } from '@ensdomains/ui/src/web3';
+import { getNetworkId } from 'fns-ui/src/web3';
 import {
   emptyAddress as _emptyAddress,
   validateName as _validateName,
@@ -6,7 +6,7 @@ import {
   getEnsStartBlock as _ensStartBlock,
   isLabelValid as _isLabelValid,
   isEncodedLabelhash
-} from '@ensdomains/ui/src/utils/index';
+} from 'fns-ui/src/utils/index';
 import { validate } from '@ensdomains/ens-validation';
 
 import getENS from '../api/fns';
@@ -111,7 +111,6 @@ export function isLabelValid(name) {
 }
 
 export const parseSearchTerm = async term => {
-  const ens = getENS();
   const domains = term.split('.');
   const tld = domains[domains.length - 1];
   try {
@@ -119,8 +118,6 @@ export const parseSearchTerm = async term => {
   } catch (e) {
     return 'invalid';
   }
-  console.log('** parseSearchTerm', { ens });
-  const address = await ens.getOwner(tld);
   return _parseSearchTerm(term, true);
 };
 
@@ -206,12 +203,12 @@ export async function handleNetworkChange() {
   try {
     if (
       process.env.REACT_APP_STAGE === 'local' &&
-      process.env.REACT_APP_ENS_ADDRESS
+      process.env.REACT_APP_FNS_ADDRESS
     ) {
       await setup({
         reloadOnAccountsChange: true,
         customProvider: 'http://localhost:8545',
-        ensAddress: process.env.REACT_APP_ENS_ADDRESS
+        fnsAddress: process.env.REACT_APP_FNS_ADDRESS
       });
       let labels = window.localStorage['labels']
         ? JSON.parse(window.localStorage['labels'])
