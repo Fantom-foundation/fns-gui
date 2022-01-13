@@ -63,6 +63,7 @@ function SubDomainsFromWeb3({ domain, canAddSubdomain }) {
             </>
           );
         }
+
         return (
           <>
             <AddSubdomainContainer
@@ -113,7 +114,7 @@ function SubDomains({
     <SubDomainsContainer {...rest}>
       {parseInt(domain.owner, 16) !== 0 ? (
         <Query
-          query={GET_SUBDOMAINS_FROM_SUBGRAPH}
+          query={GET_SUBDOMAINS}
           variables={{
             id: getNamehash(domain.name)
           }}
@@ -171,6 +172,7 @@ function SubDomains({
                 />
               );
             }
+
             return (
               <>
                 <AddSubdomainContainer
