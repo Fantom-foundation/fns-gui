@@ -1,4 +1,4 @@
-import { setup as setupENS } from './fns';
+import { setup as setupFNS } from './fns';
 
 const INFURA_ID =
   window.location.host === 'app.fns.fantom.network'
@@ -59,10 +59,11 @@ export const connect = async () => {
       window.location.reload();
     });
 
-    await setupENS({
+    await setupFNS({
       customProvider: provider,
       reloadOnAccountsChange: true,
-      enforceReload: true
+      enforceReload: true,
+      fnsAddress: process.env.REACT_APP_FNS_ADDRESS
     });
     return await getNetwork();
   } catch (e) {
@@ -77,7 +78,7 @@ export const disconnect = async function() {
   if (provider && provider.disconnect) {
     provider.disconnect();
   }
-  await setupENS({
+  await setupFNS({
     reloadOnAccountsChange: true,
     enforceReadOnly: true,
     enforceReload: true

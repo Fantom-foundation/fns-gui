@@ -9,7 +9,7 @@ import {
 } from 'fns-ui/src/utils/index';
 import { validate } from '@ensdomains/ens-validation';
 
-import getENS from '../api/fns';
+import getFNS from '../api/fns';
 import * as jsSHA3 from 'js-sha3';
 import { saveName } from '../api/labels';
 import { setup } from '../api/fns';
