@@ -12,7 +12,7 @@ import Button from '../../Forms/Button';
 import { DetailsKey } from '../DetailsItem';
 import DetailsItemInput from '../DetailsItemInput';
 import DefaultSelect from '../../Forms/Select';
-import DefaultAddressInput from '@ensdomains/react-ens-address';
+import DefaultAddressInput from 'react-fns-address';
 
 const AddressInput = styled(DefaultAddressInput)`
   margin-bottom: 10px;

@@ -42,7 +42,7 @@ import Pencil from '../Forms/Pencil';
 import DefaultInfo from '../Icons/Info';
 import DefaultPendingTx from '../PendingTx';
 import DefaultPricer from './Pricer';
-import DefaultAddressInput from '@ensdomains/react-ens-address';
+import DefaultAddressInput from 'react-fns-address';
 import CopyToClipboard from '../CopyToClipboard/';
 
 const AddressInput = styled(DefaultAddressInput)`
@@ -82,12 +82,12 @@ const DetailsEditableContainer = styled(DetailsItem)`
   flex-direction: column;
   min-height: 30px;
 
-  background: ${({ editing, backgroundStyle }) => {
+  background: ${({ editing, backgroundStyle, theme }) => {
     switch (backgroundStyle) {
       case 'warning':
         return editing ? 'transparent' : 'transparent';
       default:
-        return editing ? '#F0F6FA' : 'transparent';
+        return editing ? theme.colors.tabBgColor : 'transparent';
     }
   }};
   padding: ${({ editing }) => (editing ? '20px' : '0')};

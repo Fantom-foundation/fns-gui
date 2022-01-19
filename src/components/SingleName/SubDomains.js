@@ -1,29 +1,29 @@
-import React from 'react'
-import styled from '@emotion/styled/macro'
-import { useTranslation } from 'react-i18next'
-import { Query } from 'react-apollo'
+import React from 'react';
+import styled from '@emotion/styled/macro';
+import { useTranslation } from 'react-i18next';
+import { Query } from 'react-apollo';
 import {
   GET_SUBDOMAINS_FROM_SUBGRAPH,
   GET_SUBDOMAINS
-} from '../../graphql/queries'
-import Loader from '../Loader'
-import { H2 } from '../Typography/Basic'
-import AddSubdomain from './AddSubdomain'
-import ChildDomainItem from '../DomainItem/ChildDomainItem'
-import { getNamehash } from '@ensdomains/ui'
-import { decryptName } from '../../api/labels'
+} from '../../graphql/queries';
+import Loader from '../Loader';
+import { H2 } from '../Typography/Basic';
+import AddSubdomain from './AddSubdomain';
+import ChildDomainItem from '../DomainItem/ChildDomainItem';
+import { getNamehash } from 'fns-ui';
+import { decryptName } from '../../api/labels';
 
 const SubDomainsContainer = styled('div')`
   padding-bottom: 30px;
   padding-left: 40px;
   padding-right: 40px;
-`
+`;
 
 const SubDomainH2 = styled(H2)`
   padding: 20px 0 50px;
   text-align: center;
   color: #ccd4da;
-`
+`;
 
 function SubDomainsFromWeb3({ domain, canAddSubdomain }) {
   return (
@@ -34,11 +34,11 @@ function SubDomainsFromWeb3({ domain, canAddSubdomain }) {
           data.getSubDomains &&
           data.getSubDomains.subDomains &&
           data.getSubDomains.subDomains.filter(subdomain => {
-            return parseInt(subdomain.owner, 16) !== 0
-          })
-        const hasNoSubdomains = subdomains && subdomains.length === 0
+            return parseInt(subdomain.owner, 16) !== 0;
+          });
+        const hasNoSubdomains = subdomains && subdomains.length === 0;
         if (error) {
-          console.log('error getting subdomains', error)
+          console.log('error getting subdomains', error);
         }
         if (loading)
           return (
@@ -50,7 +50,7 @@ function SubDomainsFromWeb3({ domain, canAddSubdomain }) {
               />
               <Loader withWrap large />
             </>
-          )
+          );
         if (hasNoSubdomains) {
           return (
             <>
@@ -61,8 +61,9 @@ function SubDomainsFromWeb3({ domain, canAddSubdomain }) {
               />
               <SubDomainH2>No subdomains have been added.</SubDomainH2>
             </>
-          )
+          );
         }
+
         return (
           <>
             <AddSubdomainContainer
@@ -80,16 +81,16 @@ function SubDomainsFromWeb3({ domain, canAddSubdomain }) {
                 />
               ))}
           </>
-        )
+        );
       }}
     </Query>
-  )
+  );
 }
 
 function AddSubdomainContainer({ domain, refetch, canAddSubdomain }) {
   return canAddSubdomain ? (
     <AddSubdomain domain={domain} refetch={refetch} />
-  ) : null
+  ) : null;
 }
 
 function SubDomains({
@@ -101,19 +102,19 @@ function SubDomains({
   loadingIsMigrated,
   ...rest
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const canAddSubdomain =
     isOwner &&
     !loadingIsParentMigrated &&
     !loadingIsMigrated &&
     isParentMigratedToNewRegistry &&
-    isMigratedToNewRegistry
+    isMigratedToNewRegistry;
 
   return (
     <SubDomainsContainer {...rest}>
       {parseInt(domain.owner, 16) !== 0 ? (
         <Query
-          query={GET_SUBDOMAINS_FROM_SUBGRAPH}
+          query={GET_SUBDOMAINS}
           variables={{
             id: getNamehash(domain.name)
           }}
@@ -124,14 +125,14 @@ function SubDomains({
               data.domain &&
               data.domain.subdomains &&
               data.domain.subdomains.filter(subdomain => {
-                return parseInt(subdomain.owner.id, 16) !== 0
-              })
+                return parseInt(subdomain.owner.id, 16) !== 0;
+              });
 
             if (error || !data || !data.domain) {
               console.error(
                 'Unable to get subdomains from subgraph, falling back to web3 ',
                 error
-              )
+              );
 
               return (
                 <SubDomainsFromWeb3
@@ -139,14 +140,14 @@ function SubDomains({
                   isOwner={isOwner}
                   canAddSubdomain={canAddSubdomain}
                 />
-              )
+              );
             }
             if (loading)
               return (
                 <>
                   <Loader withWrap large />
                 </>
-              )
+              );
             if (subdomains && subdomains.length === 0) {
               return (
                 <>
@@ -159,7 +160,7 @@ function SubDomains({
                     {t('singleName.subdomains.nosubdomains')}
                   </SubDomainH2>
                 </>
-              )
+              );
             }
 
             if (data.domain === null) {
@@ -169,8 +170,9 @@ function SubDomains({
                   isOwner={isOwner}
                   canAddSubdomain={canAddSubdomain}
                 />
-              )
+              );
             }
+
             return (
               <>
                 <AddSubdomainContainer
@@ -179,16 +181,16 @@ function SubDomains({
                   canAddSubdomain={canAddSubdomain}
                 />
                 {subdomains.map(d => {
-                  let name, parentLabel
+                  let name, parentLabel;
                   if (domain.name === '[root]') {
-                    parentLabel = ''
+                    parentLabel = '';
                   } else {
-                    parentLabel = `.${domain.name}`
+                    parentLabel = `.${domain.name}`;
                   }
                   if (d.labelName !== null) {
-                    name = `${d.labelName}${parentLabel}`
+                    name = `${d.labelName}${parentLabel}`;
                   } else {
-                    name = `${decryptName(d.labelhash)}${parentLabel}`
+                    name = `${decryptName(d.labelhash)}${parentLabel}`;
                   }
                   return (
                     <ChildDomainItem
@@ -200,17 +202,17 @@ function SubDomains({
                       isSubdomain={true}
                       canDeleteSubdomain={canAddSubdomain}
                     />
-                  )
+                  );
                 })}
               </>
-            )
+            );
           }}
         </Query>
       ) : (
         <SubDomainH2>{t('singleName.subdomains.nosubdomains')}</SubDomainH2>
       )}
     </SubDomainsContainer>
-  )
+  );
 }
 
-export default SubDomains
+export default SubDomains;

@@ -3,7 +3,7 @@ import { utils } from 'ethers';
 import getEtherPrice from 'api/price';
 import { useLocation } from 'react-router-dom';
 import { loggedIn, logout } from './IPFS/auth';
-import { getBlock, getProvider } from '@ensdomains/ui';
+import { getBlock, getProvider } from 'fns-ui';
 import BigNumber from 'bignumber.js';
 
 export function useDocumentTitle(title) {

@@ -51,7 +51,7 @@ let web3Modal;
 export const connect = async () => {
   try {
     const Web3Modal = (await import('web3modal-dynamic-import')).default;
-    const { getNetwork } = await import('@ensdomains/ui');
+    const { getNetwork } = await import('fns-ui');
 
     web3Modal = new Web3Modal(option);
     provider = await web3Modal.connect();

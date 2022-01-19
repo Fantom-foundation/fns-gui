@@ -1,7 +1,7 @@
 import { setup as setupFNS } from '../api/fns';
 import SafeAppSDK from '@gnosis.pm/safe-apps-sdk';
 import { SafeAppProvider } from '@gnosis.pm/safe-apps-provider';
-import { getNetwork } from '@ensdomains/ui';
+import { getNetwork } from 'fns-ui';
 
 const safeAppsSdk = new SafeAppSDK();
 let isSafeAppSetup = false;

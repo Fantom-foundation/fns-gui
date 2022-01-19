@@ -1,4 +1,4 @@
-import { setupFNS } from '@ensdomains/ui';
+import { setupFNS } from 'fns-ui';
 
 const INFURA_ID =
   window.location.host === 'app.fns.fantom.network'
@@ -31,7 +31,8 @@ export async function setup({
   );
   fns = fnsInstance;
   registrar = registrarInstance;
-  fnsRegistryAddress = fnsAddress;
+  fnsRegistryAddress =
+    fnsAddress !== undefined ? fnsAddress : fns.registryAddress;
   return { fns, registrar };
 }
 

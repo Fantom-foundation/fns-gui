@@ -1,39 +1,43 @@
-import subDomainRegistrarContract from './contracts/subDomainRegistrarContract.json'
-import { getProvider } from '@ensdomains/ui'
-import { Contract, utils } from 'ethers'
-import domains from '../constants/domains.json'
+import subDomainRegistrarContract from './contracts/subDomainRegistrarContract.json';
+import { getProvider } from 'fns-ui';
+import { Contract, utils } from 'ethers';
+import domains from '../constants/domains.json';
 
-let subDomainRegistrars = {}
+let subDomainRegistrars = {};
 
-const defaultAddress = '0x0b07463b30b302a98407d3e3df85ebc073b0dbd1'
+const defaultAddress = '0x0b07463b30b302a98407d3e3df85ebc073b0dbd1';
 
 const getSubDomainRegistrar = async address => {
-  const provider = await getProvider()
+  const provider = await getProvider();
   function instantiateContract(address) {
-    const contract = new Contract(address, subDomainRegistrarContract, provider)
-    subDomainRegistrars[address] = contract
-    return contract
+    const contract = new Contract(
+      address,
+      subDomainRegistrarContract,
+      provider
+    );
+    subDomainRegistrars[address] = contract;
+    return contract;
   }
 
   if (address) {
     if (subDomainRegistrars[address]) {
-      return subDomainRegistrars[address]
+      return subDomainRegistrars[address];
     } else {
-      subDomainRegistrars[address] = instantiateContract(address)
-      return subDomainRegistrars[address]
+      subDomainRegistrars[address] = instantiateContract(address);
+      return subDomainRegistrars[address];
     }
   }
 
   if (subDomainRegistrars[defaultAddress]) {
-    return subDomainRegistrars[defaultAddress]
+    return subDomainRegistrars[defaultAddress];
   } else {
-    subDomainRegistrars[defaultAddress] = instantiateContract(defaultAddress)
-    return subDomainRegistrars[defaultAddress]
+    subDomainRegistrars[defaultAddress] = instantiateContract(defaultAddress);
+    return subDomainRegistrars[defaultAddress];
   }
-}
+};
 
 export const query = async (domain, label, address = defaultAddress) => {
-  const Registrar = await getSubDomainRegistrar(address)
+  const Registrar = await getSubDomainRegistrar(address);
   ///const web3 = await getWeb3()
   const {
     domain: labelName,
@@ -43,7 +47,7 @@ export const query = async (domain, label, address = defaultAddress) => {
   } = await Registrar.query(
     utils.solidityKeccak256(['string'], [domain]),
     label
-  )
+  );
 
   return {
     label,
@@ -52,17 +56,17 @@ export const query = async (domain, label, address = defaultAddress) => {
     rent,
     referralFeePPM,
     available: labelName !== ''
-  }
-}
+  };
+};
 
 export const queryAll = async label => {
   return domains.map(domain => {
     if (domain.registrar) {
-      return query(domain.name, label, domain.registrar)
+      return query(domain.name, label, domain.registrar);
     }
-    return query(domain.name, label)
-  })
-}
+    return query(domain.name, label);
+  });
+};
 
 // async function test() {
 //   // const node = await query('gimmethe', 'awesome')

@@ -4,7 +4,7 @@ import {
   getNetworkId,
   isReadOnly,
   emptyAddress
-} from '@ensdomains/ui';
+} from 'fns-ui';
 
 import getFNS from 'api/fns';
 import merge from 'lodash/merge';
