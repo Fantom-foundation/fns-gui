@@ -52,7 +52,6 @@ export const connect = async () => {
   try {
     const Web3Modal = (await import('web3modal-dynamic-import')).default;
     const { getNetwork } = await import('fns-ui');
-    const { currentNetwork } = useContext(GlobalState);
 
     web3Modal = new Web3Modal(option);
     provider = await web3Modal.connect();
@@ -65,7 +64,7 @@ export const connect = async () => {
       reloadOnAccountsChange: true,
       enforceReload: true,
       fnsAddress:
-        currentNetwork == 250
+        window.location.host === 'fns.fantom.network'
           ? process.env.REACT_APP_FNS_ADDRESS
           : process.env.REACT_APP_FNS_ADDRESS_TEST
     });
