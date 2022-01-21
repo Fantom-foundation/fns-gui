@@ -84,7 +84,7 @@ export async function getEtherScanAddr() {
     case '4':
       return 'https://rinkeby.etherscan.io/';
     default:
-      return 'https://etherscan.io/';
+      return 'https://ftmscan.com';
   }
 }
 
@@ -237,7 +237,7 @@ export async function handleNetworkChange() {
     networkId = await getNetworkId();
     client = await setupClient(networkId);
   } catch (e) {
-    networkId = networkId || 1; // Readonly to Mainnet
+    networkId = networkId || 250; // Readonly to Mainnet
     client = await setupClient();
     await client.mutate({
       mutation: SET_ERROR,

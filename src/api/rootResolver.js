@@ -62,6 +62,8 @@ const resolvers = {
           return 'kovan';
         case 4200:
           return 'Fantom Testnet';
+        case 250:
+          return 'Fantom Mainnet';
         default:
           return 'private';
       }
