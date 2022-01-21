@@ -1,7 +1,7 @@
 import { setup as setupFNS } from './fns';
 
 const INFURA_ID =
-  window.location.host === 'app.fns.fantom.network'
+  window.location.host === 'fns.fantom.network'
     ? '90f210707d3c450f847659dc9a3436ea'
     : '58a380d3ecd545b2b5b3dad5d2b18bf0';
 const PORTIS_ID = '57e5d6ca-e408-4925-99c4-e7da3bdb8bf5';
@@ -52,6 +52,7 @@ export const connect = async () => {
   try {
     const Web3Modal = (await import('web3modal-dynamic-import')).default;
     const { getNetwork } = await import('fns-ui');
+    const { currentNetwork } = useContext(GlobalState);
 
     web3Modal = new Web3Modal(option);
     provider = await web3Modal.connect();
@@ -63,7 +64,10 @@ export const connect = async () => {
       customProvider: provider,
       reloadOnAccountsChange: true,
       enforceReload: true,
-      fnsAddress: process.env.REACT_APP_FNS_ADDRESS
+      fnsAddress:
+        currentNetwork == 250
+          ? process.env.REACT_APP_FNS_ADDRESS
+          : process.env.REACT_APP_FNS_ADDRESS_TEST
     });
     return await getNetwork();
   } catch (e) {

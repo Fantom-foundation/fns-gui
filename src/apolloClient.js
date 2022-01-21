@@ -18,17 +18,15 @@ const endpoints = {
   '3': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensropsten',
   '4': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensrinkeby',
   '5': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli',
-  '6': 'http://localhost:8000/subgraphs/name/graphprotocol/ens'
+  '6': 'http://localhost:8000/subgraphs/name/graphprotocol/fns',
+  '250': process.env.REACT_APP_GRAPH_NODE_URI || '',
+  '4200': process.env.REACT_APP_GRAPH_NODE_URI_TEST || ''
 };
 
 function getGraphQLAPI(network) {
-  if (process.env.REACT_APP_GRAPH_NODE_URI) {
-    return process.env.REACT_APP_GRAPH_NODE_URI;
+  if (endpoints[network]) {
+    return endpoints[network];
   }
-
-  // if (endpoints[network]) {
-  //   return endpoints[network]
-  // }
 
   return endpoints['6'];
 }

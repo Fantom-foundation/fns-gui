@@ -203,7 +203,7 @@ export async function handleNetworkChange() {
   try {
     if (
       process.env.REACT_APP_STAGE === 'local' &&
-      process.env.REACT_APP_FNS_ADDRESS
+      process.env.REACT_APP_FNS_ADDRESS_TEST
     ) {
       await setup({
         reloadOnAccountsChange: true,
