@@ -238,7 +238,7 @@ export async function handleNetworkChange() {
     client = await setupClient(networkId);
   } catch (e) {
     networkId = networkId || 250; // Readonly to Mainnet
-    client = await setupClient();
+    client = await setupClient(networkId);
     await client.mutate({
       mutation: SET_ERROR,
       variables: { message: e && e.message }

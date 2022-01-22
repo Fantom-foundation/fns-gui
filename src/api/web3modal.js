@@ -58,15 +58,11 @@ export const connect = async () => {
     provider.on('accountsChanged', accounts => {
       window.location.reload();
     });
-
     await setupFNS({
       customProvider: provider,
       reloadOnAccountsChange: true,
       enforceReload: true,
-      fnsAddress:
-        window.location.host === 'fns.fantom.network'
-          ? process.env.REACT_APP_FNS_ADDRESS
-          : process.env.REACT_APP_FNS_ADDRESS_TEST
+      fnsAddress: process.env.REACT_APP_FNS_ADDRESS
     });
     return await getNetwork();
   } catch (e) {
