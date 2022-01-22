@@ -60,7 +60,7 @@ const resolvers = {
           return 'goerli';
         case 42:
           return 'kovan';
-        case 4200:
+        case 4002:
           return 'Fantom Testnet';
         case 250:
           return 'Fantom Mainnet';

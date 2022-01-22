@@ -14,13 +14,13 @@ const cache = new InMemoryCache({
 });
 
 const endpoints = {
-  '1': 'https://api.thegraph.com/subgraphs/name/ensdomains/ens',
-  '3': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensropsten',
-  '4': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensrinkeby',
-  '5': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli',
-  '6': 'http://localhost:8000/subgraphs/name/graphprotocol/fns',
-  '250': process.env.REACT_APP_GRAPH_NODE_URI || '',
-  '4200': process.env.REACT_APP_GRAPH_NODE_URI_TEST || ''
+  1: 'https://api.thegraph.com/subgraphs/name/ensdomains/ens',
+  3: 'https://api.thegraph.com/subgraphs/name/ensdomains/ensropsten',
+  4: 'https://api.thegraph.com/subgraphs/name/ensdomains/ensrinkeby',
+  5: 'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli',
+  6: 'http://localhost:8000/subgraphs/name/graphprotocol/fns',
+  250: process.env.REACT_APP_GRAPH_NODE_URI || '',
+  4002: process.env.REACT_APP_GRAPH_NODE_URI_TEST || ''
 };
 
 function getGraphQLAPI(network) {

@@ -61,8 +61,7 @@ export const connect = async () => {
     await setupFNS({
       customProvider: provider,
       reloadOnAccountsChange: true,
-      enforceReload: true,
-      fnsAddress: process.env.REACT_APP_FNS_ADDRESS
+      enforceReload: true
     });
     return await getNetwork();
   } catch (e) {

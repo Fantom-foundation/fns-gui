@@ -71,10 +71,9 @@ const NetworkStatusContainer = () => {
     }
     location.reload();
   };
-
   const handleDisconnect = async () => {
     await disconnect();
-    switchNetwork(1);
+    switchNetwork(250);
     location.reload();
   };
 
