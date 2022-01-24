@@ -99,7 +99,7 @@ function SideNav() {
   return (
     <SocialContainer>
       {social.map(s => (
-        <ExternalLink href={s.link}>
+        <ExternalLink key={s.link} href={s.link}>
           <img src={s.img} />
         </ExternalLink>
       ))}
