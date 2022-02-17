@@ -1553,7 +1553,7 @@
   dependencies:
     "@nomiclabs/hardhat-truffle5" "^2.0.0"
 
-"@ensdomains/content-hash@^2.5.6", "@ensdomains/content-hash@^2.5.7":
+"@ensdomains/content-hash@^2.5.6":
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/@ensdomains/content-hash/-/content-hash-2.5.7.tgz#180e4ceb6e585a05d69ba307619d4a0cf12948f1"
   integrity sha512-WNdGKCeubMIAfyPYTMlKeX6cgXKIEo42OcWPOLBiclzJwMibkVqpaGgWKVH9dniJq7bLXLa2tQ0k/F1pt6gUxA==
@@ -1568,19 +1568,10 @@
   resolved "https://registry.yarnpkg.com/@ensdomains/contracts/-/contracts-0.0.1.tgz#edb841955adbd6f86bddaf9d05f6d239d25d5ab7"
   integrity sha512-MfcOfE3JqDetwbSHXLNSBtgJjpsdhzuHP70yAKrhmW2VwEFaEpJwKioB6GIGGRTy6e9QYnrj6e0FUhd2C9DdRQ==
 
-"@ensdomains/dnsprovejs@^0.3.1", "@ensdomains/dnsprovejs@^0.3.3", "@ensdomains/dnsprovejs@^0.3.7":
+"@ensdomains/dnsprovejs@^0.3.1", "@ensdomains/dnsprovejs@^0.3.7":
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/@ensdomains/dnsprovejs/-/dnsprovejs-0.3.9.tgz#4c06dd613f57be889f1031192356a451b3f1963b"
   integrity sha512-e54bpUEkOsbRzH5Seh7VmRN+i82uZ+cp4HyVb8EvaH6/b6sbkGKzxIigXVOi8MvwLs44gCN9GBIzngQKJE6osQ==
-  dependencies:
-    dns-packet "^5.2.1"
-    ethereumjs-util "^7.0.7"
-    typescript-logging "^1.0.0"
-
-"@ensdomains/dnsprovejs@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@ensdomains/dnsprovejs/-/dnsprovejs-0.4.1.tgz#bf32e9265cf5210e657474fdf93faa296d69f470"
-  integrity sha512-q1SiQeuV3dzYt4yS5/Ig1AIKEXqzLpI6RV/tvSdirKg0Y8VdsEag9gpKXu+SoTzmaXT8J+mB0ZPwrV5gb/SbaA==
   dependencies:
     dns-packet "^5.2.1"
     ethereumjs-util "^7.0.7"
@@ -1600,18 +1591,6 @@
   dependencies:
     dns-packet "^5.0.4"
 
-"@ensdomains/dnssecoraclejs-017@npm:@ensdomains/dnssecoraclejs@0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@ensdomains/dnssecoraclejs/-/dnssecoraclejs-0.1.7.tgz#1ac4b9e18b97e7a1270faa8aa39efca504281cba"
-  integrity sha512-Y5WAWCN1etVkvaz3wt21kqiXl+9U0Xy0H8KwkLNJjP7w12uZXl/lbqjBM9kHsombBbV9R9AiiMOb5LNJXsy2Vw==
-  dependencies:
-    "@ensdomains/dnsprovejs" "^0.3.3"
-    "@ensdomains/dnssec-oracle" "^0.2.0"
-    dns-packet "^5.2.1"
-    dotenv "^8.2.0"
-    ethers "^5.0.30"
-    typescript-logging "^1.0.0"
-
 "@ensdomains/dnssecoraclejs@^0.1.5":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@ensdomains/dnssecoraclejs/-/dnssecoraclejs-0.1.8.tgz#94ee57bd39243c8fb1a51cd75047614e267c6904"
@@ -1619,18 +1598,6 @@
   dependencies:
     "@ensdomains/dnsprovejs" "^0.3.7"
     "@ensdomains/dnssec-oracle" "^0.2.0"
-    dns-packet "^5.2.1"
-    dotenv "^8.2.0"
-    ethers "^5.0.30"
-    typescript-logging "^1.0.0"
-
-"@ensdomains/dnssecoraclejs@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@ensdomains/dnssecoraclejs/-/dnssecoraclejs-0.2.7.tgz#7aae0c53b7aa988f146c8fbed089970eac767dc2"
-  integrity sha512-k2DDXAwAI/gjEBTu4vsIvjeL+TcfJ6JkVgC0X7KHlccBCNT/vQMiwvExtFWwGtt3aHPXjLTVehzvM4VZcu1Xow==
-  dependencies:
-    "@ensdomains/dnsprovejs" "^0.4.1"
-    "@ensdomains/ens-contracts" "0.0.7"
     dns-packet "^5.2.1"
     dotenv "^8.2.0"
     ethers "^5.0.30"
@@ -1649,7 +1616,7 @@
     "@ensdomains/buffer" "^0.0.10"
     "@openzeppelin/contracts" "^4.1.0"
 
-"@ensdomains/ens-contracts@0.0.7", "@ensdomains/ens-contracts@^0.0.7":
+"@ensdomains/ens-contracts@^0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@ensdomains/ens-contracts/-/ens-contracts-0.0.7.tgz#a08dd7de3d927487c05a9c846b4834a124f053ce"
   integrity sha512-adlWSrtBh85CNM1hsrsNxWrSx6g37DOCkWP5vBT/HtXnpNtvL49Z1Ueum55lN8YifTWo2Kqb1mgPojjLY99f5w==
@@ -1676,11 +1643,6 @@
     testrpc "0.0.1"
     web3-utils "^1.0.0-beta.31"
 
-"@ensdomains/eth-ens-namehash@^2.0.15":
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/@ensdomains/eth-ens-namehash/-/eth-ens-namehash-2.0.15.tgz#5e5f2f24ba802aff8bc19edd822c9a11200cdf4a"
-  integrity sha512-JRDFP6+Hczb1E0/HhIg0PONgBYasfGfDheujmfxaZaAv/NAH4jE6Kf48WbqfRZdxt4IZI3jl3Ri7sZ1nP09lgw==
-
 "@ensdomains/mock@^2.0.34", "@ensdomains/mock@^2.1.40":
   version "2.1.42"
   resolved "https://registry.yarnpkg.com/@ensdomains/mock/-/mock-2.1.42.tgz#3a2160092b20e0528f8c349c1da26315c854c3fa"
@@ -1699,17 +1661,6 @@
     table "^5.4.6"
     web3 "^1.3.0"
 
-"@ensdomains/react-ens-address@^0.0.30":
-  version "0.0.30"
-  resolved "https://registry.yarnpkg.com/@ensdomains/react-ens-address/-/react-ens-address-0.0.30.tgz#ee4df987af953a89a86f5aaa0739b9f46f62be11"
-  integrity sha512-VOPPJhf3lSbZ6L4FC0lww6rpHIMkB0RDPvrL6fneECxkPsCtAZxWLsZBQESmKyr0NYgASpCRky95fqIomp2N1A==
-  dependencies:
-    "@emotion/core" "^10.0.14"
-    "@emotion/styled" "^10.0.14"
-    "@ensdomains/ui" "^3.3.1"
-    ethers "^4.0.32"
-    lodash "^4.17.13"
-
 "@ensdomains/resolver@^0.2.4":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@ensdomains/resolver/-/resolver-0.2.4.tgz#c10fe28bf5efbf49bff4666d909aed0265efbc89"
@@ -1721,60 +1672,6 @@
   integrity sha512-uhuG5LzRt/UJC0Ux83cE2rCKwSleRePoYdQVcqPN1wyf3/ekMzT/KZUF9+v7/AG5w9jlMLCQkUM50vfjr0Yu9Q==
   dependencies:
     hash-test-vectors "^1.3.2"
-
-"@ensdomains/ui@../fns-ui":
-  version "3.0.72"
-  dependencies:
-    "@0xproject/utils" "^2.0.2"
-    "@babel/plugin-proposal-class-properties" "^7.8.3"
-    "@babel/runtime" "^7.4.4"
-    "@ensdomains/address-encoder" "^0.2.9"
-    "@ensdomains/content-hash" "^2.5.6"
-    "@ensdomains/contracts" "^0.0.1"
-    "@ensdomains/dnsprovejs" "^0.3.1"
-    "@ensdomains/dnssecoraclejs" "^0.1.5"
-    "@ensdomains/mock" "^2.0.34"
-    "@ethvault/iframe-provider" "0.1.9"
-    base58check "^2.0.0"
-    bech32 "^1.1.3"
-    bs58 "^4.0.1"
-    cross-fetch "^3.0.2"
-    dns-packet "^5.2.1"
-    eth-ens-namehash "^2.0.8"
-    ethers "^5.0.30"
-    js-sha3 "^0.8.0"
-    lodash "^4.17.11"
-    node-fetch "^2.6.1"
-    web3 "^1.3.0"
-
-"@ensdomains/ui@^3.3.1":
-  version "3.3.8"
-  resolved "https://registry.yarnpkg.com/@ensdomains/ui/-/ui-3.3.8.tgz#e5aec17dd8e604fdc0b27b762f64f95b5e252e27"
-  integrity sha512-/dcewn1QnaAIAe+D7B8QZM7OxF/Z0pZGsv3NMjuqgRPKo4SlukvuHlQ8ZXD6sNuyU3l+moujZmW/6bWq0sK6Ug==
-  dependencies:
-    "@0xproject/utils" "^2.0.2"
-    "@babel/plugin-proposal-class-properties" "^7.8.3"
-    "@babel/runtime" "^7.4.4"
-    "@ensdomains/address-encoder" "^0.2.9"
-    "@ensdomains/content-hash" "^2.5.7"
-    "@ensdomains/contracts" "^0.0.1"
-    "@ensdomains/dnsprovejs" "^0.4.1"
-    "@ensdomains/dnssecoraclejs" "^0.2.7"
-    "@ensdomains/dnssecoraclejs-017" "npm:@ensdomains/dnssecoraclejs@0.1.7"
-    "@ensdomains/ens-contracts" "^0.0.7"
-    "@ensdomains/eth-ens-namehash" "^2.0.15"
-    "@ensdomains/mock" "^2.0.34"
-    "@ethvault/iframe-provider" "0.1.9"
-    base58check "^2.0.0"
-    bech32 "^1.1.3"
-    bs58 "^4.0.1"
-    cross-fetch "^3.0.2"
-    dns-packet "^5.2.1"
-    ethers "^5.4.4"
-    js-sha3 "^0.8.0"
-    lodash "^4.17.11"
-    node-fetch "^2.6.1"
-    web3 "^1.3.0"
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
@@ -3649,6 +3546,11 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/resize-observer-browser@^0.1.6":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@types/resize-observer-browser/-/resize-observer-browser-0.1.7.tgz#294aaadf24ac6580b8fbd1fe3ab7b59fe85f9ef3"
+  integrity sha512-G9eN0Sn0ii9PWQ3Vl72jDPgeJwRWhv2Qk/nQkJuWmRmOB4HX3/BhD5SE1dZs/hzPZL/WKnvF0RHdTSG54QJFyg==
+
 "@types/resolve@0.0.8", "@types/resolve@^0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-0.0.8.tgz#f26074d238e02659e323ce1a13d041eee280e194"
@@ -5082,6 +4984,13 @@ axios@^0.21.1:
   integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
   dependencies:
     follow-redirects "^1.14.0"
+
+axios@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.0.tgz#9a318f1c69ec108f8cd5f3c3d390366635e13928"
+  integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
+  dependencies:
+    follow-redirects "^1.14.8"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -7761,6 +7670,14 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
+cx@^21.12.4:
+  version "21.12.4"
+  resolved "https://registry.yarnpkg.com/cx/-/cx-21.12.4.tgz#98e8cf2e3d06192af4b0bb2b58be068692399018"
+  integrity sha512-ERvL+DdgAS1vlBxCLIm5MadfAnAO6Z9d4EBDmaWuDQbLfMhLCWxhOc/WsqPAAB8rTzL0cXAlUIKFNQzO7udvng==
+  dependencies:
+    intl-io "^0.3.0"
+    route-parser "^0.0.5"
+
 cycle@1.0.x:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/cycle/-/cycle-1.0.3.tgz#21e80b2be8580f98b468f379430662b046c34ad2"
@@ -9856,7 +9773,7 @@ ethers@^4.0.0-beta.1, ethers@^4.0.32:
     uuid "2.0.1"
     xmlhttprequest "1.8.0"
 
-ethers@^5.0.1, ethers@^5.0.17, ethers@^5.0.2, ethers@^5.0.30, ethers@^5.4.4, ethers@^5.4.7:
+ethers@^5.0.1, ethers@^5.0.17, ethers@^5.0.2, ethers@^5.0.30, ethers@^5.4.7:
   version "5.4.7"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.4.7.tgz#0fd491a5da7c9793de2d6058d76b41b1e7efba8f"
   integrity sha512-iZc5p2nqfWK1sj8RabwsPM28cr37Bpq7ehTQ5rWExBr2Y09Sn1lDKZOED26n+TsZMye7Y6mIgQ/1cwpSD8XZew==
@@ -10552,6 +10469,33 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+fns-ui@^1.0.0, fns-ui@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/fns-ui/-/fns-ui-1.0.7.tgz#a24c76cd216b8cff0e59f34518ce8b3554d4a96d"
+  integrity sha512-I8txlL8lHfLusXyNq58VlKZRuk9O3183w4TNGQrWOABtMMObs5zshYdv2WLNSIesVhGqZE+7oLej3Pp6q8VnlQ==
+  dependencies:
+    "@0xproject/utils" "^2.0.2"
+    "@babel/plugin-proposal-class-properties" "^7.8.3"
+    "@babel/runtime" "^7.4.4"
+    "@ensdomains/address-encoder" "^0.2.9"
+    "@ensdomains/content-hash" "^2.5.6"
+    "@ensdomains/contracts" "^0.0.1"
+    "@ensdomains/dnsprovejs" "^0.3.1"
+    "@ensdomains/dnssecoraclejs" "^0.1.5"
+    "@ensdomains/mock" "^2.0.34"
+    "@ethvault/iframe-provider" "0.1.9"
+    base58check "^2.0.0"
+    bech32 "^1.1.3"
+    bs58 "^4.0.1"
+    cross-fetch "^3.0.2"
+    dns-packet "^5.2.1"
+    eth-ens-namehash "^2.0.8"
+    ethers "^5.0.30"
+    js-sha3 "^0.8.0"
+    lodash "^4.17.11"
+    node-fetch "^2.6.1"
+    web3 "^1.3.0"
+
 follow-redirects@1.5.10:
   version "1.5.10"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
@@ -10563,6 +10507,11 @@ follow-redirects@^1.0.0, follow-redirects@^1.12.1, follow-redirects@^1.14.0:
   version "1.14.4"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.4.tgz#838fdf48a8bbdd79e52ee51fb1c94e3ed98b9379"
   integrity sha512-zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g==
+
+follow-redirects@^1.14.8:
+  version "1.14.9"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
+  integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
 
 for-each@^0.3.3, for-each@~0.3.3:
   version "0.3.3"
@@ -12049,6 +11998,11 @@ internal-slot@^1.0.3:
     get-intrinsic "^1.1.0"
     has "^1.0.3"
     side-channel "^1.0.4"
+
+intl-io@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/intl-io/-/intl-io-0.3.0.tgz#2207e6f90377241e322b3d5dc100633e3fb2bff9"
+  integrity sha512-fsiAEyhgrGLI1B7wB0/hMVxBDlc4IprTmrTibxOuUkHtY6nf/Mg6O0BzRXq2T9B7v2PqMtyrcdGqu5kEUgksMA==
 
 invariant@^2.2.2:
   version "2.2.4"
@@ -18081,6 +18035,17 @@ react-error-overlay@^6.0.9:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
 
+react-fns-address@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-fns-address/-/react-fns-address-0.0.4.tgz#e675f40b2922558740b3931d14c15debf24c6c39"
+  integrity sha512-QIvhY0dDhOQ4/Z2W7l+uxYfzBVobcBoPo37cLbr7NMv0kkEc94ZY2onuyuzkBChbjp1lFgwZPrrO+24ZPw3Cfg==
+  dependencies:
+    "@emotion/core" "^10.0.14"
+    "@emotion/styled" "^10.0.14"
+    ethers "^4.0.32"
+    fns-ui "^1.0.0"
+    lodash "^4.17.13"
+
 react-ga@^2.5.7:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.7.0.tgz#24328f157f31e8cffbf4de74a3396536679d8d7c"
@@ -18127,6 +18092,14 @@ react-refresh@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-resize-detector@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-7.0.0.tgz#fbd46917ee905b7796c797aa6b301b454a6b9229"
+  integrity sha512-Xd1POfpVzH9O3F/xB/0xYy2ijtKjE/z7y4c/aJP593YSzhPy2vDhsNPjes+uQbgL1RezxJajQ679qPs8K5LAFw==
+  dependencies:
+    "@types/resize-observer-browser" "^0.1.6"
+    lodash "^4.17.21"
 
 react-router-dom@5.1.2:
   version "5.1.2"
@@ -18911,6 +18884,11 @@ rollup@^1.31.1:
     "@types/estree" "*"
     "@types/node" "*"
     acorn "^7.1.0"
+
+route-parser@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/route-parser/-/route-parser-0.0.5.tgz#7d1d09d335e49094031ea16991a4a79b01bbe1f4"
+  integrity sha1-fR0J0zXkkJQDHqFpkaSnmwG74fQ=
 
 rsa-pem-to-jwk@^1.1.3:
   version "1.1.3"
