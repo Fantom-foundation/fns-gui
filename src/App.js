@@ -76,7 +76,7 @@ import Home from './routes/Home';
 import SearchResults from './routes/SearchResults';
 import SingleName from './routes/SingleName';
 import Favourites from './routes/Favourites';
-import Auctions from './routes/Auctions';
+import Auctions from './routes/Auctions/Auctions';
 import Dashboard from './routes/Dashboard';
 import Faq from './routes/Faq';
 import Address from './routes/AddressPage';

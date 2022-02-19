@@ -12,9 +12,9 @@ import ExploreFilterHeader from './Body/FilterHeader';
 import NFTsGrid from 'components/NFTsGrid';
 import Header from 'components/header';
 import { useApi } from 'api';
-import CollectionsActions from 'actions/collections.actions';
-import TokensActions from 'actions/tokens.actions';
-import HeaderActions from 'actions/header.actions';
+import CollectionsActions from '../../actions/collections.actions';
+import TokensActions from '../../actions/tokens.actions';
+import HeaderActions from '../../actions/header.actions';
 import useWindowDimensions from 'hooks/useWindowDimensions';
 import usePrevious from 'hooks/usePrevious';
 
@@ -22,7 +22,7 @@ import iconCollapse from 'assets/svgs/collapse.svg';
 
 import styles from './styles.module.scss';
 
-const ExploreAllPage = () => {
+const Auctions = () => {
   const { fetchCollections, fetchTokens, getItemsLiked } = useApi();
 
   const dispatch = useDispatch();
@@ -324,3 +324,5 @@ const ExploreAllPage = () => {
     </>
   );
 };
+
+export default Auctions;
