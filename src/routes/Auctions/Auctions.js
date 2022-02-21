@@ -10,7 +10,7 @@ import CollectionsFilter from 'components/CollectionsFilter';
 import CategoriesFilter from 'components/CategoriesFilter';
 import ExploreFilterHeader from './Body/FilterHeader';
 import NFTsGrid from 'components/NFTsGrid';
-import Header from 'components/header';
+import Header from 'components/NewHeader';
 import { useApi } from 'api';
 import CollectionsActions from '../../actions/collections.actions';
 import TokensActions from '../../actions/tokens.actions';
